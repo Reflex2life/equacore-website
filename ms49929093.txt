@@ -1,0 +1,5 @@
+﻿{
+  "Description": "Domain ownership verification file for Microsoft 365 - place in the website root",
+  "Domain": "equacoredigital.com",
+  "Id": "da471249-a8ad-4dd1-b722-567e6022f681"
+}
