@@ -34,9 +34,27 @@ Simply open `index.html` in a browser, or deploy to any static hosting provider.
 ## Structure
 
 ```
-index.html    — Complete website (all 9 pages)
-README.md     — This file
+index.html                        — Complete website (all 9 pages)
+halo-logo-{white,dark}.svg        — HaloITSM official partner brand assets
+hero-{strategy,platform,team}.jpg — Page hero photography
+scripts/check-trademark-risk.py   — Pre-push trademark/positioning audit
+README.md                         — This file
 ```
+
+## Pre-push checks
+
+Before pushing copy changes, run the trademark-risk audit:
+
+```bash
+python3 scripts/check-trademark-risk.py            # exit 0 if clean, 1 if hits
+python3 scripts/check-trademark-risk.py --mentions # also list every brand reference
+```
+
+The script scans `index.html` for ServiceNow partnership-claim language
+(EquaCore is **not** a registered ServiceNow Partner Program member; HaloITSM
+implementation language is allowed because EquaCore **is** a Halo partner).
+Patterns are defined in `BRAND_RISKS` at the top of the script — extend
+them if new product brands need policing.
 
 ## Pages
 
