@@ -536,6 +536,17 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 })();
 </script>
 <script>
+// Detect Airtable form submission via postMessage and redirect to thank-you page.
+// Airtable fires { type: 'submitSuccessful' } from the embed iframe origin.
+window.addEventListener('message', function(e) {
+  if (e.origin !== 'https://airtable.com') return;
+  try {
+    var d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+    if (d && d.type === 'submitSuccessful') location.hash = '#thank-you';
+  } catch(ex) {}
+});
+</script>
+<script>
 // Page titles for SEO
 const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Services — EquaCore Digital',haloitsm:'HaloITSM Services — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital'};
 
