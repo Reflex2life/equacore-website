@@ -536,15 +536,25 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 })();
 </script>
 <script>
-// Detect Airtable form submission via postMessage and redirect to thank-you page.
-// Airtable fires { type: 'submitSuccessful' } from the embed iframe origin.
-window.addEventListener('message', function(e) {
-  if (e.origin !== 'https://airtable.com') return;
-  try {
-    var d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
-    if (d && d.type === 'submitSuccessful') location.hash = '#thank-you';
-  } catch(ex) {}
-});
+// Detect Airtable form submission by watching the iframe height attribute.
+// Airtable's embed script sets height ~2500px for the form; after submit it
+// drops to ~200px (only the short success message remains). A drop of >55%
+// from the peak observed height is treated as a successful submission.
+(function(){
+  var iframe = document.querySelector('.tp-embed iframe');
+  if (!iframe) return;
+  var peak = parseInt(iframe.getAttribute('height')) || 0;
+  var fired = false;
+  new MutationObserver(function(){
+    if (fired) return;
+    var h = parseInt(iframe.getAttribute('height')) || 0;
+    if (h > peak) { peak = h; return; }
+    if (peak > 500 && h > 0 && h < peak * 0.45) {
+      fired = true;
+      location.hash = '#thank-you';
+    }
+  }).observe(iframe, {attributes: true, attributeFilter: ['height']});
+})();
 </script>
 <script>
 // Page titles for SEO
