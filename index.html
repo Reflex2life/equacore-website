@@ -237,11 +237,13 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 
 .logo-divider{padding:60px 0;text-align:center;position:relative;overflow:hidden}.logo-divider svg{width:80px;height:auto;margin:0 auto;opacity:.12}.logo-divider::before,.logo-divider::after{content:'';position:absolute;top:50%;height:1px;background:var(--brl);width:calc(50% - 64px)}.logo-divider::before{left:0}.logo-divider::after{right:0}
 .fg input:invalid:not(:placeholder-shown),.fg textarea:invalid:not(:placeholder-shown){border-color:#e53e3e}
-/* TALENT POOL — full-width iframe layout */
+/* TALENT POOL — full-width iframe layout, compressed via scale() */
 #pg-talent-pool .cg{grid-template-columns:1fr;gap:36px}
 #pg-talent-pool .cc{max-width:820px;margin:0 auto}
-.tp-embed{border-radius:var(--rl);overflow:hidden;box-shadow:var(--shmd);background:var(--pw)}
-.tp-embed iframe{display:block;min-height:1200px;border-radius:var(--rl)}
+.tp-embed{border-radius:var(--rl);overflow:hidden;box-shadow:var(--shmd);background:var(--pw);position:relative}
+.tp-embed iframe{display:block;border-radius:var(--rl);transform-origin:top left;will-change:transform}
+/* Mobile: skip scaling to keep text readable on small screens */
+@media(max-width:768px){.tp-embed iframe{transform:none!important;width:100%!important}}
 /* TALENT POOL FORM */
 .fcc{display:flex;gap:11px;align-items:flex-start;padding:14px 16px;background:var(--bg);border:1px solid var(--brl);border-radius:var(--rs);margin:18px 0 22px;cursor:pointer;font-size:13px;line-height:1.55;color:var(--sl)}
 .fcc input[type="checkbox"]{margin-top:3px;width:16px;height:16px;accent-color:var(--mint);flex-shrink:0;cursor:pointer}
@@ -487,6 +489,37 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 
 <!-- Airtable embed autosize helper (resizes iframe height to fit form content) -->
 <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
+<script>
+// Compress the Airtable form iframe by 40% on desktop. The iframe still
+// renders at natural size internally; we visually scale it down and
+// keep the wrapper height in sync so the page flows correctly. Skipped
+// on mobile (≤768px) where smaller scaling would make text unreadable.
+(function(){
+  if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) return;
+  const SCALE = 0.6;
+  const apply = () => {
+    const iframe = document.querySelector('.tp-embed iframe');
+    if (!iframe) return false;
+    const wrap = iframe.parentElement;
+    iframe.style.transform = 'scale(' + SCALE + ')';
+    iframe.style.width = (100 / SCALE) + '%';
+    const sync = () => {
+      const h = parseInt(iframe.getAttribute('height')) || iframe.offsetHeight;
+      if (h && wrap) wrap.style.height = (h * SCALE) + 'px';
+    };
+    sync();
+    new MutationObserver(sync).observe(iframe, {attributes: true, attributeFilter: ['height', 'style']});
+    // Safety net: Airtable's embed script sometimes sets height via JS
+    // property instead of attribute, which doesn't fire MutationObserver.
+    setInterval(sync, 1000);
+    return true;
+  };
+  if (!apply()) {
+    // Iframe not yet in DOM (shouldn't happen but safe). Retry on load.
+    window.addEventListener('DOMContentLoaded', apply);
+  }
+})();
+</script>
 <script>
 // Page titles for SEO
 const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Services — EquaCore Digital',haloitsm:'HaloITSM Services — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital'};
