@@ -490,13 +490,13 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 <!-- Airtable embed autosize helper (resizes iframe height to fit form content) -->
 <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
 <script>
-// Compress the Airtable form iframe by 40% on desktop. The iframe still
+// Compress the Airtable form iframe by 20% on desktop. The iframe still
 // renders at natural size internally; we visually scale it down and
 // keep the wrapper height in sync so the page flows correctly. Skipped
 // on mobile (≤768px) where smaller scaling would make text unreadable.
 (function(){
   if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) return;
-  const SCALE = 0.6;
+  const SCALE = 0.8;
   const apply = () => {
     const iframe = document.querySelector('.tp-embed iframe');
     if (!iframe) return false;
