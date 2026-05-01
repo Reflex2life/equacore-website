@@ -612,7 +612,8 @@ function hs(e){
     if(r.ok){
       form.reset();
       b.disabled=false;
-      location.hash='#enquiry-thanks';
+      history.pushState(null,'','#enquiry-thanks');
+      showPage('enquiry-thanks');
     } else {throw new Error('fail')}
   })
   .catch(()=>{
