@@ -480,6 +480,21 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 
 </div></div></section></div>
 
+<!-- ENQUIRY CONFIRMATION (post-contact-form confirmation page) -->
+<div class="pg" id="pg-enquiry-thanks">
+<section class="ph"><div class="ph-img" style="background-image:url('hero-strategy.jpg')"></div><div class="ph-vl"></div><div class="ctr"><div class="phi"><span class="lbl">Contact</span><h1>Message received &mdash; thank&nbsp;you</h1><p>We&rsquo;ve got your enquiry and will be in touch within 24 business hours.</p></div></div></section>
+<section class="sec"><div class="ctr"><div class="tps-suc rv" style="max-width:720px;margin:0 auto">
+<div class="tps-suc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+<h2>We&rsquo;ll be in touch shortly</h2>
+<p>Here&rsquo;s what happens next.</p>
+<div class="tps-suc-step"><h4>Step 1 &mdash; We review your message</h4><p>Our team reads every enquiry and makes sure it reaches the right person within one business day.</p></div>
+<div class="tps-suc-step"><h4>Step 2 &mdash; We reach out directly</h4><p>Expect a reply to the email address you provided. If your enquiry needs a call, we&rsquo;ll suggest a time that works for you.</p></div>
+<div class="tps-suc-step"><h4>Step 3 &mdash; We get to work</h4><p>Once we understand your needs, we&rsquo;ll outline the right engagement model and next steps — no pressure, no jargon.</p></div>
+<p style="margin-top:22px;font-size:14.5px;color:var(--sl)">Can&rsquo;t wait? Email us directly at <a href="mailto:Info@equacoredigital.com" style="color:var(--cobalt-text);font-weight:600">Info@equacoredigital.com</a>.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px"><a class="btn btn-c" href="#home">Back to Home <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a class="btn btn-g c" href="#services" style="padding:13px 0">Explore our services &rarr;</a></div>
+</div></div></section>
+</div>
+
 <!-- THANK YOU (post-Tally-submit redirect target for talent pool form) -->
 <div class="pg" id="pg-thank-you">
 <section class="ph"><div class="ph-img" style="background-image:url('hero-team.jpg')"></div><div class="ph-vl"></div><div class="ctr"><div class="phi"><span class="lbl">Talent Pool</span><h1>Thank you &mdash; we&rsquo;ve got your details</h1><p>Your registration is now in our system. We&rsquo;ll review your profile within 24 business hours and reach out when a relevant opportunity emerges.</p></div></div></section>
@@ -504,7 +519,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 <script async src="https://tally.so/widgets/embed.js"></script>
 <script>
 // Page titles for SEO
-const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Services — EquaCore Digital',haloitsm:'HaloITSM Services — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital'};
+const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Services — EquaCore Digital',haloitsm:'HaloITSM Services — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
 // FIX: Single observer instance, properly managed
 let observer=null;
@@ -523,7 +538,7 @@ function showPage(id){
   document.getElementById('pg-'+id).classList.add('act');
   // FIX: Update active nav state
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
-  const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,engagement:2,about:3,markets:3,contact:4,privacy:4};
+  const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
   const directLinks=document.querySelectorAll('.nls > .nl');
   if(directLinks[navMap[id]])directLinks[navMap[id]].classList.add('act');
   // Close mobile nav
@@ -595,10 +610,9 @@ function hs(e){
   fetch(form.action,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json','Accept':'application/json'}})
   .then(r=>{
     if(r.ok){
-      b.innerHTML='<span>\u2713 Message Sent!</span>';
-      b.style.background='var(--mint-text)';
       form.reset();
-      setTimeout(()=>{b.innerHTML='Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';b.style.background='';b.disabled=false},3000);
+      b.disabled=false;
+      location.hash='#enquiry-thanks';
     } else {throw new Error('fail')}
   })
   .catch(()=>{
