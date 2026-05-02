@@ -651,7 +651,7 @@ function showPage(id){
   document.getElementById('pg-'+id).classList.add('act');
   // FIX: Update active nav state
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
-  const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
+  const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
   const directLinks=document.querySelectorAll('.nls > .nl');
   if(directLinks[navMap[id]])directLinks[navMap[id]].classList.add('act');
   // Close mobile nav
@@ -747,7 +747,13 @@ function hs(e){
   });
 }
 
-// Talent Pool form is a Tally.so embed. On submit Tally redirects to /thank-you.
+// Talent Pool — listen for Tally's postMessage on form submit and navigate SPA-style
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'TallyFormSubmitted') {
+    history.pushState(null, '', '/thank-you');
+    showPage('thank-you');
+  }
+});
 </script>
 </body>
 </html>
