@@ -668,8 +668,13 @@ function showPage(id){
 
 // Path-based routing - handles direct URLs, back/forward, and SPA navigation
 function handleRoute(){
-  const path=location.pathname.replace(/^\//, '').replace(/\/$/, '')||'home';
-  showPage(path);
+  let path=location.pathname.replace(/^\//, '').replace(/\/$/, '')||'';
+  if(!path && location.hash){
+    // Tally (and others) redirect to /#page — canonicalise to /page
+    path=location.hash.replace(/^#/,'');
+    history.replaceState(null,'','/'+path);
+  }
+  showPage(path||'home');
 }
 // Intercept internal link clicks - push state without full page reload
 document.addEventListener('click',function(e){
@@ -683,6 +688,7 @@ document.addEventListener('click',function(e){
   showPage(path);
 });
 window.addEventListener('popstate',handleRoute);
+window.addEventListener('hashchange',handleRoute);
 window.addEventListener('DOMContentLoaded',()=>{handleRoute();initObserver()});
 
 // FIX: Mobile dropdown - stopPropagation on child clicks
