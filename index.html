@@ -691,7 +691,6 @@ window.addEventListener('popstate',handleRoute);
 window.addEventListener('hashchange',handleRoute);
 window.addEventListener('DOMContentLoaded',()=>{handleRoute();initObserver()});
 
-// FIX: Mobile dropdown - stopPropagation on child clicks
 // Dropdown state helper — sets .om class and aria-expanded in sync
 function setDropdown(hd,open){
   const btn=hd.querySelector('.hd-btn');
@@ -718,9 +717,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllDrop
 document.addEventListener('click',function(e){if(!e.target.closest('.nl.hd'))closeAllDropdowns();});
 
 // Close dropdown when a menu link is followed (cleans up mobile .om state)
+// No stopPropagation — clicks must reach the document-level SPA router
 document.querySelectorAll('.ndd a').forEach(function(a){
-  a.addEventListener('click',function(e){
-    e.stopPropagation();
+  a.addEventListener('click',function(){
     const hd=a.closest('.nl.hd');
     if(hd)setDropdown(hd,false);
   });
