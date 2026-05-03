@@ -1,3 +1,40 @@
+# OS / editor noise
 .DS_Store
 Thumbs.db
 *.log
+
+# ------------------------------------------------------------------
+# Internal company documents — NEVER commit to public repo
+# These belong in SharePoint, not in the website source.
+# ------------------------------------------------------------------
+
+# Wholesale: anything we're staging for SharePoint upload
+sharepoint-upload/
+
+# Office documents (web doesn't serve .xlsx/.docx/.pptx assets;
+# if you ever need to host one publicly, force-add it explicitly)
+*.xlsx
+*.xlsm
+*.xls
+*.docx
+*.doc
+*.pptx
+*.ppt
+
+# Specific known-internal files (belt-and-suspenders for the patterns above)
+EquaCore_Nigeria_Contacts_*.xlsx
+EquaCore_Nigeria_GTM_Strategy_*.docx
+
+# ------------------------------------------------------------------
+# Infrastructure / credentials — NEVER commit
+# Contains live API keys (SendGrid, Make.com webhook URL).
+# If these are ever pushed, ROTATE every key immediately.
+# ------------------------------------------------------------------
+INFRASTRUCTURE.md
+EquaCore_Digital_Infrastructure.pdf
+
+# Catch-all for future infra/cred docs by naming convention
+*_credentials*
+*_secrets*
+.env
+.env.*
