@@ -36,8 +36,8 @@ ROUTES = {
         "EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.",
     ),
     "servicenow": (
-        "ServiceNow Services — EquaCore Digital",
-        "ServiceNow services from EquaCore Digital: pre-vetted talent augmentation, day-2 managed services, and independent advisory for global enterprises. Based in Nigeria, delivering globally.",
+        "ServiceNow in Nigeria — Consulting, Talent & Managed Services — EquaCore Digital",
+        "EquaCore Digital is a Nigeria-based ServiceNow partner offering implementation, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.",
     ),
     "haloitsm": (
         "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
