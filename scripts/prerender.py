@@ -94,7 +94,12 @@ def render(route: str, title: str, desc: str, src: str) -> str:
     html = src
     html = sub_one(r"<title>.*?</title>", f"<title>{t}</title>", html, "title")
     html = sub_one(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{d}">', html, "description")
-    html = sub_one(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{url}">', html, "canonical")
+    # Root-relative canonical resolves against the requesting host, so .ng URLs
+    # stay self-canonical even for non-JS crawlers (compliance requirement).
+    html = sub_one(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="/{route}">', html, "canonical")
+    html = sub_one(r'<link rel="alternate" hreflang="en" href="[^"]*">', f'<link rel="alternate" hreflang="en" href="{BASE}/{route}">', html, "hreflang en")
+    html = sub_one(r'<link rel="alternate" hreflang="en-NG" href="[^"]*">', f'<link rel="alternate" hreflang="en-NG" href="https://equacoredigital.ng/{route}">', html, "hreflang en-NG")
+    html = sub_one(r'<link rel="alternate" hreflang="x-default" href="[^"]*">', f'<link rel="alternate" hreflang="x-default" href="{BASE}/{route}">', html, "hreflang x-default")
     html = sub_one(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{t}">', html, "og:title")
     html = sub_one(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{d}">', html, "og:description")
     html = sub_one(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{url}">', html, "og:url")
