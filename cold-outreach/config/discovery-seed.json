@@ -1,0 +1,27 @@
+{
+  "_note": "Starter discovery seed for EquaCore cold outreach (Nigeria-only v1). 'directories' are crawled by the free Tier-1 scraper. 'signalQueries' and 'icpQueries' need a search step (Brave Search API or sparing Firecrawl search). Verify each directory URL resolves before a full run; replace/extend freely. Buying-signal queries (companies hiring ServiceNow/ITSM roles) are highest-intent.",
+  "geo": "Nigeria",
+  "directories": [
+    "https://ngxgroup.com/exchange/data/listed-companies/",
+    "https://www.cbn.gov.ng/supervision/inst-DM.asp",
+    "https://connectnigeria.com/businesses/",
+    "https://www.vconnect.com/lagos_nigeria/search?q=information-technology",
+    "https://clutch.co/ng/it-services",
+    "https://www.goodfirms.co/directory/country/top-software-development-companies/nigeria"
+  ],
+  "signalQueries": [
+    "ServiceNow administrator jobs Nigeria",
+    "IT Service Management analyst Nigeria careers",
+    "ServiceNow developer Nigeria hiring",
+    "HaloITSM OR HaloPSA Nigeria",
+    "ITSM ServiceNow Nigeria site:.ng careers"
+  ],
+  "icpQueries": [
+    "list of commercial banks in Nigeria",
+    "fintech companies Lagos Nigeria",
+    "insurance companies in Nigeria",
+    "telecommunications companies Nigeria",
+    "managed service providers Nigeria IT",
+    "oil and gas companies Nigeria IT department"
+  ]
+}

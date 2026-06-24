@@ -17,7 +17,12 @@ Tagline: "Digital Operations. Delivered Right." Audience: IT/Ops leaders at Nige
 enterprises, banks, telecoms, and MSPs.
 
 Write a 3-step cold sequence for the lead below: email 1 (initial) + emails 2 and 3
-(short follow-ups, a new angle each, no guilt-trip). Soft CTA in each: "Book a Discussion".
+(short follow-ups, a new angle each, no guilt-trip).
+
+CTA: invite them to a short demo of how EquaCore delivers Halo and ServiceNow, and include
+the booking link {{bookingLink}} (Outlook/Microsoft Bookings) so they can pick a slot
+directly. Phrase it naturally ("grab a slot here", "book a 20-min demo"), not as a hard sell;
+the link goes in every email but the follow-ups should reference it more lightly.
 
 HARD RULES — sound like a real human, not AI:
 - BANNED words/phrases: "I hope this email finds you well", "leverage", "seamless",
@@ -42,6 +47,7 @@ Company: {{company}}
 Recipient role: {{recipientRole}}   (role address only unless a name was found)
 What they do: {{description}}
 Signal: {{signal}}
+Demo booking link: {{bookingLink}}   (Outlook / Microsoft Bookings — provided by EquaCore)
 ```
 
 ## Structured output schema (parser)
