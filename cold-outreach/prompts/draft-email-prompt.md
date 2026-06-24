@@ -40,6 +40,13 @@ EquaCore Digital Ltd · Victoria Crest, Orchid Road, Lekki, Lagos, Nigeria
 Not relevant? Reply "unsubscribe" and we'll remove you. Privacy: https://equacoredigital.com/privacy
 ```
 
+## Sender rotation
+
+The sign-off name rotates round-robin across **Tosin → Emeka → Michael** (assigned per lead by
+index in the `Limit`/assign-sender Code node as `senderName`). The user message passes it in and
+instructs: "Sign EVERY email with exactly this first name and nothing else after it — no surname,
+no job title, no company line: {{senderName}}." Verified 2026-06-24 (Tosin/Emeka/Michael).
+
 ## Lead fields (user message, from the pipeline)
 
 ```
