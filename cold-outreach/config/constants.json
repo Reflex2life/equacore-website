@@ -1,0 +1,9 @@
+{
+  "_note": "Static values the cold-outreach workflows inject. bookingLink is the public MS Bookings 'Halo & ServiceNow Demo' page (30 min, Teams, anonymous booking). Footer is appended to every email for NDPA/GDPR/CAN-SPAM compliance ({{unsubscribe}} is replaced per-lead in Phase B).",
+  "bookingLink": "https://outlook.office.com/bookwithme/user/1e9f99cc6e8042dbba4dc9fc24502124@equacoredigital.com/meetingtype/cy9U1wgBf0K1XkZr0q-gHw2?anonymous",
+  "company": "EquaCore Digital Ltd",
+  "address": "Victoria Crest, Orchid Road, Lekki, Lagos, Nigeria",
+  "fromEmail": "sales@equacoredigital.com",
+  "privacyUrl": "https://equacoredigital.com/privacy",
+  "footer": "—\nEquaCore Digital Ltd · Victoria Crest, Orchid Road, Lekki, Lagos, Nigeria\nNot relevant? Reply \"unsubscribe\" and we'll remove you. Privacy: https://equacoredigital.com/privacy"
+}
