@@ -504,9 +504,10 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* reveal refinement */
 .rv{transform:translateY(16px) scale(.985);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .rv.vis{transform:none}
-/* cursor-tracking mint glow border — home offering cards (.ofc uses ::before for its accent bar, so the glow lives on ::after) */
-.glow-card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:radial-gradient(300px 300px at calc(var(--x,-9999)*1px) calc(var(--y,-9999)*1px),hsl(172 72% 60% / .9),transparent 60%);background-attachment:fixed;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:3}
-@media (prefers-reduced-motion:reduce){.glow-card::after{display:none}}
+/* cursor-tracking mint glow border — all card components (the glow lives on ::after; cards that use ::before for an accent bar are unaffected) */
+.si,.wc,.ec,.mc,.cmty-c,.vm,.lc{position:relative}
+.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:radial-gradient(300px 300px at calc(var(--x,-9999)*1px) calc(var(--y,-9999)*1px),hsl(172 72% 60% / .9),transparent 60%);background-attachment:fixed;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:3}
+@media (prefers-reduced-motion:reduce){.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after{display:none}}
 /* focus on dark surfaces */
 .btn-book:focus-visible,.ft a:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
 /* booking gate modal */
