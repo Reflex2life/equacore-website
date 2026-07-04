@@ -443,7 +443,9 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* cursor-tracking mint glow border — all card components (the glow lives on ::after; cards that use ::before for an accent bar are unaffected) */
 .si,.wc,.ec,.mc,.cmty-c,.vm,.lc{position:relative}
 .glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:radial-gradient(300px 300px at calc(var(--x,-9999)*1px) calc(var(--y,-9999)*1px),hsl(172 72% 60% / .9),transparent 60%);background-attachment:fixed;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:3}
-@media (prefers-reduced-motion:reduce){.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after{display:none}}
+/* nav: glowing bottom-edge line tracking the cursor (backdrop-filter breaks the masked-border technique) */
+.nav::after{content:"";position:absolute;left:0;right:0;top:100%;height:18px;background:radial-gradient(260px 3px at calc(var(--x,-9999)*1px) 0,hsl(172 92% 64%),transparent 66%),radial-gradient(360px 18px at calc(var(--x,-9999)*1px) 0,hsl(172 85% 55% / .5),transparent 72%);z-index:1001;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after,.nav::after{display:none}}
 /* focus on dark surfaces */
 .btn-book:focus-visible,.ft a:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
 /* booking gate modal */
