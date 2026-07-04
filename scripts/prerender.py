@@ -21,11 +21,21 @@ hosts self-correct their canonical at render time.
 Run from repo root:  python3 scripts/prerender.py
 Configure as the Cloudflare Pages build command to keep output in sync.
 """
+import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 BASE = "https://equacoredigital.com"
+
+# Routes that are children of /services (for breadcrumbs) and get a Service schema.
+SERVICES_CHILDREN = {"servicenow", "haloitsm", "talent"}
+SERVICE_ROUTES = {
+    "servicenow": "ServiceNow Consulting, Talent & Managed Services",
+    "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
+    "talent": "ServiceNow Talent Augmentation",
+}
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
 
@@ -36,8 +46,8 @@ ROUTES = {
         "EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.",
     ),
     "servicenow": (
-        "ServiceNow in Nigeria — Consulting, Talent & Managed Services — EquaCore Digital",
-        "EquaCore Digital is a Nigeria-based ServiceNow partner offering implementation, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.",
+        "ServiceNow Nigeria — Consulting, Talent & Managed Services",
+        "EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.",
     ),
     "haloitsm": (
         "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
@@ -49,7 +59,7 @@ ROUTES = {
     ),
     "talent-pool": (
         "Join Our Talent Pool — EquaCore Digital",
-        "Join the EquaCore talent pool. ServiceNow and Halo professionals can register to be matched with global enterprise placements.",
+        "Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.",
     ),
     "engagement": (
         "Engagement Models — EquaCore Digital",
@@ -88,10 +98,41 @@ def sub_one(pattern: str, repl: str, text: str, label: str) -> str:
     return new
 
 
+def extra_schema(route: str, title: str, desc: str) -> str:
+    """Per-route BreadcrumbList (all routes) + Service schema (service pages).
+
+    The homepage FAQPage schema is stripped from subpages in render() because
+    that FAQ content is not visible on those pages (a Google guideline violation).
+    """
+    name = title.split(" — ")[0].split(" (")[0].strip()
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{BASE}/"}]
+    pos = 2
+    if route in SERVICES_CHILDREN:
+        crumbs.append({"@type": "ListItem", "position": pos, "name": "Services", "item": f"{BASE}/services"})
+        pos += 1
+    crumbs.append({"@type": "ListItem", "position": pos, "name": name, "item": f"{BASE}/{route}"})
+    blocks = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": crumbs}]
+    if route in SERVICE_ROUTES:
+        blocks.append({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": SERVICE_ROUTES[route],
+            "serviceType": SERVICE_ROUTES[route],
+            "provider": {"@type": "Organization", "name": "EquaCore Digital", "url": BASE},
+            "areaServed": ["NG", "GB", "EU", "US"],
+            "description": desc,
+        })
+    return "".join(f'<script type="application/ld+json">{json.dumps(b)}</script>\n' for b in blocks)
+
+
 def render(route: str, title: str, desc: str, src: str) -> str:
     url = f"{BASE}/{route}"
     t, d = esc(title), esc(desc)
     html = src
+    # The homepage FAQPage schema doesn't match subpage content — strip it and
+    # inject route-appropriate Breadcrumb (+ Service) schema instead.
+    html = sub_one(r'(?s)<script type="application/ld\+json">\s*\{\s*"@context": "https://schema\.org",\s*"@type": "FAQPage".*?</script>\s*', "", html, "strip FAQ schema")
+    html = sub_one(r"</head>", extra_schema(route, title, desc) + "</head>", html, "inject route schema")
     html = sub_one(r"<title>.*?</title>", f"<title>{t}</title>", html, "title")
     html = sub_one(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{d}">', html, "description")
     # Root-relative canonical resolves against the requesting host, so .ng URLs
@@ -117,6 +158,14 @@ def main() -> None:
         (ROOT / f"{route}.html").write_text(render(route, title, desc, src), encoding="utf-8")
         print(f"wrote {route}.html")
     print(f"prerendered {len(ROUTES)} routes")
+
+    # Keep sitemap freshness accurate: stamp every <lastmod> with the build date.
+    sitemap = ROOT / "sitemap.xml"
+    if sitemap.exists():
+        txt = sitemap.read_text(encoding="utf-8")
+        txt = re.sub(r"<lastmod>[^<]*</lastmod>", f"<lastmod>{date.today().isoformat()}</lastmod>", txt)
+        sitemap.write_text(txt, encoding="utf-8")
+        print("refreshed sitemap lastmod")
 
 
 if __name__ == "__main__":

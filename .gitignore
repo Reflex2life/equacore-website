@@ -38,3 +38,16 @@ EquaCore_Digital_Infrastructure.pdf
 *_secrets*
 .env
 .env.*
+
+# ------------------------------------------------------------------
+# Internal data exports, onboarding & session docs — NEVER commit.
+# These contain PII and/or cleartext credentials and belong in
+# SharePoint, not the public website repo.
+# ------------------------------------------------------------------
+*.csv
+.~lock.*#
+*onboarding*
+*_Session_Context_*
+CEO_*_Review_*.md
+EquaCore_Zoho_*
+EquaCore_Talent_Pool_*
