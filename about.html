@@ -504,6 +504,9 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* reveal refinement */
 .rv{transform:translateY(16px) scale(.985);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .rv.vis{transform:none}
+/* cursor-tracking mint glow border — home offering cards (.ofc uses ::before for its accent bar, so the glow lives on ::after) */
+.glow-card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:radial-gradient(300px 300px at calc(var(--x,-9999)*1px) calc(var(--y,-9999)*1px),hsl(172 72% 60% / .9),transparent 60%);background-attachment:fixed;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:3}
+@media (prefers-reduced-motion:reduce){.glow-card::after{display:none}}
 /* focus on dark surfaces */
 .btn-book:focus-visible,.ft a:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
 /* booking gate modal */
@@ -541,9 +544,9 @@ html{scroll-behavior:auto}
 <!-- CORE OFFERINGS: horizontal navy cards -->
 <section class="sec ofs"><div class="ctr"><div class="sh ct rv"><span class="lbl c">Core Offerings</span><h2>Enterprise platforms, delivered right</h2><p>Three ways we engage. All of them end with your team owning the platform.</p></div>
 <div class="ofl">
-<article class="ofc rv"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="4" x2="5" y2="20" stroke-linecap="square" stroke-width="2.2"/><line x1="19" y1="4" x2="19" y2="20" stroke-linecap="square" stroke-width="2.2"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="square" stroke-width="2.2"/></svg></div><h3>Halo Services</h3><p>Full Halo partner — delivering HaloITSM, HaloPSA, and HaloCRM across full-lifecycle implementations, migrations, process alignment, and managed support.</p><a class="btn-g c" href="/haloitsm">Explore Halo Services →</a></div><div class="ofc-r"><ul><li>HaloITSM — IT &amp; Enterprise Service Management</li><li>HaloPSA — MSP &amp; Professional Services Automation</li><li>HaloCRM — Omnichannel Sales &amp; Customer Service</li><li>Legacy tool migration &amp; process alignment</li><li>User onboarding &amp; post-go-live managed support</li></ul></div></article>
-<article class="ofc rv d1"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>ServiceNow</h3><p>Pre-vetted ServiceNow talent for placement and embedded teams, day-2 managed operations, and independent platform advisory &mdash; supporting organisations using the ServiceNow&reg; platform.</p><a class="btn-g c" href="/servicenow">Explore ServiceNow →</a></div><div class="ofc-r"><ul><li>Talent placement &amp; embedded teams</li><li>Managed services &amp; day-2 operations</li><li>Independent advisory &amp; health checks</li><li>Process design aligned to ITIL</li></ul></div></article>
-<article class="ofc rv d2"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="6" r="4"/><path d="M1 20v-2a7 7 0 017-7h4a7 7 0 017 7v2" stroke-linecap="square" stroke-linejoin="miter"/><path d="M17 4.6a4 4 0 010 7.8" stroke-linecap="square"/><path d="M21 20v-1.5a5 5 0 00-3-4.6" stroke-linecap="square"/></svg></div><h3>Talent Augmentation</h3><p>We deploy pre-vetted Nigerian ServiceNow professionals globally — with mentorship, enterprise readiness, and flexible engagement structures.</p><a class="btn-g c" href="/talent">Explore Talent →</a></div><div class="ofc-r"><ul><li>Pre-vetted ServiceNow professionals</li><li>Mentorship & upskilling programs</li><li>Enterprise delivery readiness</li><li>Flexible embedded consulting</li></ul></div></article>
+<article class="ofc glow-card rv"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="4" x2="5" y2="20" stroke-linecap="square" stroke-width="2.2"/><line x1="19" y1="4" x2="19" y2="20" stroke-linecap="square" stroke-width="2.2"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="square" stroke-width="2.2"/></svg></div><h3>Halo Services</h3><p>Full Halo partner — delivering HaloITSM, HaloPSA, and HaloCRM across full-lifecycle implementations, migrations, process alignment, and managed support.</p><a class="btn-g c" href="/haloitsm">Explore Halo Services →</a></div><div class="ofc-r"><ul><li>HaloITSM — IT &amp; Enterprise Service Management</li><li>HaloPSA — MSP &amp; Professional Services Automation</li><li>HaloCRM — Omnichannel Sales &amp; Customer Service</li><li>Legacy tool migration &amp; process alignment</li><li>User onboarding &amp; post-go-live managed support</li></ul></div></article>
+<article class="ofc glow-card rv d1"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>ServiceNow</h3><p>Pre-vetted ServiceNow talent for placement and embedded teams, day-2 managed operations, and independent platform advisory &mdash; supporting organisations using the ServiceNow&reg; platform.</p><a class="btn-g c" href="/servicenow">Explore ServiceNow →</a></div><div class="ofc-r"><ul><li>Talent placement &amp; embedded teams</li><li>Managed services &amp; day-2 operations</li><li>Independent advisory &amp; health checks</li><li>Process design aligned to ITIL</li></ul></div></article>
+<article class="ofc glow-card rv d2"><div class="ofc-l"><div class="ofc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="6" r="4"/><path d="M1 20v-2a7 7 0 017-7h4a7 7 0 017 7v2" stroke-linecap="square" stroke-linejoin="miter"/><path d="M17 4.6a4 4 0 010 7.8" stroke-linecap="square"/><path d="M21 20v-1.5a5 5 0 00-3-4.6" stroke-linecap="square"/></svg></div><h3>Talent Augmentation</h3><p>We deploy pre-vetted Nigerian ServiceNow professionals globally — with mentorship, enterprise readiness, and flexible engagement structures.</p><a class="btn-g c" href="/talent">Explore Talent →</a></div><div class="ofc-r"><ul><li>Pre-vetted ServiceNow professionals</li><li>Mentorship & upskilling programs</li><li>Enterprise delivery readiness</li><li>Flexible embedded consulting</li></ul></div></article>
 </div></div></section>
 
 <!-- APPROACH: vertical timeline -->
@@ -1066,6 +1069,22 @@ function hs(e){
       err.style.display='block';
     });
   });
+})();
+
+// Cursor-tracking mint glow for .glow-card — one rAF-throttled listener feeds
+// viewport coords into :root vars; cards light up as the pointer sweeps past.
+(function(){
+  if(!document.querySelector('.glow-card'))return;
+  var s=document.documentElement.style;
+  s.setProperty('--x','-9999');s.setProperty('--y','-9999');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var tick=false,cx=0,cy=0;
+  window.addEventListener('pointermove',function(e){
+    cx=e.clientX;cy=e.clientY;
+    if(!tick){tick=true;requestAnimationFrame(function(){
+      s.setProperty('--x',cx.toFixed(1));s.setProperty('--y',cy.toFixed(1));tick=false;
+    });}
+  },{passive:true});
 })();
 
 // Talent Pool — native form posts multipart (fields + CV) to the n8n webhook.
