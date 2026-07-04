@@ -444,6 +444,8 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* approach timeline: stays light, dot-grid texture + mint dots */
 .ap{background-image:radial-gradient(rgba(15,23,42,.05) 1px,transparent 1px);background-size:22px 22px}
 .tl-d{color:var(--mint-text);border-color:rgba(13,148,136,.25);box-shadow:0 4px 12px rgba(13,148,136,.12)}
+/* mobile timeline: pin the dot and content to the same grid row so the number aligns with its heading. Without this, left-side items (content-before-dot in the DOM) wrap the dot to a second row under the text via sparse grid auto-placement. */
+@media(max-width:1024px){.tl-i{align-items:start}.tl-l .tl-c,.tl-r .tl-c,.tl-l .tl-d,.tl-r .tl-d{grid-row:1}}
 /* dark-surface text bumped to AA */
 .ws-d .sh.ct p,.ws-d .wc p,.cmty-c p,.vm.vi p{color:var(--d-txt)}
 .ws-d .wc:hover{border-color:var(--glow-brd)}
