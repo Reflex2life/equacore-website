@@ -62,10 +62,10 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .ph-img{position:absolute;inset:-5% -2%;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.7;filter:saturate(.95)}
 .ph-vl{position:absolute;inset:0;background:linear-gradient(110deg,rgba(15,23,42,.68) 0%,rgba(15,23,42,.32) 55%,rgba(15,23,42,.55) 100%)}
 .phi{position:relative;z-index:1;max-width:600px}.ph .lbl{color:var(--mint);margin-bottom:14px}.ph .lbl::before{background:var(--mint)}.ph h1{color:var(--white);font-size:clamp(32px,4vw,46px);margin-bottom:14px}.ph .ph-title{color:var(--white);font-size:clamp(32px,4vw,46px);font-weight:800;line-height:1.15;letter-spacing:-.028em;margin-bottom:14px}.ph p{color:rgba(248,249,250,.72);font-size:16px;line-height:1.7}
-.ph-partner{display:inline-flex;align-items:center;gap:16px;margin-bottom:38px;padding:10px 18px 10px 14px;background:rgba(0,210,196,.08);border:1px solid rgba(0,210,196,.22);border-radius:100px;backdrop-filter:blur(8px)}
-.ph-partner-logo{height:24px;width:auto;display:block}
-.ph-partner-sep{width:1px;height:18px;background:rgba(0,210,196,.3)}
-.ph-partner-pill{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00d2c4;white-space:nowrap}
+.ph-badge{display:inline-flex;align-items:center;gap:16px;margin-bottom:38px;padding:10px 18px 10px 14px;background:rgba(0,210,196,.08);border:1px solid rgba(0,210,196,.22);border-radius:100px;backdrop-filter:blur(8px)}
+.ph-badge-logo{height:24px;width:auto;display:block}
+.ph-badge-sep{width:1px;height:18px;background:rgba(0,210,196,.3)}
+.ph-badge-pill{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00d2c4;white-space:nowrap}
 /* SERVICES */
 .sl{display:flex;flex-direction:column;gap:16px}
 .si{display:flex;align-items:flex-start;gap:18px;padding:24px 28px;background:var(--pw);border:1px solid var(--brl);border-radius:var(--r);transition:all .3s var(--ease)}.si:hover{border-color:rgba(13,148,136,.2);box-shadow:var(--shmd)}
@@ -269,8 +269,8 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .hero-c .hbg-grid{background-image:linear-gradient(rgba(45,212,191,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.05) 1px,transparent 1px)}
 .hero-c::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.04;pointer-events:none}
 .hcc{padding-top:74px;width:100%}
-.hcc .ph-partner{flex-wrap:wrap;justify-content:center;row-gap:8px;border-radius:var(--rxl)}
-@media(max-width:768px){.hcc .ph-partner .ph-partner-sep{display:none}.hcc .ph-partner .ph-partner-pill{white-space:normal;text-align:center}}
+.hcc .ph-badge{flex-wrap:wrap;justify-content:center;row-gap:8px;border-radius:var(--rxl)}
+@media(max-width:768px){.hcc .ph-badge .ph-badge-sep{display:none}.hcc .ph-badge .ph-badge-pill{white-space:normal;text-align:center}}
 .hcc::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:220px;height:2px;border-radius:2px;background:var(--grad-mint);box-shadow:0 0 12px rgba(45,212,191,.8),0 0 40px rgba(45,212,191,.45)}
 .hcc::after{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:440px;max-width:90vw;height:230px;background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(45,212,191,.16),transparent 70%);pointer-events:none;animation:lampBreathe 8s ease-in-out infinite}
 @keyframes lampBreathe{0%,100%{opacity:1}50%{opacity:.55}}
@@ -278,11 +278,11 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .hcc .hsub{color:var(--d-txt)}
 .hcc .hmv .u{color:var(--neon)}
 .hml{color:var(--d-txt-dim)}
-.hcc .ph-partner{margin:44px auto 0}
+.hcc .ph-badge{margin:44px auto 0}
 /* partner pills: brand neon instead of hardcoded #00d2c4 */
-.ph-partner{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.22)}
-.ph-partner-sep{background:rgba(45,212,191,.3)}
-.ph-partner-pill{color:var(--neon)}
+.ph-badge{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.22)}
+.ph-badge-sep{background:rgba(45,212,191,.3)}
+.ph-badge-pill{color:var(--neon)}
 /* offerings: continue the ink surface from the hero */
 .ofs{background:var(--ink)}
 .ofs .sh h2{color:var(--pw)}.ofs .sh p{color:var(--d-txt)}
