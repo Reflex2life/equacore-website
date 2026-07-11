@@ -83,6 +83,14 @@ pattern as the existing `unsub` branch) — no new credentials or external servi
 regress the reply/unsub handling that already works. Activate and confirm against the next real
 bounce (or a deliberately-seeded bad-address test row if one arrives sooner).
 
+## Built + verified (2026-07-11)
+
+- **Workflow ID `FTcVTaHC0MnAoUt7`** ("Reconcile - Approved Backlog Guard"), built via n8n Workflow SDK, credentials wired (ClickUp `u6QskCANdJE2ZfMQ`, Lusha `mpPiRn6tEUECh7PK`). One deviation from the plan: the "capture $now once via a Set node" idea was dropped in favor of just calling `Date.now()` inline inside the single `Cap To 5 And Stagger` Code node (`runOnceForAllItems` executes once per run, so this is safe and matches the existing one-off drivers' own idiom) — simpler, no behavior difference.
+- **Manual test execution (execution 2294):** Find Mismatches correctly identified the same 23 known stuck Approved cards. Cap-to-5 + 15-min stagger worked correctly (`10:11, 10:26, 10:41, 10:56, 11:11`). All 5 routed to the no-email/Lusha branch; all 5 Lusha searches returned 0 results at 0 credits charged; the chain correctly stopped there with zero side effects (proves the "no match → leave untouched" safety behavior).
+- **Not exercised by live data:** the merge → activate row → flip card → create pipeline lead repair path, since no card in the current backlog has a resolvable Lusha contact. Those nodes are near-verbatim copies of code already proven in production today (Approve Handler `hQaJ9ozahTAQ95qI` and the one-off Lusha Backlog Driver `eA0L565CkOMBOd1v` both successfully ran this exact logic on real leads, e.g. Aspira, Baywood Continental, this morning).
+- **Cleanup action (user-directed, 2026-07-11):** rather than let the Reconcile Guard keep re-checking the 23 confirmed-unresolvable cards indefinitely, all 23 were moved to Rejected directly via ClickUp API (individual per-card calls, not a bulk-select — no webhook risk) with a comment noting the Lusha-not-found reason. They fall out of the Reconcile Guard's scope automatically going forward since it only considers cards with status Approved.
+- **Activated:** schedule now live, `0 0 9-17/3 * * 1-5` (every 3h, business hours, weekdays).
+
 ## Out of scope (explicitly deferred)
 
 - Sent-card stall detection (cards marked Sent whose row isn't actually active/completed)
