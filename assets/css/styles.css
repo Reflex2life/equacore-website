@@ -25,6 +25,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .nl.hd:hover .ndd,.nl.hd:focus-within .ndd{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .ndd a{display:block;padding:9px 14px;font-size:13.5px;border-radius:var(--rs);transition:all .2s var(--ease);color:var(--sl);font-weight:500}.ndd a:hover{background:var(--mint-sub);color:var(--navy)}
 .ncw{margin-left:12px}.nc{padding:9px 20px;background:var(--navy);color:var(--white)!important;border-radius:var(--rs);font-weight:600;font-size:13.5px;transition:all .25s var(--ease);display:inline-flex;cursor:pointer}.nc:hover{background:var(--navy-80)}
+.lang-btn{margin-left:14px;padding:7px 12px;background:transparent;border:1px solid var(--brl);color:var(--navy);border-radius:var(--rs);font-weight:700;font-size:12.5px;letter-spacing:.04em;line-height:1;transition:all .25s var(--ease);cursor:pointer}.lang-btn:hover{border-color:var(--mint);color:var(--mint)}.lang-btn:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .nt{display:none;flex-direction:column;gap:5px;padding:8px}.nt span{width:20px;height:1.5px;background:var(--navy);border-radius:4px;transition:all .3s var(--ease)}.nt.op span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}.nt.op span:nth-child(2){opacity:0}.nt.op span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--navy);padding-top:72px}
@@ -314,7 +315,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* footer + nav CTA */
 .ft{background:var(--ink)}
 .nc{background:var(--mint-light)!important;color:var(--ink)!important;box-shadow:var(--glow-sm)}.nc:hover{background:var(--neon)!important}
-@media(max-width:768px){.ncw{display:block;margin-left:auto;margin-right:10px}.nc{padding:8px 14px;font-size:12.5px}}
+@media(max-width:768px){.ncw{display:block;margin-left:8px;margin-right:10px}.nc{padding:8px 14px;font-size:12.5px}.lang-btn{margin-left:auto;padding:6px 10px;font-size:12px}}
 /* subpage heroes: deepen photo treatment, mint ambient */
 .ph{background:var(--ink)}
 .ph-img{opacity:.45}

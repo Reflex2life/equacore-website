@@ -1,3 +1,6 @@
+// Localize a transient runtime string via i18n.js (no-op in English / if i18n absent).
+const t=s=>(window.t||(x=>x))(s);
+
 // Page titles for SEO
 const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
@@ -37,7 +40,7 @@ function setMeta(id){
   set('link[hreflang="x-default"]','href','https://equacoredigital.com'+path);
 }
 
-// FIX: Single observer instance, properly managed
+// Single reveal observer, re-created on each route so new .rv nodes get observed.
 let observer=null;
 function initObserver(){
   if(observer)observer.disconnect();
@@ -52,7 +55,6 @@ function showPage(id){
   if(!document.getElementById('pg-'+id))id='home';
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('act'));
   document.getElementById('pg-'+id).classList.add('act');
-  // FIX: Update active nav state
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
   const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
   const directLinks=document.querySelectorAll('.nls > .nl');
@@ -164,7 +166,7 @@ function isSpam(payload, elapsedMs){
   return null;
 }
 
-// FIX: Form with proper validation feedback + spam guards
+// Contact form submit: client-side validation + spam guards, then POST to n8n.
 function hs(e){
   e.preventDefault();
   const form=e.target;
@@ -181,18 +183,18 @@ function hs(e){
       history.pushState(null,'','/enquiry-thanks');
       showPage('enquiry-thanks');
     } else {
-      errEl.textContent='Please enter a valid email address from a real domain.';
+      errEl.textContent=t('Please enter a valid email address from a real domain.');
       errEl.style.display='block';
     }
     return;
   }
   if(!payload.cf_token){
-    errEl.textContent='Please complete the security check and try again.';
+    errEl.textContent=t('Please complete the security check and try again.');
     errEl.style.display='block';
     return;
   }
   b.disabled=true;
-  b.textContent='Sending...';
+  b.textContent=t('Sending...');
   fetch(form.action,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json','Accept':'application/json'}})
   .then(r=>{
     if(r.ok){
@@ -204,9 +206,9 @@ function hs(e){
     } else {throw new Error('fail')}
   })
   .catch(()=>{
-    b.innerHTML='<span>Error — please try again</span>';
+    b.innerHTML='<span>'+t('Error — please try again')+'</span>';
     b.style.background='#e53e3e';
-    setTimeout(()=>{b.innerHTML='Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';b.style.background='';b.disabled=false},3000);
+    setTimeout(()=>{b.innerHTML=t('Send Message')+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';b.style.background='';b.disabled=false},3000);
   });
 }
 
@@ -246,31 +248,31 @@ function hs(e){
     if(!form.checkValidity()){form.reportValidity();return}
     err.style.display='none';
     const token=(window.turnstile&&tsId!==null)?turnstile.getResponse(tsId):'';
-    if(!token){err.textContent='Please complete the security check.';err.style.display='block';return}
+    if(!token){err.textContent=t('Please complete the security check.');err.style.display='block';return}
     const fd=new FormData(form);
     const payload={name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',website:fd.get('website')||'',cf_token:token,elapsed_ms:Date.now()-openedAt,src:'demo-gate'};
     const spam=isSpam(payload,payload.elapsed_ms);
-    if(spam&&!spam.silent){err.textContent='Please enter a valid email address from a real domain.';err.style.display='block';return}
+    if(spam&&!spam.silent){err.textContent=t('Please enter a valid email address from a real domain.');err.style.display='block';return}
     const b=form.querySelector('button[type="submit"]');
-    b.disabled=true;b.textContent='Checking...';
+    b.disabled=true;b.textContent=t('Checking...');
     fetch('https://voidnox.app.n8n.cloud/webhook/demo-gate',{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json'}})
     .then(r=>r.json())
     .then(d=>{
-      b.disabled=false;b.textContent='Continue to booking';
+      b.disabled=false;b.textContent=t('Continue to booking');
       var u;try{u=new URL(d&&d.url)}catch(_){u=null}
       if(d&&d.ok&&u&&u.protocol==='https:'&&/(^|\.)office\.com$|(^|\.)microsoft\.com$/.test(u.hostname)){
         const w=window.open(u.href,'_blank','noopener');
         fallback.href=u.href;fallback.style.display='block';
         if(w)setTimeout(close,1500);
       }else{
-        err.textContent='We could not verify your request. Please try again, or use the contact form instead.';
+        err.textContent=t('We could not verify your request. Please try again, or use the contact form instead.');
         err.style.display='block';
         if(window.turnstile&&tsId!==null)turnstile.reset(tsId);
       }
     })
     .catch(function(){
-      b.disabled=false;b.textContent='Continue to booking';
-      err.textContent='Connection error — please try again.';
+      b.disabled=false;b.textContent=t('Continue to booking');
+      err.textContent=t('Connection error — please try again.');
       err.style.display='block';
     });
   });
@@ -303,32 +305,32 @@ function hs(e){
     if(!form.checkValidity()){form.reportValidity();return}
     err.style.display='none';
     if(cv.files[0]&&cv.files[0].size>8*1024*1024){
-      err.textContent='Your CV is larger than 8 MB. Please upload a smaller file.';err.style.display='block';return;
+      err.textContent=t('Your CV is larger than 8 MB. Please upload a smaller file.');err.style.display='block';return;
     }
     const fd=new FormData(form);
     const token=fd.get('cf-turnstile-response')||'';
-    if(!token){err.textContent='Please complete the security check.';err.style.display='block';return}
+    if(!token){err.textContent=t('Please complete the security check.');err.style.display='block';return}
     fd.append('cf_token',token);
     fd.append('elapsed_ms',String(Date.now()-PAGE_LOADED_AT));
     const b=form.querySelector('button[type="submit"]');
-    b.disabled=true;b.textContent='Submitting...';
+    b.disabled=true;b.textContent=t('Submitting...');
     fetch('https://voidnox.app.n8n.cloud/webhook/talent-apply',{method:'POST',body:fd})
     .then(r=>r.json())
     .then(d=>{
-      b.disabled=false;b.textContent='Submit Application';
+      b.disabled=false;b.textContent=t('Submit Application');
       if(d&&d.ok){
         form.reset();
         if(window.turnstile)turnstile.reset();
         history.pushState(null,'','/thank-you');showPage('thank-you');
       }else{
-        err.textContent='We could not verify your application. Please complete the security check and try again.';
+        err.textContent=t('We could not verify your application. Please complete the security check and try again.');
         err.style.display='block';
         if(window.turnstile)turnstile.reset();
       }
     })
     .catch(function(){
-      b.disabled=false;b.textContent='Submit Application';
-      err.textContent='Connection error — please try again.';err.style.display='block';
+      b.disabled=false;b.textContent=t('Submit Application');
+      err.textContent=t('Connection error — please try again.');err.style.display='block';
     });
   });
 })();
