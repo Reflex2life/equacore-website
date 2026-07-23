@@ -1,0 +1,23 @@
+name: CI
+
+# Server-side gate for equacore-website. The site auto-deploys to production
+# (Cloudflare Pages) on merge to main, so this required check is the thing that
+# stands between a PR and the live site. It runs the same deterministic checks
+# as the local scripts/pre-push-check.sh hook: ServiceNow trademark/positioning
+# scan, prerender drift, and route/link+sitemap parity.
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Pre-push gate (trademark + prerender drift + route parity)
+        run: bash scripts/pre-push-check.sh
