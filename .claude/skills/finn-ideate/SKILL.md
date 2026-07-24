@@ -41,7 +41,12 @@ Ground every idea in evidence from both directions:
 - **Internal:** the project's full description (`get_project`), its open and
   recently completed issues, related memory files under
   `~/.claude/projects/-Users-nouser-equacore-website/memory/`, and — for
-  Engineering projects — the relevant repo.
+  Engineering projects — the relevant repo. For **every** project, also check
+  the live website content in the repo (`index.html`) for company facts before
+  claiming something is missing — e.g. the About page's "Registrations &
+  Compliance" section lists the bodies EquaCore is already registered with
+  (NITDA, CPN, ITF, NSITF, BPP). An idea premised on the absence of something
+  the site already states is invalid (this exact miss produced BIZ-30).
 - **External:** targeted web research on the project's theme: market and
   competitor moves, the Nigerian/West-African ITSM, compliance, and talent
   landscape, pricing signals, and tooling trends. Keep the source URLs; every
