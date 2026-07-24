@@ -30,9 +30,10 @@ Skip a picked project and move to the next candidate when:
 
 If every project is skipped, say so and end the pass. Do not force ideas.
 
-**Workspace cap guard:** the Linear free plan allows 250 active issues. If the
-workspace has more than 200 active issues, file nothing, report the count, and
-end the pass so a human can triage or archive first.
+**Backlog flood guard:** if the workspace has more than 200 active issues,
+file nothing, report the count, and end the pass so a human can triage or
+archive first. (The workspace is on Linear's Business plan — no hard issue
+cap — but an untriaged flood buries good ideas either way.)
 
 ## 2. Research
 
