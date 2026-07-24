@@ -1,5 +1,5 @@
 {
-  "_comment": "Finn-loop configuration for this repository. The skills live at ~/.claude/skills/finn-{ideate,spec,build,review} and read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. This file reproduces the behaviour the skills previously hardcoded.",
+  "_comment": "Finn-loop configuration for this repository. The loop is three stages - the skills at ~/.claude/skills/finn-{spec,build,review} - and they read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. This file reproduces the behaviour the skills previously hardcoded. Ideation is not a loop stage; /finn-ideate is a separate on-demand tool configured in .claude/finn-ideate.json.",
 
   "repo": "Reflex2life/equacore-website",
 
@@ -21,14 +21,6 @@
       }
     ],
     "gate": ["bash scripts/pre-push-check.sh"]
-  },
-
-  "ideate": {
-    "enabled": true,
-    "teams": ["ENG", "Business"],
-    "brief": "Market and competitor moves, the Nigerian/West-African ITSM, compliance, and talent landscape, pricing signals, and tooling trends.",
-    "contextFiles": ["index.html"],
-    "memoryDir": "~/.claude/projects/-Users-nouser-equacore-website/memory/"
   },
 
   "guardrails": [

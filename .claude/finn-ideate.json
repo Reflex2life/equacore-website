@@ -1,0 +1,13 @@
+{
+  "_comment": "Configuration for /finn-ideate, which is NOT a Finn-loop stage. The loop is spec -> build -> review, each with a human gate on either side; ideation has no such contract and produces raw input for triage. Run it on demand when the agent-ready queue has run dry. It reads guardrails from .claude/finn-loop.json when that file exists, because a guardrail describes this repository rather than the loop - an idea that breaks one can never be built.",
+
+  "enabled": true,
+
+  "teams": ["ENG"],
+
+  "brief": "Market and competitor moves, the Nigerian/West-African ITSM, compliance, and talent landscape, pricing signals, and tooling trends.",
+
+  "contextFiles": ["index.html"],
+
+  "memoryDir": "~/.claude/projects/-Users-nouser-equacore-website/memory/"
+}

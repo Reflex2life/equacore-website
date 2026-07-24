@@ -85,7 +85,15 @@ See `docs/ENVIRONMENT.md` for the fuller environment reference.
 
 ## AI Agent Loop (Linear + Finn-loop)
 
-Work is tracked in **Linear** — team **Engineering** (`ENG`, id `7833827e-3ca6-4a9b-b7c3-69d164ec9218`), project **EquaCore Website**. The Finn-loop skills now live at **`~/.claude/skills/finn-{ideate,spec,build,review}`** (user-level, shared with other repos) and read **`.claude/finn-loop.json`** in this repo to learn which repository, Linear team, required checks, verify commands and guardrails apply. Without that file they refuse to run; `/finn-build` also aborts if `gh repo view` does not match its `repo` value, so an issue from another project can never be built here. They drive it: `/loop /finn-ideate` researches one project per pass (all active projects across ENG and Business, round-robin) and files candidate `idea`-labeled issues → a human triages → `/finn-spec` turns a chosen idea into a build-ready issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → the `CI / gate` check must pass → merge (human during the break-in period, then auto-merge). The `idea` label is workspace-level and must never be combined with `agent-ready` until the issue has been through `/finn-spec`. Builders never introduce ServiceNow "partner/authorised/certified" language (the trademark check forbids it; Halo partner language is allowed).
+Work is tracked in **Linear** — team **Engineering** (`ENG`, id `7833827e-3ca6-4a9b-b7c3-69d164ec9218`), project **EquaCore Website**.
+
+**The loop is three stages:** `/finn-spec` turns a chosen idea into a build-ready issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → `/finn-review` posts a verdict → the `CI / gate` check must pass → merge (human during the break-in period, then auto-merge). Each stage has a human gate on either side, and that is what makes the chain safe to run unattended.
+
+The three skills live at **`~/.claude/skills/finn-{spec,build,review}`** (user-level, shared with other repos) and read **`.claude/finn-loop.json`** in this repo to learn which repository, Linear team, required checks, verify commands and guardrails apply. Without that file they refuse to run; `/finn-build` also aborts if `gh repo view` does not match its `repo` value, so an issue from another project can never be built here.
+
+**`/finn-ideate` is not a loop stage.** It is a standalone research tool, configured separately in `.claude/finn-ideate.json`, that files candidate `idea`-labeled issues for human triage. It is deliberately outside the loop: it produces raw input rather than a contract, so a slow ideation pass can never stall the build queue and a full queue can never pressure it into filing filler. Run it on demand when the `agent-ready` queue has run dry, not under `/loop` — a timed ideation loop outruns the triage capacity it feeds. Its `teams` is `ENG` only, because an idea filed outside the build team strands where no downstream stage can reach it.
+
+The `idea` label is workspace-level and must never be combined with `agent-ready` until the issue has been through `/finn-spec`. Builders never introduce ServiceNow "partner/authorised/certified" language (the trademark check forbids it; Halo partner language is allowed).
 
 ## Asset cache-busting (enforced)
 
