@@ -85,7 +85,7 @@ See `docs/ENVIRONMENT.md` for the fuller environment reference.
 
 ## AI Agent Loop (Linear + Finn-loop)
 
-Work is tracked in **Linear** — team **Engineering** (`ENG`, id `7833827e-3ca6-4a9b-b7c3-69d164ec9218`), project **EquaCore Website**. The Finn-loop skills in `.claude/skills/finn-{spec,build,review}` drive it: `/finn-spec` files an issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → the `CI / gate` check must pass → merge (human during the break-in period, then auto-merge). Builders never introduce ServiceNow "partner/authorised/certified" language (the trademark check forbids it; Halo partner language is allowed).
+Work is tracked in **Linear** — team **Engineering** (`ENG`, id `7833827e-3ca6-4a9b-b7c3-69d164ec9218`), project **EquaCore Website**. The Finn-loop skills in `.claude/skills/finn-{ideate,spec,build,review}` drive it: `/loop /finn-ideate` researches one project per pass (all active projects across ENG and Business, round-robin) and files candidate `idea`-labeled issues → a human triages → `/finn-spec` turns a chosen idea into a build-ready issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → the `CI / gate` check must pass → merge (human during the break-in period, then auto-merge). The `idea` label is workspace-level and must never be combined with `agent-ready` until the issue has been through `/finn-spec`. Builders never introduce ServiceNow "partner/authorised/certified" language (the trademark check forbids it; Halo partner language is allowed).
 
 ## Asset cache-busting (enforced)
 
