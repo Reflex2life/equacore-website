@@ -1,0 +1,40 @@
+{
+  "_comment": "Finn-loop configuration for this repository. The skills live at ~/.claude/skills/finn-{ideate,spec,build,review} and read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. This file reproduces the behaviour the skills previously hardcoded.",
+
+  "repo": "Reflex2life/equacore-website",
+
+  "linear": {
+    "team": "ENG"
+  },
+
+  "requiredChecks": ["CI / gate"],
+
+  "verify": {
+    "afterEdit": [
+      {
+        "paths": ["index.html", "assets/css/*.css", "assets/js/*.js"],
+        "run": [
+          "python3 scripts/check-cache-bust.py --fix",
+          "python3 scripts/prerender.py"
+        ],
+        "note": "Static assets are immutable for a year in _headers, so a changed file at an unchanged URL is cached stale by the CDN. check-cache-bust re-stamps the ?v= content hashes (never hand-edit them); prerender regenerates the per-route HTML. Commit whatever they regenerate."
+      }
+    ],
+    "gate": ["bash scripts/pre-push-check.sh"]
+  },
+
+  "ideate": {
+    "enabled": true,
+    "teams": ["ENG", "Business"],
+    "brief": "Market and competitor moves, the Nigerian/West-African ITSM, compliance, and talent landscape, pricing signals, and tooling trends.",
+    "contextFiles": ["index.html"],
+    "memoryDir": "~/.claude/projects/-Users-nouser-equacore-website/memory/"
+  },
+
+  "guardrails": [
+    "Never introduce ServiceNow \"partner\", \"authorised\" or \"certified\" language. scripts/check-trademark-risk.py forbids it and will fail the gate. Halo partner language is allowed.",
+    "Never hand-edit a ?v= query string. It is a content hash stamped by scripts/check-cache-bust.py --fix.",
+    "After editing index.html, re-run scripts/prerender.py and commit the regenerated route files. The prerender-drift check fails otherwise.",
+    "A SKIPPED check counts as a FAIL. scripts/pre-push-check.sh must exit 0 with no check skipped."
+  ]
+}
