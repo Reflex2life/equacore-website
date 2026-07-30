@@ -278,21 +278,6 @@ function hs(e){
   });
 })();
 
-// Cursor-tracking mint glow for .glow-card — one rAF-throttled listener feeds
-// viewport coords into :root vars; cards light up as the pointer sweeps past.
-(function(){
-  if(!document.querySelector('.glow-card'))return;
-  var s=document.documentElement.style;
-  s.setProperty('--x','-9999');s.setProperty('--y','-9999');
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var tick=false,cx=0,cy=0;
-  window.addEventListener('pointermove',function(e){
-    cx=e.clientX;cy=e.clientY;
-    if(!tick){tick=true;requestAnimationFrame(function(){
-      s.setProperty('--x',cx.toFixed(1));s.setProperty('--y',cy.toFixed(1));tick=false;
-    });}
-  },{passive:true});
-})();
 
 // Talent Pool — native form posts multipart (fields + CV) to the n8n webhook.
 (function(){
@@ -336,92 +321,4 @@ function hs(e){
   });
 })();
 
-// Aether Flow — particle network behind the home hero. Runs only while the
-// hero is on screen; static single frame under prefers-reduced-motion.
-(function(){
-  const canvas=document.getElementById('af');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const touch=matchMedia('(hover: none)').matches;
-  const mouse={x:null,y:null,radius:200};
-  let particles=[],rafId=null,W=0,H=0;
-
-  class Particle{
-    constructor(x,y,dx,dy,size){this.x=x;this.y=y;this.dx=dx;this.dy=dy;this.size=size}
-    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(45,212,191,.6)';ctx.fill()}
-    update(){
-      if(this.x>W||this.x<0)this.dx=-this.dx;
-      if(this.y>H||this.y<0)this.dy=-this.dy;
-      if(mouse.x!==null){
-        const dx=mouse.x-this.x,dy=mouse.y-this.y,d=Math.sqrt(dx*dx+dy*dy);
-        if(d<mouse.radius+this.size&&d>0){
-          const f=(mouse.radius-d)/mouse.radius;
-          this.x-=dx/d*f*5;this.y-=dy/d*f*5;
-        }
-      }
-      this.x+=this.dx;this.y+=this.dy;this.draw();
-    }
-  }
-
-  function size(){
-    const r=canvas.parentElement.getBoundingClientRect();
-    const dpr=Math.min(window.devicePixelRatio||1,2);
-    W=r.width;H=r.height;
-    canvas.width=W*dpr;canvas.height=H*dpr;
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  function init(){
-    size();particles=[];
-    const mobile=W<=768;
-    const n=Math.min(Math.floor(W*H/(mobile?14000:9000)),mobile?40:90);
-    for(let i=0;i<n;i++){
-      particles.push(new Particle(Math.random()*W,Math.random()*H,Math.random()*.4-.2,Math.random()*.4-.2,Math.random()*2+1));
-    }
-  }
-  function connect(){
-    const max=(W/7)*(H/7);
-    for(let a=0;a<particles.length;a++){
-      for(let b=a;b<particles.length;b++){
-        const dx=particles[a].x-particles[b].x,dy=particles[a].y-particles[b].y;
-        const d2=dx*dx+dy*dy;
-        if(d2<max){
-          const o=(1-d2/20000)*.35;
-          if(o<=0)continue;
-          let near=false;
-          if(mouse.x!==null){
-            const mx=particles[a].x-mouse.x,my=particles[a].y-mouse.y;
-            near=Math.sqrt(mx*mx+my*my)<mouse.radius;
-          }
-          ctx.strokeStyle=near?'rgba(94,234,212,'+Math.min(o*2,.8)+')':'rgba(45,212,191,'+o+')';
-          ctx.lineWidth=1;
-          ctx.beginPath();ctx.moveTo(particles[a].x,particles[a].y);ctx.lineTo(particles[b].x,particles[b].y);ctx.stroke();
-        }
-      }
-    }
-  }
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    for(const p of particles)p.update();
-    connect();
-  }
-  function loop(){rafId=requestAnimationFrame(loop);frame()}
-  function stop(){if(rafId!==null){cancelAnimationFrame(rafId);rafId=null}}
-
-  if(!touch&&!reduce){
-    window.addEventListener('mousemove',function(e){
-      const r=canvas.getBoundingClientRect();
-      mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;
-    },{passive:true});
-    window.addEventListener('mouseout',function(){mouse.x=null;mouse.y=null});
-  }
-  window.addEventListener('resize',function(){if(rafId!==null||reduce)init()},{passive:true});
-
-  new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(e.isIntersecting){init();if(reduce){frame()}else if(rafId===null){loop()}}
-      else stop();
-    });
-  }).observe(canvas.closest('.hero-c'));
-})();
 document.getElementById("yr").textContent=new Date().getFullYear();
