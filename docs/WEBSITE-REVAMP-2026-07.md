@@ -72,23 +72,28 @@ element — future overrides go there, never scattered through the base sheet.
 Rule: neon mint is the only accent colour. No purple gradients, no sparkle/robot
 "AI" iconography — those were explicitly rejected as generic "AI slop".
 
-### Signature effects
+### Signature effects — removed (ENG-30, July 2026)
 
-- **Lamp-beam hero** — a pure-CSS conic/radial beam behind the home headline.
+The revamp shipped four decorative effects. All were removed in ENG-30, which
+moved the site toward enterprise restraint: depth from layered surfaces and
+hairline rules rather than glow and motion. They are recorded here because the
+commits remain in history, not because the code is still present.
+
+- **Lamp-beam hero** — a pure-CSS radial beam behind the home headline, with a
+  slow breathing opacity animation. Removed with its keyframes.
 - **Aether Flow** (`#af`, commit `4a019b8`) — a vanilla-JS particle-network
-  canvas in the home hero: mint particles, connecting lines, and mouse
-  repulsion. The rAF loop is gated by an `IntersectionObserver` on the hero and
-  renders a single static frame under `prefers-reduced-motion`. Home hero only.
+  canvas in the home hero. Removed: CSS rule, JS block, and the `<canvas>`.
 - **Cursor-tracking glow border** (commits `2129393`, `f62006d`, `2fc422c`) — a
-  masked gradient border that follows the pointer. One rAF-throttled
-  `pointermove` listener sets `--x`/`--y` on `:root`; `.glow-card::after` paints
-  a `background-attachment:fixed` radial gradient clipped to the border via
-  `mask-composite:exclude`. Hue is locked to mint (`hsl(172 …)`) — the source
-  component's rainbow cursor-hue was deliberately dropped. Applied to all dark
-  cards and the top nav bar; excluded from footer/header text links.
+  masked gradient border following the pointer, driven by a `pointermove`
+  listener writing `--x`/`--y` to `:root`. It painted on twelve selectors, not
+  only the three cards carrying the class. Removed entirely.
+- **Pulsing bloom on `.btn-book`** — an animated mint halo behind the primary
+  CTA. Removed; the button now carries a solid mint fill and a hairline.
 
-To extend the glow to a new card, add the class `glow-card` to any dark card
-that has a free `::after` pseudo-element.
+What survives: the `feTurbulence` grain overlay, at reduced opacity
+(`.04` → `.025`). It reads as print texture rather than spectacle. The `.rv`
+reveal system, its `.d1`–`.d4` stagger and `--ease` are untouched — that is the
+site's core motion and it stays.
 
 ## 2. Demo-Booking Conversion Funnel
 

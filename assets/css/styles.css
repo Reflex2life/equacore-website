@@ -270,20 +270,16 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 /* booking button: the one conversion action, glows softly everywhere it appears */
 .btn-book{background:var(--mint-light);color:var(--ink);box-shadow:var(--glow-sm);position:relative}
 .btn-book:hover{background:var(--neon);color:var(--ink);transform:translateY(-1px);box-shadow:var(--glow-md)}
-.btn-book::after{content:'';position:absolute;inset:-1px;border-radius:inherit;box-shadow:0 0 24px rgba(45,212,191,.35);opacity:.6;animation:glowPulse 3.2s ease-in-out infinite;pointer-events:none;z-index:-1}
-@keyframes glowPulse{0%,100%{opacity:.6}50%{opacity:.2}}
 /* hero: ink surface, photo retired, lamp beam over the headline */
 .hero-c{background:var(--ink)}
 #pg-home .hbg-img,.hero-c .hac{display:none}
 .hero-c .hbg-veil{background:radial-gradient(ellipse at 50% 115%,rgba(45,212,191,.08),transparent 60%)}
 .hero-c .hbg-grid{background-image:linear-gradient(rgba(45,212,191,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.05) 1px,transparent 1px)}
-.hero-c::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.04;pointer-events:none}
+.hero-c::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none}
 .hcc{padding-top:74px;width:100%}
 .hcc .ph-badge{flex-wrap:wrap;justify-content:center;row-gap:8px;border-radius:var(--rxl)}
 @media(max-width:768px){.hcc .ph-badge .ph-badge-sep{display:none}.hcc .ph-badge .ph-badge-pill{white-space:normal;text-align:center}}
 .hcc::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:220px;height:2px;border-radius:2px;background:var(--grad-mint);box-shadow:0 0 12px rgba(45,212,191,.8),0 0 40px rgba(45,212,191,.45)}
-.hcc::after{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:440px;max-width:90vw;height:230px;background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(45,212,191,.16),transparent 70%);pointer-events:none;animation:lampBreathe 8s ease-in-out infinite}
-@keyframes lampBreathe{0%,100%{opacity:1}50%{opacity:.55}}
 .hcc h1 .ac{background:var(--grad-mint);-webkit-background-clip:text;background-clip:text;color:var(--neon);-webkit-text-fill-color:transparent}
 .hcc .hsub{color:var(--d-txt)}
 .hcc .hmv .u{color:var(--neon)}
@@ -330,7 +326,6 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .ph::after{content:'';position:absolute;left:-10%;top:-30%;width:55%;height:120%;background:radial-gradient(ellipse,rgba(45,212,191,.09),transparent 65%);pointer-events:none}
 .ph p{color:var(--d-txt)}
 /* aether flow particle canvas (home hero) */
-#af{position:absolute;inset:0;width:100%;height:100%}
 /* grid mesh retired */
 .hero-c .hbg-grid,.ctb-c::after{display:none}
 /* dark sections on subpages (.dk) — same rhythm as the homepage */
@@ -363,10 +358,6 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .rv.vis{transform:none}
 /* cursor-tracking mint glow border — all card components (the glow lives on ::after; cards that use ::before for an accent bar are unaffected) */
 .si,.wc,.ec,.mc,.cmty-c,.vm,.lc{position:relative}
-.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:radial-gradient(300px 300px at calc(var(--x,-9999)*1px) calc(var(--y,-9999)*1px),hsl(172 72% 60% / .9),transparent 60%);background-attachment:fixed;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:3}
-/* nav: glowing bottom-edge line tracking the cursor (backdrop-filter breaks the masked-border technique) */
-.nav::after{content:"";position:absolute;left:0;right:0;top:100%;height:18px;background:radial-gradient(260px 3px at calc(var(--x,-9999)*1px) 0,hsl(172 92% 64%),transparent 66%),radial-gradient(360px 18px at calc(var(--x,-9999)*1px) 0,hsl(172 85% 55% / .5),transparent 72%);z-index:1001;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.glow-card::after,.card::after,.si::after,.wc::after,.ec::after,.mc::after,.prin-c::after,.cmty-c::after,.vm::after,.lc::after,.cc::after,.nav::after{display:none}}
 /* mobile: force any two-column .tc split (some pages set it inline, which beats the media query) to a single column */
 @media(max-width:1024px){.tc{grid-template-columns:1fr!important}}
 /* focus on dark surfaces */
@@ -383,7 +374,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .bkm-fine{font-size:12px;color:var(--sll);margin-top:10px;text-align:center}
 @media (prefers-reduced-motion:reduce){
 .rv{opacity:1;transform:none;transition:none}
-.hcc::after,.btn-book::after,.crd,.pg{animation:none}
+.crd,.pg{animation:none}
 html{scroll-behavior:auto}
 }
 
