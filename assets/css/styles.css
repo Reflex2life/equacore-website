@@ -386,3 +386,24 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .hcc::after,.btn-book::after,.crd,.pg{animation:none}
 html{scroll-behavior:auto}
 }
+
+/* === RESTRAINT LAYER === */
+/* Redefines existing tokens only - no new variables, no rule edits above.
+   Depth now comes from tighter radii and near-flat neutral shadows; glow
+   becomes a hairline ring rather than a coloured bloom. Revert by deleting
+   this block. --ease is deliberately absent: its 31 use sites already match
+   the intended timing. */
+:root{
+--rs:4px;
+--r:8px;
+--rl:10px;
+--rxl:14px;
+--shsm:0 1px 2px rgba(15,23,42,.04);
+--shmd:0 2px 8px rgba(15,23,42,.05);
+--shlg:0 8px 24px rgba(15,23,42,.06);
+--shxl:0 16px 48px rgba(15,23,42,.08);
+--shmint:0 0 0 1px rgba(13,148,136,.22);
+--shcob:0 0 0 1px rgba(37,99,235,.22);
+--glow-sm:0 0 0 1px rgba(45,212,191,.18);
+--glow-md:0 0 0 1px rgba(45,212,191,.28);
+}
