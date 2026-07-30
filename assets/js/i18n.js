@@ -132,9 +132,8 @@ const FR = {
   "What does EquaCore Digital do?": "Que fait EquaCore Digital ?",
   "EquaCore Digital is a technology services firm specialising in ServiceNow and the full Halo platform. We provide talent augmentation (placing pre-vetted ServiceNow professionals with global enterprises), managed services (day-2 platform operations), and independent advisory — plus full implementations of HaloITSM, HaloPSA, and HaloCRM as a full Halo Technology Alliance Partner.":
     "EquaCore Digital est un cabinet de services technologiques spécialisé dans ServiceNow et l'ensemble de la plateforme Halo. Nous proposons du renfort de talents (placement de professionnels ServiceNow présélectionnés auprès d'entreprises internationales), des services gérés (exploitation de plateforme au quotidien) et du conseil indépendant — ainsi que des implémentations complètes de HaloITSM, HaloPSA et HaloCRM en tant que partenaire à part entière du Halo Technology Alliance.",
-  "What ServiceNow roles can EquaCore place?": "Quels profils ServiceNow EquaCore peut-il placer ?",
-  "We place administrators and system engineers, developers and integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists, and process consultants. All candidates are technically assessed and enterprise-ready before placement.":
-    "Nous plaçons des administrateurs et ingénieurs systèmes, des développeurs et ingénieurs d'intégration, des architectes de solutions, des analystes métier, des spécialistes CMDB/Discovery/SAM et des consultants processus. Tous les candidats sont évalués techniquement et prêts pour l'entreprise avant leur placement.",
+  "What ServiceNow and Halo roles can EquaCore place?": "Quels profils ServiceNow et Halo EquaCore peut-il placer ?",
+  "We place administrators and system engineers, developers and integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists, and process consultants across ServiceNow and HaloITSM, HaloPSA, and HaloCRM, including certified Halo administrators, HaloITSM implementation specialists, and Halo Service Desk engineers. All candidates are technically assessed and enterprise-ready before placement.": "Nous plaçons des administrateurs et ingénieurs système, des développeurs et ingénieurs d'intégration, des architectes de solutions, des analystes métier, des spécialistes CMDB/Discovery/SAM et des consultants processus sur ServiceNow ainsi que sur HaloITSM, HaloPSA et HaloCRM, y compris des administrateurs Halo certifiés, des spécialistes de l'implémentation HaloITSM et des ingénieurs Halo Service Desk. Tous les candidats sont évalués techniquement et prêts pour l'entreprise avant placement.",
   "Is EquaCore an official Halo partner?": "EquaCore est-il un partenaire Halo officiel ?",
   "Yes. EquaCore Digital is a full Halo Technology Alliance Partner, authorised to implement and support all three Halo products: HaloITSM (IT and Enterprise Service Management), HaloPSA (Professional Services Automation for MSPs), and HaloCRM (omnichannel CRM for customer-facing teams). We deliver platform implementations, legacy migrations, process alignment, user onboarding, and post-go-live managed support across the complete Halo product suite.":
     "Oui. EquaCore Digital est partenaire à part entière du Halo Technology Alliance, habilité à implémenter et à assurer le support des trois produits Halo : HaloITSM (gestion des services IT et d'entreprise), HaloPSA (automatisation des services professionnels pour MSP) et HaloCRM (CRM omnicanal pour les équipes en contact avec la clientèle). Nous assurons les implémentations de plateforme, les migrations d'outils existants, l'alignement des processus, la prise en main utilisateurs et le support géré après mise en service sur l'ensemble de la gamme Halo.",
@@ -404,7 +403,7 @@ const FR = {
   "Beyond staffing, EquaCore nurtures Nigeria's ServiceNow talent pool through community initiatives and developer ecosystem growth.":
     "Au-delà du placement, EquaCore fait grandir le vivier de talents ServiceNow du Nigeria à travers des initiatives communautaires et le développement de l'écosystème de développeurs.",
   "Our Community Impact →": "Notre impact communautaire →",
-  "Need ServiceNow talent?": "Besoin de talents ServiceNow ?",
+  "Need ServiceNow or Halo talent?": "Besoin de talents ServiceNow ou Halo ?",
   "Access our network of enterprise-ready professionals.": "Accédez à notre réseau de professionnels prêts pour l'entreprise.",
   "Discuss Your Needs →": "Discuter de vos besoins →",
   "Are you a ServiceNow professional? ": "Vous êtes un professionnel ServiceNow ? ",
@@ -552,7 +551,23 @@ const FR = {
   "Years of Experience": "Années d'expérience",
   "Availability": "Disponibilité",
   "Engagement Preference": "Préférence d'engagement",
-  "Certifications": "Certifications",
+
+  // ---- ENG-20: Halo talent roles + certification minimum ----
+  "ServiceNow & Halo Talent, Enterprise-Ready": "Des talents ServiceNow et Halo prêts pour l'entreprise",
+  "Halo Talent": "Talents Halo",
+  "Halo Specialists on the EquaCore Bench": "Des spécialistes Halo disponibles chez EquaCore",
+  "Certified Halo professionals available for permanent, contract, or embedded placement across HaloITSM, HaloPSA, and HaloCRM.": "Des professionnels Halo certifiés disponibles en placement permanent, en contrat ou en régie sur HaloITSM, HaloPSA et HaloCRM.",
+  "Certified Halo Administrators": "Administrateurs Halo certifiés",
+  "Day-to-day platform administration, configuration, and user support across HaloITSM, HaloPSA, and HaloCRM.": "Administration quotidienne de la plateforme, configuration et support utilisateur sur HaloITSM, HaloPSA et HaloCRM.",
+  "Halo Implementation Specialists": "Spécialistes de l'implémentation Halo",
+  "Consultants who take a Halo deployment from scoping through go-live, including migrations from legacy ITSM and PSA tools.": "Des consultants qui pilotent un déploiement Halo du cadrage à la mise en production, y compris les migrations depuis d'anciens outils ITSM et PSA.",
+  "Halo Service Desk & Managed Support": "Halo Service Desk et support infogéré",
+  "Service desk analysts and managed-support engineers who keep your Halo estate running long after launch.": "Des analystes de service desk et des ingénieurs de support infogéré qui maintiennent votre parc Halo bien après le lancement.",
+  "Minimum certification requirement.": "Certification minimale requise.",
+  "To join the talent pool you must hold at least one of: ITIL 4 Foundation (or higher); ServiceNow CSA (or higher); or a HaloITSM, HaloPSA, or HaloCRM product certification. Every professional currently in our pool meets this bar.": "Pour rejoindre le vivier de talents, vous devez détenir au moins l'une des certifications suivantes : ITIL 4 Foundation (ou supérieur) ; ServiceNow CSA (ou supérieur) ; ou une certification produit HaloITSM, HaloPSA ou HaloCRM. Tous les professionnels actuellement dans notre vivier satisfont à ce critère.",
+  "I confirm I hold at least one of the qualifying credentials above: ITIL 4 Foundation (or higher), ServiceNow CSA (or higher), or a HaloITSM, HaloPSA, or HaloCRM product certification.": "Je confirme détenir au moins l'une des certifications qualifiantes ci-dessus : ITIL 4 Foundation (ou supérieur), ServiceNow CSA (ou supérieur), ou une certification produit HaloITSM, HaloPSA ou HaloCRM.",
+
+  "Certifications *": "Certifications *",
   "Cover Note": "Lettre de motivation",
   "CV — PDF or Word *": "CV — PDF ou Word *",
   "Multiple platforms": "Plusieurs plateformes",
@@ -635,7 +650,7 @@ const FR = {
   "LinkedIn profile URL (optional)": "URL du profil LinkedIn (facultatif)",
   "Primary platform / specialism, years of experience, availability, and engagement preference":
     "Plateforme / spécialité principale, années d'expérience, disponibilité et préférence d'engagement",
-  "Certifications and a cover note (optional)": "Certifications et lettre de motivation (facultatif)",
+  "Certifications (required) and a cover note (optional)": "Certifications (obligatoires) et une lettre de motivation (facultative)",
   "Your CV (PDF or Word)": "Votre CV (PDF ou Word)",
   "Your consent to us storing these details for recruitment purposes, recorded with your submission":
     "Votre consentement à ce que nous conservions ces informations à des fins de recrutement, enregistré au moment de votre inscription",
