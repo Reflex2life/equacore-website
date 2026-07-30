@@ -1,0 +1,60 @@
+{
+  "_comment": "Finn-loop configuration for this repository. The loop is three stages - the skills at .claude/skills/finn-{spec,build,review} - and they read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. Ideation is not a loop stage; /finn-ideate is a separate on-demand tool.",
+
+  "repo": "Reflex2life/equacore-website",
+
+  "linear": {
+    "team": "ENG",
+    "project": "EquaCore Website"
+  },
+
+  "requiredChecks": [],
+
+  "_requiredChecks_comment": "Deliberately empty. Cloudflare Pages builds on push to main and reports nothing back to the PR, so there is no named GitHub check to wait on. The gate below is local, and /finn-review must run it itself rather than waiting for a check that never arrives.",
+
+  "verify": {
+    "afterEdit": [
+      {
+        "paths": ["assets/js/scripts.js", "assets/js/i18n.js", "assets/css/styles.css"],
+        "run": [
+          "python3 scripts/check-cache-bust.py --fix",
+          "python3 scripts/prerender.py"
+        ],
+        "note": "Every CSS/JS URL in index.html carries a ?v=<content-hash>. Editing an asset changes its hash, so check-cache-bust.py --fix must rewrite index.html and then prerender.py must propagate the new hashes into all 10 route files. Skipping this fails check 4 of the gate. Order matters: --fix first, prerender second."
+      },
+      {
+        "paths": ["index.html"],
+        "run": ["python3 scripts/prerender.py"],
+        "note": "index.html is the single source of truth. prerender.py writes one static file per indexable route (services, servicenow, haloitsm, talent, talent-pool, engagement, about, markets, contact, privacy) and re-stamps sitemap.xml. Body content is byte-identical across all of them, so hand-editing a route file is always wrong and a missed regeneration ships stale pages. Commit every regenerated file with the index.html change."
+      },
+      {
+        "paths": ["scripts/prerender.py"],
+        "run": ["python3 scripts/prerender.py"],
+        "note": "The ROUTES title/description map here is mirrored by hand in the descs object in assets/js/scripts.js, and nothing checks the two against each other. Change one, change the other verbatim, or an SPA-navigated page serves different meta than the crawled static file."
+      }
+    ],
+    "gate": [
+      "bash scripts/pre-push-check.sh"
+    ],
+    "_gate_comment": "One command on purpose. pre-push-check.sh runs all four checks - trademark scan, prerender drift, route/sitemap parity, cache-bust hashes - and treats a check it could not run as a failure rather than a pass. Do not add the individual scripts separately; they are already covered."
+  },
+
+  "_onApproval_comment": "Merge is intentionally OFF. Deploying this repo means pushing main, which Cloudflare Pages publishes to equacoredigital.com and equacoredigital.ng in 1-2 minutes. A merge to main IS a production deploy of the public company website, so it stays a human decision. Do not set this to true without the owner explicitly asking.",
+
+  "onApproval": {
+    "merge": false
+  },
+
+  "guardrails": [
+    "Never describe EquaCore as a ServiceNow partner, ServiceNow-certified, or an authorised/implementation partner of ServiceNow. The partner licence is applied for, not granted. scripts/check-trademark-risk.py enforces this and is check 1 of the gate.",
+    "Halo is the platform EquaCore actually delivers, and it IS a full Halo Technology Alliance Partner - implementation language is fine for HaloITSM, HaloPSA and HaloCRM. Keep any 'partner' wording away from every ServiceNow mention; the checker flags 'partner' within 30 characters of 'ServiceNow'.",
+    "index.html is the only file body content is authored in. Never hand-edit a generated route file; regenerate with python3 scripts/prerender.py and commit the output.",
+    "Never add a redirect from equacoredigital.ng to .com. The compliance goal is for .ng URLs to stay on the .ng hostname while serving the same site.",
+    "Do not add Co-Authored-By: Claude or 'Generated with Claude Code' trailers to commits in this repo. Authorship stays with the human committer.",
+    "INFRASTRUCTURE.md holds live secrets and is gitignored. Never commit it and never quote its credentials into a PR, issue, or commit message.",
+    "The three site forms POST to n8n webhooks whose Spam Guard nodes rebuild the payload from a fixed field whitelist and silently drop unknown fields. Adding a form field without the matching n8n and SharePoint change loses the data with no error. Every SharePoint node also uses onError: continueRegularOutput, so a failed write still returns {ok:true} to the visitor.",
+    "assets/js/i18n.js is a French dictionary keyed on the exact decoded English string. Changing any English UI string without renaming its key makes that string silently fall back to English - no error, no test catches it.",
+    "EquaCore is already a registered BPP federal contractor. Never propose obtaining that registration; work may build on it.",
+    "Check the branch is current with origin/main before starting. A stale checkout can pass the local gate while silently reverting shipped work, because the gate only checks index.html against its own route files, not against the remote."
+  ]
+}
