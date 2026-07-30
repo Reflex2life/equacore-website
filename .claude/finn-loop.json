@@ -1,5 +1,5 @@
 {
-  "_comment": "Finn-loop configuration for this repository. The loop is three stages - the skills at .claude/skills/finn-{spec,build,review} - and they read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. Ideation is not a loop stage; /finn-ideate is a separate on-demand tool.",
+  "_comment": "Finn-loop configuration for this repository. The loop is three stages - the skills at ~/.claude/skills/finn-{spec,build,review} (user-level, shared across repos) - and they read this file to learn which repo, team and checks they are operating on. Without it they refuse to run. Ideation is not a loop stage; /finn-ideate is a separate on-demand tool.",
 
   "repo": "Reflex2life/equacore-website",
 
