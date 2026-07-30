@@ -51,3 +51,20 @@ EquaCore_Digital_Infrastructure.pdf
 CEO_*_Review_*.md
 EquaCore_Zoho_*
 EquaCore_Talent_Pool_*
+
+# ------------------------------------------------------------------
+# Local agent tooling — machine-specific, not repo contract.
+# .claude/finn-loop.json, CLAUDE.md and AGENTS.md ARE tracked; the
+# agent/skill definitions below are per-machine and deliberately not.
+# ------------------------------------------------------------------
+.agents/
+.claude/agents/
+
+# ------------------------------------------------------------------
+# Generated artifacts and internal outputs — NEVER commit.
+# outputs/ holds scraped lead data and contact PII; this repo is public.
+# The cold-outreach PDFs are generated from the tracked .md sources.
+# ------------------------------------------------------------------
+outputs/
+cold-outreach/workflows/
+cold-outreach/docs/*.pdf
