@@ -87,7 +87,9 @@ See `docs/ENVIRONMENT.md` for the fuller environment reference.
 
 Work is tracked in **Linear** — team **Engineering** (`ENG`, id `7833827e-3ca6-4a9b-b7c3-69d164ec9218`), project **EquaCore Website**.
 
-**The loop is three stages:** `/finn-spec` turns a chosen idea into a build-ready issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → `/finn-review` posts a verdict → the `CI / gate` check must pass → merge (human during the break-in period, then auto-merge). Each stage has a human gate on either side, and that is what makes the chain safe to run unattended.
+**The loop is three stages:** `/finn-spec` turns a chosen idea into a build-ready issue → a human applies the `agent-ready` label → `/loop /finn-build` claims it and opens a PR → `/finn-review` posts a verdict → the `gate` check must pass → **a human merges.** Each stage has a human gate on either side, and that is what makes the chain safe to run unattended.
+
+The merge stays human and there is no auto-merge: merging `main` publishes to equacoredigital.com and equacoredigital.ng within 1–2 minutes, so it is a production deploy. `onApproval.merge` in `.claude/finn-loop.json` is `false`, `/finn-review` refuses to merge while it is, and GitHub auto-merge is never enabled. The check is named `gate` — that is the `check_run` name the API returns for the `gate` job in the `CI` workflow, and `requiredChecks` must match it exactly. `CI / gate` is only the web UI's display form and matches nothing.
 
 The three skills live at **`~/.claude/skills/finn-{spec,build,review}`** (user-level, shared with other repos) and read **`.claude/finn-loop.json`** in this repo to learn which repository, Linear team, required checks, verify commands and guardrails apply. Without that file they refuse to run; `/finn-build` also aborts if `gh repo view` does not match its `repo` value, so an issue from another project can never be built here.
 

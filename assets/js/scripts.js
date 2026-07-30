@@ -10,7 +10,7 @@ const descs={
   services:'EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.',
   servicenow:'EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.',
   haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
-  talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow professionals — administrators, developers, architects, BAs, and CMDB/Discovery/SAM specialists — with global enterprises.',
+  talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.',
   'talent-pool':'Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.',
   engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
   about:'EquaCore Digital is a practitioner-led digital operations firm specialising in ServiceNow and the full Halo platform, based in Nigeria and delivering globally.',
@@ -308,6 +308,7 @@ function hs(e){
       err.textContent=t('Your CV is larger than 8 MB. Please upload a smaller file.');err.style.display='block';return;
     }
     const fd=new FormData(form);
+    fd.set('certifications','Minimum cert attested: yes - '+String(fd.get('certifications')||'').trim());
     const token=fd.get('cf-turnstile-response')||'';
     if(!token){err.textContent=t('Please complete the security check.');err.style.display='block';return}
     fd.append('cf_token',token);

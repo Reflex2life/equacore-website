@@ -34,7 +34,7 @@ SERVICES_CHILDREN = {"servicenow", "haloitsm", "talent"}
 SERVICE_ROUTES = {
     "servicenow": "ServiceNow Consulting, Talent & Managed Services",
     "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
-    "talent": "ServiceNow Talent Augmentation",
+    "talent": "ServiceNow and Halo Talent Augmentation",
 }
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
@@ -55,7 +55,7 @@ ROUTES = {
     ),
     "talent": (
         "Talent Augmentation — EquaCore Digital",
-        "EquaCore Digital places pre-vetted, enterprise-ready ServiceNow professionals — administrators, developers, architects, BAs, and CMDB/Discovery/SAM specialists — with global enterprises.",
+        "EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.",
     ),
     "talent-pool": (
         "Join Our Talent Pool — EquaCore Digital",
