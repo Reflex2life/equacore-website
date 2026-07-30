@@ -438,6 +438,13 @@ const FR = {
     "Discutons de votre situation et recommandons le format d'engagement adapté.",
   "Let's Discuss →": "Discutons-en →",
 
+  // ---- Partner credentials (home hero + About) ----
+  "Full Anthropic Partner": "Partenaire Anthropic complet",
+  "Partnerships": "Partenariats",
+  "Technology Partnerships": "Partenariats technologiques",
+  "EquaCore Digital is a full Anthropic partner, alongside our full Halo Technology Alliance Partner status.":
+    "EquaCore Digital est partenaire Anthropic complet, aux côtés de notre statut de partenaire complet de la Halo Technology Alliance.",
+
   // ---- About page ----
   "Built by practitioners,": "Construit par des praticiens,",
   "for practitioners": "pour des praticiens",
