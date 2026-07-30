@@ -413,6 +413,10 @@ const FR = {
   "How We Work With You": "Comment nous travaillons avec vous",
   "Flexible engagement structures designed to match your project needs and business objectives.":
     "Des formats d'engagement flexibles conçus pour répondre aux besoins de votre projet et à vos objectifs métier.",
+  "Advisory": "Conseil",
+  "Independent Strategy & Review": "Stratégie et évaluation indépendantes",
+  "Platform strategy, tooling assessment, and delivery review. For organisations that need an informed second opinion before committing to a platform or a programme.":
+    "Stratégie de plateforme, évaluation des outils et revue de la livraison. Pour les organisations qui ont besoin d'un second avis éclairé avant de s'engager sur une plateforme ou un programme.",
   "Defined Scope": "Périmètre défini",
   "Project-Based Delivery": "Livraison au projet",
   "For defined implementations with clear scope, milestones, and deliverables. Ideal for new platform deployments, migrations, and targeted improvement projects.":
