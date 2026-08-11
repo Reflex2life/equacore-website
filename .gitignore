@@ -59,6 +59,7 @@ EquaCore_Talent_Pool_*
 # ------------------------------------------------------------------
 .agents/
 .claude/agents/
+.codex/
 
 # ------------------------------------------------------------------
 # Generated artifacts and internal outputs — NEVER commit.

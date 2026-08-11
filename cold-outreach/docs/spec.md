@@ -1,73 +1,179 @@
 # EquaCore Cold Outreach — Design Spec
 
-**Date:** 2026-06-24 · **Status:** Phase A in build · Owner: Emeka Chiazor
+**Created:** 2026-06-24 · **Last reconciled against the live instance:** 2026-08-10
+**Status:** Phase A + Phase B live and sending · Owner: Emeka Chiazor
+
+> This spec is reconciled from the running workflows on `voidnox.app.n8n.cloud`, not from
+> intent. Where the original 2026-06-24 design was later changed, the change is recorded in
+> the decisions log rather than quietly edited away.
 
 ## Goal & scope
 
-Add an outbound channel: discover Nigerian ICP-fit companies, scrape them, draft
-personalized cold emails, route through human review, and send a 3-step sequence from
-`sales@equacoredigital.com`. **v1 scope = Nigeria only** (non-NG companies hard-dropped;
-UK/EU/NA later). Complements existing inbound (contact form / Tally → Make.com → SharePoint).
+An outbound channel: discover ICP-fit companies, scrape them, draft personalized cold
+emails, route through review, and send a 3-step sequence from `sales@equacoredigital.com`.
+Scope has widened from the original **Nigeria-only v1** to Nigeria plus other West African
+markets — leads carry a `country` column and route to one of two ClickUp lists.
 
-## Architecture (two phases)
+## Architecture
 
-- **Phase A — discover → scrape → qualify → draft → SharePoint review queue.** Build + prove
-  now; zero emails sent.
-- **Phase B — n8n + Zoho send engine.** Approved rows → 3-step sequence from `sales@` (Zoho),
-  throttle, stop-on-reply (IMAP), unsubscribe/bounce → suppression. No SaaS platform, no
-  separate domain (established-domain sending; reputation protected by volume discipline).
+- **Phase A — discover → scrape → qualify → draft → review queue.**
+ `Phase A - Discovery` (weekly Mon 08:00) → `Phase A2*` Apify/Maps scrapers → `Apify Lead DB`
+ → `Phase A3 - Lead Qualify & Draft Feeder` (daily 07:00) qualifies, drafts, humanizes, and
+ creates a ClickUp review card plus a `Cold Outreach Sends` row at `pending_review`.
+- **Phase B — n8n + Zoho send engine.** Card moved to **Approved** → `Phase B - Approve Handler`
+ (ClickUp trigger) enriches via Lusha and sets the row `active` → `Phase B - Cadence Scanner`
+ (hourly, Tue–Thu 10:00–16:00 Lagos, ≤35/run, 3 days between steps) sends over Zoho SMTP →
+ `Phase B - Reply Agent & Opt-out Watcher` (IMAP) handles replies, opt-outs and bounces.
+- **Standing guard.** `Reconcile - Approved Backlog Guard` (every 3h, business hours Mon–Fri)
+ catches approved cards whose send state never activated.
 
-Orchestration: n8n (`voidnox.app.n8n.cloud`), built via the n8n-expert skill process.
+No cold-email SaaS, no separate sending domain — established-domain sending, reputation
+protected by volume discipline.
+
+## Autonomous review branch (added 2026-08-08, undocumented at the time)
+
+A second trigger on `Phase A3` (cron `0 0 7 * * 2-4`, Tue–Thu 07:00) reviews pending cards
+with no human involved:
+
+1. Pull the 10 oldest `pending_review` rows and their ClickUp cards.
+2. **Deterministic hard-pass gate** — requires a named (non-generic) work email, an email
+ domain matching the recorded company domain, and an unsubscribe + privacy footer in body 1.
+3. **DeepSeek review agent** returns `{approve, confidence, reason}`.
+4. **Gate:** `hardPass AND approve AND confidence >= 95`.
+ - Pass → ClickUp status `approved`, assigned to Emeka. **This feeds the send engine.**
+ - Fail → row and card permanently marked `rejected`.
+
+**Design intent:** a fully autonomous pipeline, with this agent validating the writeup *and
+verifying that the contact is the genuine person the email should reach*.
+
+**Implementation gap.** The verification half is not built. The agent's entire evidence set
+is `company`, `email`, `domain`, draft 1, and `cardContent` — and `cardContent` is the
+ClickUp description Phase A3 wrote from the same lead record, so the check is circular. The
+agent has no `ai_tool` connections, never sees the `Scrape LinkedIn Profile` research (that
+feeds `Build Research Context` for drafting only), and the Lusha person/email lookup runs
+**after** approval in `Phase B - Approve Handler` — the one real identity signal in the
+system arrives too late to inform the decision.
+
+Consequence: the branch can reject a malformed contact but cannot detect a wrong one. To
+meet the stated intent, contact verification must move ahead of the gate — mirror the Lusha
+lookup into Phase A3 (or attach it as an agent tool), pass the profile research into the
+review evidence, and treat "verified employment/role at this domain" as a hard-pass
+condition alongside the existing format checks.
+
+## "Fully autonomous as long as the draft is solid"
+
+Emeka's standing instruction (2026-08-10). There is **no human spot-check** in the happy path,
+which means the lint *is* the quality control — "solid" must be deterministic and fail closed.
+`cold-outreach/lint/draft-solidity.js` is the contract (18 tests; positive case is a real
+production draft from execution 3525). A draft that cannot be mechanically proven solid goes to
+`needs_research`, never to send and never to `rejected`.
+
+Gates, all required: contact verified against a 2xx probe on an authoritative domain · verified
+company matches the card's company (or its `companyAliases`) · suppression clear ·
+`siteFetched` · `hasPainPointEvidence` · `humanized === true` · copy checks (greeting token,
+byte-exact footer, no booking link, no bare "Halo", no banned AI vocabulary, no source leaks,
+pain point posed as a question, no statistic absent from the research evidence).
 
 ## Models
 
-- **Qualify:** DeepSeek `deepseek-chat` (cheap internal boolean; hard-drop non-Nigeria).
-- **Draft:** OpenAI `gpt-5-mini` — chosen by bake-off (2026-06-24) for polished bank-buyer
-  tone. NO `temperature` (gpt-5); read agent output at `$json.output`.
+- **Qualify:** DeepSeek `deepseek-chat`.
+- **Draft:** **Claude Sonnet** (`lmChatAnthropic`), followed by a **DeepSeek humanizer pass**.
+ Supersedes the 2026-06-24 bake-off choice of OpenAI `gpt-5-mini`, which is no longer used
+ anywhere in the pipeline.
+- **Company research:** DeepSeek, inside `Shared - Company Research`, the
+ single implementation called by both Phase A3 and the A4b redraft path.
+- **Reply agent:** Claude. **Autonomous reviewer** and **nickname casualizer:** DeepSeek.
+- Read AI-Agent output at `$json.output`; never set `temperature` on gpt-5 models.
 - Routing policy: `model-cost-preference` memory + n8n-expert `model-routing.md`.
 
-## Scraping (tiered — conserve Firecrawl credits)
+## Data model (n8n Data Tables + ClickUp)
 
-Tier 1 = free n8n HTTP fetch + HTML Extract/regex (emails, about/services, signals).
-Tier 2 = Firecrawl API (Header-Auth cred) fallback only on JS-rendered/anti-bot/no-email.
+Supersedes the original SharePoint-list design.
 
-## Data model (SharePoint lists)
+**`Cold Outreach Sends`** — the workflow. Send state:
+`taskId, company, casualCompany, senderName, email, firstName, domain, country,
+subject1..3, body1..3, step, nextSendAt, status, agentRounds`.
+`status`: `pending_review` → `active` → `completed`, plus `rejected | replied |
+unsubscribed | bounced`.
 
-**`Cold Outreach Leads`** (review queue): Company, Website, Location, Industry, ContactEmail,
-ContactName?, ContactRole, Signal, ICPReason, Email1Subject, Email1Body, Email2Subject,
-Email2Body, Email3Subject, Email3Body, Status (`Pending|Approved|Rejected|Sent|Replied|
-Unsubscribed`), SeqStep, NextSendAt, DiscoveredAt, Source, DedupKey(domain).
+**`Apify Lead DB`** — the workflow. Scraped leads; `pipelineStatus`: `new` → `queued`.
 
-**`Outreach Suppression`**: DedupKey(domain), Email, Reason (already-contacted|unsubscribed|
-bounced|client|competitor), AddedAt.
+**`Outreach Reply Insights`** — the workflow (added 2026-08-08).
+`company, country, openerSubject, replyIntent, escalated, receivedAt`.
 
-## Compliance (NDPA-primary v1)
+**ClickUp review queue** — team `90121850569`, space `90128084984`, lists `901219065232`
+(Nigeria) and `901219526986` (other markets). Card statuses: `pending review` → `approved` /
+`rejected` → `sent`.
 
-Footer on every email: EquaCore Digital Ltd · Victoria Crest, Orchid Road, Lekki, Lagos,
-Nigeria · unsubscribe · https://equacoredigital.com/privacy. B2B legitimate-interest
-(business/role addresses only); honor opt-outs permanently via suppression; truthful
-subjects/headers; conservative volume (start ~10–20/day, ramp).
+There is no `Outreach Suppression` list; suppression is expressed as terminal `status`
+values on `Cold Outreach Sends`.
+
+## Compliance (NDPA-primary)
+
+Footer on every email, byte-exact and lint-enforced. Defined once in
+`lint/draft-solidity.js` (`FOOTER`):
+
+```
+—
+EquaCore Digital Ltd · Lekki, Lagos, Nigeria
+https://equacoredigital.com
+```
+
+**2026-08-10, two reductions, both on Emeka's explicit instruction:**
+
+1. the privacy URL replaced with the plain company website;
+2. the `Not relevant? Reply "unsubscribe" and we'll remove you.` line removed entirely.
+
+Each was back-applied to all non-terminal send rows and all in-review ClickUp cards across
+**both** lists (Nigeria `901219065232` and West Africa `901219526986`). Terminal rows —
+`completed`, `replied` — were deliberately left untouched so the record of what was actually
+sent stays truthful.
+
+**Compliance position, stated plainly.** The opt-out *mechanism* is intact: the Reply Agent
+detects "unsubscribe" in any reply and writes to `Outreach Suppression`, which the Cadence
+Scanner consults before every send. What is gone is the *stated* opt-out. NDPA transparency
+practice and B2B cold-email norms expect a visible opt-out, and its absence raises
+spam-complaint risk against the `sales@` domain. This was raised and the instruction
+reaffirmed; it is a deliberate business decision, recorded here so it is not later mistaken
+for a regression.
+
+B2B legitimate-interest (business/role addresses only); opt-outs honoured permanently via the
+`Outreach Suppression` table; truthful subjects and headers; conservative volume. The Cadence
+Scanner caps a run at 35 sends and only runs Tue–Thu 10:00–16:00 Lagos.
 
 ## Credentials
 
-Have (n8n): DeepSeek, OpenAI, Gemini. Add: Firecrawl (Header Auth), Microsoft SharePoint
-OAuth2 (info@); Phase B: Zoho `sales@` (SMTP+IMAP, verify `.com` DKIM). Optional: Brave
-Search API. Secrets live only as n8n credentials — never committed.
+In n8n: DeepSeek, OpenAI, Gemini, Anthropic, ClickUp OAuth2, Zoho `sales@` (SMTP + IMAP),
+Lusha, Apify. Secrets live only as n8n credentials and are **stripped from every export in
+`workflows/`** — never committed.
 
 ## Decisions log
 
-- Nigeria-only v1; hybrid discovery (directories + queries); site-scrape emails (role
-  addresses acceptable MVP; finder API later).
-- Sending from `sales@` (Zoho), n8n-owned send engine — no cold-email platform / no separate
-  domain. `info@` (M365) = n8n SharePoint CRUD identity.
-- Review queue in SharePoint (fallback: n8n Data Table / Google Sheets if OAuth painful).
-- 3-step sequence, stop-on-reply.
-- Draft model = OpenAI `gpt-5-mini` (bake-off winner); qualify = DeepSeek.
-- Artifacts: canonical = "Cold Outreach Automation" SharePoint doc library; versioned mirror
-  = this repo `cold-outreach/`.
+Current:
+
+- Multi-market (Nigeria + other West African markets), routed by a `country` column to two
+ ClickUp lists. *Supersedes Nigeria-only v1.*
+- Review queue in **ClickUp**, send state in **n8n Data Tables**. *Supersedes SharePoint
+ lists — the OAuth path was abandoned.*
+- Draft model = **Claude Sonnet + DeepSeek humanizer**. *Supersedes the gpt-5-mini bake-off
+ winner.*
+- Sending from `sales@` (Zoho), n8n-owned send engine — no cold-email platform, no separate
+ domain.
+- 3-step sequence, 3 days apart, stop-on-reply.
+- 2026-08-08: autonomous review branch added to Phase A3 (see above).
+- 2026-08-08: reply-insight logging added to the Reply Agent.
+
+Superseded (kept for history): SharePoint `Cold Outreach Leads` + `Outreach Suppression`
+lists; OpenAI `gpt-5-mini` as draft model; Nigeria-only scope; `info@` (M365) as the CRUD
+identity; SharePoint doc library as the canonical artifact store.
 
 ## Verification
 
-Per-node `validate_node_config` + `validate_workflow`; Phase A live test on a tiny seed
-(read `get_execution(includeData:true)`, inspect SharePoint rows, no emails sent); Phase B
-test to internal addresses before real volume.
+Per-node `validate_node_config` + `validate_workflow` before publish — then a **live run**,
+because validation never proves behavior. Trigger-based workflows (webhook, ClickUp, IMAP,
+schedule) cannot be manually executed; activate and send a real event, then read
+`get_execution(includeData: true)` and confirm the data, not just `status: success`.
+
+Pay particular attention to Code nodes in `runOnceForAllItems` mode: returning a single item
+silently drops every other item in the batch. Two such defects were found and fixed in the
+Phase A3 review branch on 2026-08-10.
