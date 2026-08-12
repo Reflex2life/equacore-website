@@ -1,7 +1,8 @@
 # EquaCore Cold Outreach — Design Spec
 
-**Created:** 2026-06-24 · **Last reconciled against the live instance:** 2026-08-10
-**Status:** Phase A + Phase B live and sending · Owner: Emeka Chiazor
+**Created:** 2026-06-24 · **Last reconciled against the live instance:** 2026-08-12
+**Status:** FULLY AUTONOMOUS — review → verify → promote → approve → send with no human
+in the loop (Emeka-authorized 2026-08-12) · Owner: Emeka Chiazor
 
 > This spec is reconciled from the running workflows on `voidnox.app.n8n.cloud`, not from
 > intent. Where the original 2026-06-24 design was later changed, the change is recorded in
@@ -162,6 +163,20 @@ Current:
 - 3-step sequence, 3 days apart, stop-on-reply.
 - 2026-08-08: autonomous review branch added to Phase A3 (see above).
 - 2026-08-08: reply-insight logging added to the Reply Agent.
+- 2026-08-12: **full autonomy authorized and wired** (Emeka's direct instruction). A3's
+ dual-reviewer agreement now drives Phase A4e (live single-task lineage: A4 → A4c → A4b)
+ then Phase A6/A5 promotion; the card flips to Approved only on `promoted: true`.
+ Promotions capped at 2/run for the 300s trigger-execution ceiling. *Supersedes the
+ human card-flip as the approval step; the Approve Handler's gates are unchanged.*
+- 2026-08-12: identity gates realigned with Emeka's per-action approval — person-name
+ matching is token-subset (credential suffixes and middle names no longer false-reject),
+ company matching strips legal suffixes and accepts canonical-company equality. The A4b
+ offer contract (free 5-working-day mapping in email 2) was restored after silent drift.
+- 2026-08-12: emergency stop engages only on persistent failure (3 transient errors/60 min
+ per workflow; non-transient immediately). Reply-capture proof is renewed every 30 min by
+ a canary workflow (Mon–Fri 06:00–17:30 Lagos) instead of hand-stamping. *Supersedes the
+ latch-forever stop and the unrenewable 1-hour proof that silently blocked all sending
+ 2026-08-11 → 08-12.*
 
 Superseded (kept for history): SharePoint `Cold Outreach Leads` + `Outreach Suppression`
 lists; OpenAI `gpt-5-mini` as draft model; Nigeria-only scope; `info@` (M365) as the CRUD

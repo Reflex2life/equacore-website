@@ -34,58 +34,75 @@ personalized cold emails → review → send a 3-step sequence from `sales@equac
  stops the sequence, handles unsubscribes and bounces, logs to `Outreach Reply Insights`,
  and drafts a response for approval before anything goes back to the prospect.
 
-## Autonomy — current state (2026-08-10)
+## Autonomy — current state (2026-08-12): FULLY AUTONOMOUS
 
-**Nothing sends right now, by design.** Active send rows = 0, the autonomous reviewer is
-disabled, and production approvals fail closed. This is a deliberate safe state while
-contact verification is being proven, not a fault.
+**The loop is closed.** On Emeka's explicit instruction (2026-08-12) the pipeline reviews,
+verifies, promotes, approves and sends without a human in the loop. The first two fully
+autonomous approvals (zero human touches from review to release) ran the same day, and the
+fail-closed path proved itself on the very first pass: a third candidate whose lineage did
+not survive verification was refused with explicit reasons and left untouched for retry.
 
-### The `Phase A3` autonomous review branch — DISABLED
+### The autonomous chain
 
-`Phase A3` carries a second trigger (cron `0 0 7 * * 2-4`, Tue–Thu 07:00) that reviews
-pending cards without a human. **`Daily Pending Review Trigger` is currently
-`disabled: true`** and must stay off until verification is proven.
+`Phase A3`'s review trigger (Tue–Thu 07:00 Lagos) drives the whole loop:
 
-It reads the 10 oldest `pending_review` rows → deterministic hard-pass gate → DeepSeek
-review agent → gate on `hardPass AND approve AND confidence >= 95`.
+1. Read the 10 oldest `pending_review` rows → deterministic hard-pass gate →
+   DeepSeek review agent → **independent Claude verifier**. Both must approve.
+2. `Select Promotion Batch` caps promotions at **2 per run** — sized so the full run stays
+   under the platform's hard **300-second ceiling on trigger executions** (measured: three
+   promotion legs took 255s in manual mode, and trigger mode runs ~18% slower).
+3. Each surviving card gets **fresh lineage** via `Phase A4e - Live Single-Task Verification
+   Lineage`: A4 contact verification → A4c live LinkedIn employment corroboration →
+   A4b research-grounded redraft to the offer contract. Single-task by construction —
+   it throws on arrays, so one call can never fan concurrent promotions.
+4. `Phase A6` calls the `Phase A5` evaluator against every safety control and, only on
+   `eligible`, writes the production verification and approved-sequence rows. A6 is
+   idempotent across crash/retry (resume/complete state machine; duplicate writes refused).
+5. **Only `promoted: true` flips the card to Approved** — the flip fires the existing
+   `Approve Handler` webhook, which re-checks every gate before activating the send row.
+   A refused promotion leaves the card in `pending review`; the next scheduled run retries.
 
-Two fixes were applied on 2026-08-10 so it is no longer destructive when re-enabled:
+Sends then leave via the unchanged `Cadence Scanner` envelope: hourly Tue–Thu 10:00–16:00
+Lagos, max 3 deliveries per run, first send of any sequence lands at the next 10:00 slot.
 
-- Research gaps now write **`needs_research`** to the row and leave the ClickUp card at
- `pending review` (a `Genuine Rejection?` IF node gates the card update). Only a genuine
- judgement rejection marks a card `rejected`. Previously a missing email — 41% of the
- backlog — was permanently rejected.
-- `Daily Review Evidence` and `Find Daily Emeka Member` were collapsing every batch to a
- single item, silently dropping 9 of every 10 cards.
+### Identity gates — matching semantics fixed 2026-08-12 (Emeka-approved per action)
 
-**Its evidence is still circular** — the agent has no `ai_tool` connections and grades the
-card description Phase A3 itself wrote. Contact verification does **not** live here; it
-lives in `Phase A4` (below). Do not add Lusha to `Phase A3`.
+Three verification gates were refusing genuinely-verified contacts on string hygiene, which
+is why no candidate had ever cleared the chain:
 
-### `Phase A4` / `A4b` — contact verification and redraft (shadow only)
+- **Person names** (A4c): exact-match failed on credential suffixes and middle names
+  ("Segun Aboderin, MBA" ≠ "Segun Aboderin"). Now token-subset: every token of the card's
+  contact name (min 2) must appear in the LinkedIn profile name. A different person still
+  fails; company match remains a separate mandatory leg.
+- **Company names** (A4b research gate): raw-string aliases failed on legal suffixes
+  ("…Ltd" vs "…Plc") and multi-domain companies. Now uses the same legal-token-stripping
+  normalizer as A4c, plus a third leg: research's canonical company equals the card company.
+- **The offer contract was restored to A4b.** Its lint had lost the offer-in-email-2 rule
+  and its drafting prompt capped email 2 at 35 words (the offer needs ~25 — it could never
+  fit). Both realigned to the documented contract; the lint now blocks offer-less copy.
 
-Separate workflows that establish whether a contact is genuinely the right person:
-Lusha lookup → candidate-domain probe → suppression check → evidence written to
-`Outreach Verification Decisions`. `A4b` redrafts verified contacts with Claude, **routes
-through the DeepSeek humanizer**, then applies a deterministic lint.
+None of these weakened a gate: a wrong person or wrong company still fails every leg.
 
-Both run in shadow (`shadowMode: true`) and mutate no card or send state.
+### Self-monitoring
 
-**Known weakness under active fix (2026-08-10):** the domain probe was not gating on its
-own result — `statusCode` values of `0`, `421` and `503` still produced
-`domainVerified: true`, and one contact at an unrelated company was marked
-`employmentVerified: true` despite `probeCompanyMatch: false`. A probe that did not reach
-the site is not evidence. Only `2xx` may verify.
+- `Ops - Reply Capture Canary` (every 30 min, Mon–Fri 06:00–17:30 Lagos) sends an
+  unsubscribe to our own sales inbox, verifies the Reply Agent classifies and claims it,
+  and restamps `reply_capture_verified` with real evidence. The 1-hour freshness gate on
+  sending is therefore live-proven, not hand-stamped. The window deliberately starts at
+  06:00 so the 07:00 review run always sees fresh proof — before this fix the two schedules
+  never overlapped and every autonomous promotion would have been refused.
+- `Ops - Pipeline Failure Log` engages the emergency stop only on **persistent** failure:
+  transient errors (429/5xx/socket) must recur 3× within 60 minutes for the same workflow;
+  non-transient errors still engage immediately. Critical ClickUp calls retry 5×5s.
+  (Previously a single transient 429 latched the stop with no way back — that one fault
+  silently blocked all sending for two days.)
 
-### The production send gate
+### The production send gate (unchanged in spirit, now satisfiable)
 
-`Phase B - Approve Handler` requires a persisted verification row with `decision=approve`,
-`shadowMode=false`, all booleans true and confidence ≥95 before it will activate a send;
-otherwise `Hold Unverified Approval`. **There are currently zero such rows**, so a human
-approving a card in ClickUp is held rather than sent. Fail-closed and intentional.
-
-The card body still reads "Move this task to Approved to send the sequence" — that
-instruction is currently misleading and should be updated when the gate opens.
+`Approve Handler` still requires a persisted production verification (`decision=approve`,
+`shadowMode=false`, all booleans true, confidence ≥95) plus a bound, active, in-date
+approved sequence. The difference is that A6 now writes those rows through the real
+pipeline — the gate opens on merit instead of never.
 
 ## Data stores
 
@@ -95,7 +112,7 @@ instruction is currently misleading and should be updated when the gate opens.
 | `Apify Lead DB` (n8n data table) | the workflow | Scraped leads, `pipelineStatus` |
 | `Outreach Reply Insights` (n8n data table) | the workflow | Reply intent / escalation log (added 2026-08-08) |
 | `Outreach Verification Decisions` (n8n data table) | the workflow | Contact-verification evidence ledger; gates production sends (added 2026-08-10) |
-| `Outreach Suppression` (n8n data table) | `LBITkNkIlsJkQSKZ` | Email/domain suppression, checked pre-send by the Cadence Scanner (added 2026-08-10) |
+| `Outreach Suppression` (n8n data table) | the workflow | Email/domain suppression, checked pre-send by the Cadence Scanner (added 2026-08-10) |
 | `Outreach Reply Messages` (n8n data table) | the workflow | Message-ID/fallback-key claim scaffold before inbound routing. The trigger remains `UNSEEN`; do not switch to `ALL` until the ledger is safely seeded or IMAP watches a bounded dedicated folder. |
 | ClickUp lists `901219065232` / `901219526986` | — | Human review queue (Nigeria / other markets) |
 
@@ -231,6 +248,19 @@ demo-booking submission was silently lost.
 Unacknowledged failures surface in the weekly retro as `pipelineFailures` with a per-workflow
 breakdown in `notes`.
 
+**Emergency-stop threshold (changed 2026-08-12):** the failure log engages the outreach
+emergency stop only when a *transient* error (rate limit, 5xx, socket) recurs **3× within
+60 minutes** for the same critical workflow; a non-transient error still engages it on the
+first occurrence. Nothing disengages the stop automatically — that stays a human decision —
+but a single rate-limit blip no longer halts sending permanently, which is exactly what
+happened on 2026-08-11 (one ClickUp 429 silently blocked all sends for two days).
+
+**A freshness check is only valid on a value something is committed to refreshing.** That
+rule is now load-bearing: three separate 2026-08-12 outages traced to TTLs or "changed
+recently" checks on rows nothing ever rewrote. If you add a freshness gate, add its writer
+in the same change, and give liveness its own heartbeat column — never overload an
+operator's `changedAt`.
+
 **Testing note:** n8n fires `errorWorkflow` only for **trigger/production** executions. A manual
 run that throws produces nothing, which looks exactly like a broken handler. Test error paths
 with a real trigger.
@@ -365,7 +395,7 @@ Firecrawl credit per fit lead + a Claude and two DeepSeek passes each).
 In `full` mode the ICP sample gate is skipped entirely — per-lead ICP screening is done
 downstream by `Qualify Lead` in Phase A3, which does hard-drop non-fits (verified).
 
-## Known issues (2026-08-10)
+## Known issues (updated 2026-08-12)
 
 - **Large stalled backlog** — **599** rows at `pending_review`, and the drainable rate is
  **zero** while sends are locked. Against a 300-row sample, ~48% clear the deterministic
@@ -382,13 +412,20 @@ downstream by `Qualify Lead` in Phase A3, which does hard-drop non-fits (verifie
  from 20. A2 needs a run before the pilot opens, or the feeder has nothing to draw on once
  the backlog drains.
 
-- **~575 queued cards still carry a booking link.** They predate research, the humanizer and
- the offer, and would fail `draft-solidity` on four counts each. `Backfill - Redraft Queue to
- Offer Contract` repairs them at **7/day** — rate-matched to what the send envelope can
- absorb, so nothing is pre-paid — which means roughly **60 days** to clear 424 sendable rows.
- Until then **a stale card must never be approved directly**; its copy is not what we would
- choose to send. Rows with no contact email (163) are skipped deliberately: redrafting one
- costs ~4 model calls to produce an email with nowhere to go.
+- **Most queued cards still lack recorded research evidence.** The verifier correctly
+ refuses copy whose claims have no stored grounding, so those rows cannot promote until the
+ repair queue re-researches and redrafts them. `Backfill - Redraft Queue to Offer Contract`
+ runs **3× daily (05:00 / 13:00 / 21:00 Lagos) at batch 10** — batch size is pinned by the
+ platform's 300s ceiling on trigger executions (batch 10 measured 214s in trigger mode;
+ batch 14 would be killed; do not raise it, add runs instead). Real throughput is ~8 usable
+ rows/run (~24/day; some rows legitimately route to `needs_research`), so the backlog
+ clears in roughly **two weeks**, not the 60 days the old 7/day rate implied. Until a card
+ has been repaired, **a stale card must never be approved directly**; its copy is not what
+ we would choose to send. Rows with no contact email are skipped deliberately: redrafting
+ one costs ~4 model calls to produce an email with nowhere to go.
+ Progress is measurable, not guessable: `Ops - Lead Qualification Census (Read Only)` reports
+ evidence coverage, repair durability, and `verifierReadyIfEvidenceComplete` — the single
+ number that tracks distance to a fully flowing pipeline (~289 of the current backlog).
 
 ## Card and row must never disagree
 

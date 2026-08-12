@@ -46,7 +46,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
 
 **Interfaces:**
 - Consumes: ClickUp list `901219065232` (workspace `90121850569`) task status field; data table
-  `S2B1Sdkckui4zzzO` rows (`taskId`, `email`, `firstName`, `status`, `step`, `nextSendAt`,
+  "Cold Outreach Sends" rows (`taskId`, `email`, `firstName`, `status`, `step`, `nextSendAt`,
   `senderName`, `subject1..body3`, `agentRounds`); Lusha v3 `prospecting`/`enrich` endpoints
   exactly as documented in the design doc and in [[equacore-cold-outreach]] memory.
 - Produces: for each repaired card — data table row with `status='active', step=1,
@@ -84,7 +84,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
      downstream nodes read this fixed value via `$('Reconcile Guard Now').first().json.now`)
   3. **ClickUp: list tasks** — list `901219065232`, workspace `90121850569`, filter
      `status = "Approved"`, credential `u6QskCANdJE2ZfMQ`
-  4. **Data Table: get rows** — table `S2B1Sdkckui4zzzO`, return all
+  4. **Data Table: get rows** — the "Cold Outreach Sends" table, return all
   5. **Code node "Find Mismatches"**:
      ```javascript
      const rows = $('Data Table: get rows').all().map(i => i.json);
@@ -106,7 +106,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
      ```
   7. **IF "Has Email?"** — condition: `{{$json.email}}` is not empty (branch true = skip Lusha,
      false = run Lusha Search → Pick Best Contact → Lusha Enrich → Extract Email, using the
-     exact same HTTP Request node configuration as the Approve Handler workflow `hQaJ9ozahTAQ95qI`
+     exact same HTTP Request node configuration as the Approve Handler workflow
      — fetch its current config with `get_workflow_details` on that ID first and copy the Lusha
      node parameters verbatim, do not re-derive them)
   8. **Code node "Compute Stagger"** (runs after the Has-Email/Lusha merge, receives all kept
@@ -129,7 +129,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
   11. **ClickUp: create task** — list `901219065860`, folder `901211962352`, space
       `90128085539`, team `90121850569` — same field mapping as the Approve Handler's
       equivalent "create pipeline lead" step (copy from `get_workflow_details` on
-      `hQaJ9ozahTAQ95qI`)
+      the Approve Handler)
 
   Save as **inactive**.
 
@@ -169,7 +169,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
 ### Task 2: Wire bounce handling into the Reply/Opt-out Watcher
 
 **Files:**
-- Modify existing n8n workflow `3LRLzQYNXItQ2Y3A` ("Phase B - Reply Agent & Opt-out Watcher")
+- Modify existing n8n workflow the "Phase B - Reply Agent & Opt-out Watcher" workflow
   via n8n MCP tools — no local file.
 - Modify: `cold-outreach/docs/reconciliation-guard-design.md` (append verification note).
 
@@ -183,7 +183,7 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
 
 - [ ] **Step 1: Inspect the current workflow**
 
-  Call `get_workflow_details` on `3LRLzQYNXItQ2Y3A`. Locate the `Switch(route)` node's `auto`
+  Call `get_workflow_details` on the Reply Agent workflow. Locate the `Switch(route)` node's `auto`
   output connection (currently connects to nothing / a no-op). Note the exact node names and
   parameter shapes used by the neighboring `unsub` branch (`Mark Unsubscribed`, `Card Rejected`)
   — the new branch mirrors these exactly, just with different values.
@@ -210,11 +210,11 @@ nodes), n8n Data Tables, Lusha v3 API (HTTP Request + predefined cred), Zoho SMT
 
 - [ ] **Step 4: Validate**
 
-  Call `validate_workflow` on `3LRLzQYNXItQ2Y3A`. Fix any errors before proceeding.
+  Call `validate_workflow` on the Reply Agent workflow. Fix any errors before proceeding.
 
 - [ ] **Step 5: Republish**
 
-  Call `publish_workflow` on `3LRLzQYNXItQ2Y3A` to apply the change. Note: this workflow uses an
+  Call `publish_workflow` on the Reply Agent workflow to apply the change. Note: this workflow uses an
   IMAP trigger that has previously needed an unpublish/republish cycle to force a fresh IDLE
   connection (see [[equacore-cold-outreach]] "IMAP STALL BUG") — a straight republish while
   already active should be sufficient here since we're not toggling active/inactive, but if the

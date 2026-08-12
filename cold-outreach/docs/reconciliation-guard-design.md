@@ -8,7 +8,7 @@ Status: Approved for implementation
 On 2026-07-11 a ClickUp bulk status-change (24 Pipeline-1 cards moved to Approved at once)
 silently bypassed the Approve Handler's webhook trigger — ClickUp does not fire per-task
 webhooks on bulk moves, only on single-card moves. This was diagnosed and repaired with two
-one-off backfill workflows (`xQZuSkFIuOFhbMT5`, `eA0L565CkOMBOd1v`), which drained the backlog
+one-off backfill workflows (the Approved-Sent Backlog and Lusha Backlog drivers), which drained the backlog
 (1 lead recovered via Lusha; 23 not in Lusha's database, left in Approved for manual triage).
 
 The operating rule going forward is **approve cards individually, never via bulk-select** —
@@ -39,7 +39,7 @@ explicitly out of scope for this iteration.
 1. Schedule Trigger (cron above)
 2. ClickUp: list tasks in "Cold Outreach Review" (list `901219065232`, workspace `90121850569`,
    pass `workspace_id` per the known 2-workspace gotcha) filtered to status = Approved
-3. Data Table: get all rows from "Cold Outreach Sends" (`S2B1Sdkckui4zzzO`)
+3. Data Table: get all rows from "Cold Outreach Sends" 
 4. Code — build a Set of `taskId`s with status `active`/`completed`; filter Approved cards to
    those NOT in that set → candidates
 5. Code — cap candidates to **5 per run**; log count deferred to next run (no alerting — plain
@@ -66,7 +66,7 @@ still-stuck Approved cards serve as a live test: capped at 5, most resolve to 0-
 
 ## Part 2 — Bounce handling (fix to existing workflow)
 
-**Problem:** the Reply/Opt-out Watcher (`3LRLzQYNXItQ2Y3A`) already classifies inbound mail into
+**Problem:** the Reply/Opt-out Watcher already classifies inbound mail into
 `unsub` / `auto` / `reply` routes. The `auto` route (which catches mailer-daemon/NDR/bounce
 messages) is currently a dead end — "dropped, fallback unwired" — so delivery failures to dead
 mailboxes are silently discarded and the cadence keeps trying to send to them.
@@ -87,7 +87,7 @@ bounce (or a deliberately-seeded bad-address test row if one arrives sooner).
 
 - **Workflow ID `FTcVTaHC0MnAoUt7`** ("Reconcile - Approved Backlog Guard"), built via n8n Workflow SDK, credentials wired (ClickUp `u6QskCANdJE2ZfMQ`, Lusha `mpPiRn6tEUECh7PK`). One deviation from the plan: the "capture $now once via a Set node" idea was dropped in favor of just calling `Date.now()` inline inside the single `Cap To 5 And Stagger` Code node (`runOnceForAllItems` executes once per run, so this is safe and matches the existing one-off drivers' own idiom) — simpler, no behavior difference.
 - **Manual test execution (execution 2294):** Find Mismatches correctly identified the same 23 known stuck Approved cards. Cap-to-5 + 15-min stagger worked correctly (`10:11, 10:26, 10:41, 10:56, 11:11`). All 5 routed to the no-email/Lusha branch; all 5 Lusha searches returned 0 results at 0 credits charged; the chain correctly stopped there with zero side effects (proves the "no match → leave untouched" safety behavior).
-- **Not exercised by live data:** the merge → activate row → flip card → create pipeline lead repair path, since no card in the current backlog has a resolvable Lusha contact. Those nodes are near-verbatim copies of code already proven in production today (Approve Handler `hQaJ9ozahTAQ95qI` and the one-off Lusha Backlog Driver `eA0L565CkOMBOd1v` both successfully ran this exact logic on real leads, e.g. Aspira, Baywood Continental, this morning).
+- **Not exercised by live data:** the merge → activate row → flip card → create pipeline lead repair path, since no card in the current backlog has a resolvable Lusha contact. Those nodes are near-verbatim copies of code already proven in production today (the Approve Handler and the one-off Lusha Backlog Driver both successfully ran this exact logic on real leads, e.g. Aspira, Baywood Continental, this morning).
 - **Cleanup action (user-directed, 2026-07-11):** rather than let the Reconcile Guard keep re-checking the 23 confirmed-unresolvable cards indefinitely, all 23 were moved to Rejected directly via ClickUp API (individual per-card calls, not a bulk-select — no webhook risk) with a comment noting the Lusha-not-found reason. They fall out of the Reconcile Guard's scope automatically going forward since it only considers cards with status Approved.
 - **Activated:** schedule now live, `0 0 9-17/3 * * 1-5` (every 3h, business hours, weekdays).
 
