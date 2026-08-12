@@ -17,7 +17,7 @@ personalized cold emails → review → send a 3-step sequence from `sales@equac
  creates ClickUp review cards.
 2. **Scrape / enrich** — `Phase A2*` Apify + Google Maps scrapers feed the `Apify Lead DB`
  data table. Lusha enrichment runs later, at approval time.
-3. **Qualify** — `Phase A3`, daily 07:00: DeepSeek agent hard-drops non-ICP leads.
+3. **Qualify** — `Phase A3`, weekday intake 13:00 Lagos: DeepSeek agent hard-drops non-ICP leads.
 4. **Research, then draft** — `Shared - Company Research` Firecrawl-scrapes the company site and
  returns evidence-bound pain points; Claude Sonnet writes the 3-step sequence using at most one
  of them, **as a question, never asserted as fact**; a **DeepSeek humanizer pass** then rewrites
@@ -44,7 +44,7 @@ not survive verification was refused with explicit reasons and left untouched fo
 
 ### The autonomous chain
 
-`Phase A3`'s review trigger (Tue–Thu 07:00 Lagos) drives the whole loop:
+`Phase A3`'s review trigger (Tue–Thu 09:10 Lagos) drives the whole loop:
 
 1. Read the 10 oldest `pending_review` rows → deterministic hard-pass gate →
    DeepSeek review agent → **independent Claude verifier**. Both must approve.
@@ -85,12 +85,18 @@ None of these weakened a gate: a wrong person or wrong company still fails every
 
 ### Self-monitoring
 
-- `Ops - Reply Capture Canary` (every 30 min, Mon–Fri 06:00–17:30 Lagos) sends an
+- `Ops - Reply Capture Canary` (Tue–Thu, 09:00 then 10:45–15:45 Lagos — gate-aligned,
+  21 probes/week) sends an
   unsubscribe to our own sales inbox, verifies the Reply Agent classifies and claims it,
   and restamps `reply_capture_verified` with real evidence. The 1-hour freshness gate on
   sending is therefore live-proven, not hand-stamped. The window deliberately starts at
-  06:00 so the 07:00 review run always sees fresh proof — before this fix the two schedules
-  never overlapped and every autonomous promotion would have been refused.
+  09:00 so the 09:10 review run always sees fresh proof, and each afternoon probe lands
+  15 minutes before its Cadence hour — probes exist only where a consumer exists. (The
+  first version ran every 30 minutes Mon–Fri and flooded the sales inbox; the original
+  schedule bug was the reverse: review at 07:00 with no probe before 08:00, so every
+  autonomous promotion would have been refused. Both corrected 2026-08-12.) The canary
+  now uses a constant subject so probes collapse into one mail thread; the unique token
+  lives in the body and the ledger is purged pre-send, so matching stays exact.
 - `Ops - Pipeline Failure Log` engages the emergency stop only on **persistent** failure:
   transient errors (429/5xx/socket) must recur 3× within 60 minutes for the same workflow;
   non-transient errors still engage immediately. Critical ClickUp calls retry 5×5s.
@@ -415,11 +421,11 @@ downstream by `Qualify Lead` in Phase A3, which does hard-drop non-fits (verifie
 - **Most queued cards still lack recorded research evidence.** The verifier correctly
  refuses copy whose claims have no stored grounding, so those rows cannot promote until the
  repair queue re-researches and redrafts them. `Backfill - Redraft Queue to Offer Contract`
- runs **3× daily (05:00 / 13:00 / 21:00 Lagos) at batch 10** — batch size is pinned by the
+ runs **weekdays at 11:00 and 15:00 Lagos, batch 10** — batch size is pinned by the
  platform's 300s ceiling on trigger executions (batch 10 measured 214s in trigger mode;
  batch 14 would be killed; do not raise it, add runs instead). Real throughput is ~8 usable
- rows/run (~24/day; some rows legitimately route to `needs_research`), so the backlog
- clears in roughly **two weeks**, not the 60 days the old 7/day rate implied. Until a card
+ rows/run (~16/weekday; some rows legitimately route to `needs_research`), so the backlog
+ clears in roughly **four weeks**, not the 60 days the old 7/day rate implied. Until a card
  has been repaired, **a stale card must never be approved directly**; its copy is not what
  we would choose to send. Rows with no contact email are skipped deliberately: redrafting
  one costs ~4 model calls to produce an email with nowhere to go.

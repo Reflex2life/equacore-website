@@ -19,7 +19,7 @@ markets — leads carry a `country` column and route to one of two ClickUp lists
 
 - **Phase A — discover → scrape → qualify → draft → review queue.**
  `Phase A - Discovery` (weekly Mon 08:00) → `Phase A2*` Apify/Maps scrapers → `Apify Lead DB`
- → `Phase A3 - Lead Qualify & Draft Feeder` (daily 07:00) qualifies, drafts, humanizes, and
+ → `Phase A3 - Lead Qualify & Draft Feeder` (weekday intake 13:00 Lagos) qualifies, drafts, humanizes, and
  creates a ClickUp review card plus a `Cold Outreach Sends` row at `pending_review`.
 - **Phase B — n8n + Zoho send engine.** Card moved to **Approved** → `Phase B - Approve Handler`
  (ClickUp trigger) enriches via Lusha and sets the row `active` → `Phase B - Cadence Scanner`
@@ -33,7 +33,7 @@ protected by volume discipline.
 
 ## Autonomous review branch (added 2026-08-08, undocumented at the time)
 
-A second trigger on `Phase A3` (cron `0 0 7 * * 2-4`, Tue–Thu 07:00) reviews pending cards
+A second trigger on `Phase A3` (Tue–Thu 09:10 Lagos) reviews pending cards
 with no human involved:
 
 1. Pull the 10 oldest `pending_review` rows and their ClickUp cards.
@@ -172,9 +172,15 @@ Current:
  matching is token-subset (credential suffixes and middle names no longer false-reject),
  company matching strips legal suffixes and accepts canonical-company equality. The A4b
  offer contract (free 5-working-day mapping in email 2) was restored after silent drift.
+- 2026-08-12 (pm): all outreach schedules consolidated to business hours on the
+ operator's instruction — review Tue–Thu 09:10, intake weekdays 13:00, redraft backfill
+ weekdays 11:00/15:00, A2 scrape Mondays 09:00, safety monitor 15-min Mon–Fri 09:00–16:45,
+ canary gate-aligned Tue–Thu. Reply Agent and failure handling stay event-driven 24/7.
+ *Supersedes the 05:00–21:00 spread and the 24/7 safety polling.*
 - 2026-08-12: emergency stop engages only on persistent failure (3 transient errors/60 min
- per workflow; non-transient immediately). Reply-capture proof is renewed every 30 min by
- a canary workflow (Mon–Fri 06:00–17:30 Lagos) instead of hand-stamping. *Supersedes the
+ per workflow; non-transient immediately). Reply-capture proof is renewed by a
+ gate-aligned canary (Tue–Thu 09:00 + 10:45–15:45 Lagos, constant subject, purge-then-match)
+ instead of hand-stamping. *Supersedes the
  latch-forever stop and the unrenewable 1-hour proof that silently blocked all sending
  2026-08-11 → 08-12.*
 
