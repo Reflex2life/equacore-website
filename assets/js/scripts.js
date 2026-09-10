@@ -166,6 +166,22 @@ function isSpam(payload, elapsedMs){
   return null;
 }
 
+// Keep the visitor's details available when form delivery cannot be confirmed.
+function submissionFallback(err, fd, kind){
+  const talent=kind==='Talent application';
+  err.textContent=t('We could not confirm receipt. Your details are still in this form. You can email them to us instead. ');
+  if(talent)err.appendChild(document.createTextNode(t('Please attach your CV to the email manually. ')));
+  const fields=['name','email','company','platform','message','phone','country','linkedin','specialism','experience','availability','engagement','certifications','covernote','consent'];
+  const lines=fields.map(key=>{const value=fd.get(key);return typeof value==='string'&&value.trim()?key+': '+value.trim():''}).filter(Boolean);
+  const link=document.createElement('a');
+  link.href='mailto:Info@equacoredigital.com?subject='+encodeURIComponent(kind)+'&body='+encodeURIComponent(lines.join('\n\n'));
+  link.textContent=t('Open email draft');
+  err.appendChild(link);
+  err.appendChild(document.createTextNode(t(' — review it and send it from your email app. Nothing is sent automatically.')));
+  err.setAttribute('role','alert');
+  err.style.display='block';
+}
+
 // Contact form submit: client-side validation + spam guards, then POST to n8n.
 function hs(e){
   e.preventDefault();
@@ -196,8 +212,9 @@ function hs(e){
   b.disabled=true;
   b.textContent=t('Sending...');
   fetch(form.action,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json','Accept':'application/json'}})
-  .then(r=>{
-    if(r.ok){
+  .then(r=>{if(!r.ok)throw new Error('fail');return r.json()})
+  .then(d=>{
+    if(d&&d.ok===true){
       form.reset();
       if(window.turnstile)turnstile.reset();
       b.disabled=false;
@@ -206,9 +223,9 @@ function hs(e){
     } else {throw new Error('fail')}
   })
   .catch(()=>{
-    b.innerHTML='<span>'+t('Error — please try again')+'</span>';
-    b.style.background='#e53e3e';
-    setTimeout(()=>{b.innerHTML=t('Send Message')+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';b.style.background='';b.disabled=false},3000);
+    b.disabled=false;b.textContent=t('Send Message');
+    submissionFallback(errEl,fd,'Website enquiry');
+    if(window.turnstile)turnstile.reset();
   });
 }
 
@@ -256,7 +273,7 @@ function hs(e){
     const b=form.querySelector('button[type="submit"]');
     b.disabled=true;b.textContent=t('Checking...');
     fetch('https://voidnox.app.n8n.cloud/webhook/demo-gate',{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json'}})
-    .then(r=>r.json())
+    .then(r=>{if(!r.ok)throw new Error('fail');return r.json()})
     .then(d=>{
       b.disabled=false;b.textContent=t('Continue to booking');
       var u;try{u=new URL(d&&d.url)}catch(_){u=null}
@@ -265,15 +282,14 @@ function hs(e){
         fallback.href=u.href;fallback.style.display='block';
         if(w)setTimeout(close,1500);
       }else{
-        err.textContent=t('We could not verify your request. Please try again, or use the contact form instead.');
-        err.style.display='block';
+        submissionFallback(err,fd,'Demo request');
         if(window.turnstile&&tsId!==null)turnstile.reset(tsId);
       }
     })
     .catch(function(){
       b.disabled=false;b.textContent=t('Continue to booking');
-      err.textContent=t('Connection error — please try again.');
-      err.style.display='block';
+      submissionFallback(err,fd,'Demo request');
+      if(window.turnstile&&tsId!==null)turnstile.reset(tsId);
     });
   });
 })();
@@ -316,7 +332,7 @@ function hs(e){
     const b=form.querySelector('button[type="submit"]');
     b.disabled=true;b.textContent=t('Submitting...');
     fetch('https://voidnox.app.n8n.cloud/webhook/talent-apply',{method:'POST',body:fd})
-    .then(r=>r.json())
+    .then(r=>{if(!r.ok)throw new Error('fail');return r.json()})
     .then(d=>{
       b.disabled=false;b.textContent=t('Submit Application');
       if(d&&d.ok){
@@ -324,14 +340,14 @@ function hs(e){
         if(window.turnstile)turnstile.reset();
         history.pushState(null,'','/thank-you');showPage('thank-you');
       }else{
-        err.textContent=t('We could not verify your application. Please complete the security check and try again.');
-        err.style.display='block';
+        submissionFallback(err,fd,'Talent application');
         if(window.turnstile)turnstile.reset();
       }
     })
     .catch(function(){
       b.disabled=false;b.textContent=t('Submit Application');
-      err.textContent=t('Connection error — please try again.');err.style.display='block';
+      submissionFallback(err,fd,'Talent application');
+      if(window.turnstile)turnstile.reset();
     });
   });
 })();
