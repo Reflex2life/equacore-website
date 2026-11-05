@@ -39,13 +39,15 @@ const FR = {
   "Platform Specialisations": "Spécialisations plateformes",
   "Global Regions": "Régions couvertes",
   "Full Halo Technology Alliance Partner": "Partenaire à part entière du Halo Technology Alliance",
+  "Anthropic Partner": "Partenaire Anthropic",
+  "OpenAI Partner": "Partenaire OpenAI",
   "ServiceNow® Ecosystem Practice — Independent": "Pratique de l'écosystème ServiceNow® — indépendante",
 
   // ---- Core Offerings ----
   "Core Offerings": "Nos offres principales",
-  "Enterprise platforms, delivered right": "Des plateformes d'entreprise, livrées comme il se doit",
-  "Three ways we engage. All of them end with your team owning the platform.":
-    "Trois façons de collaborer. Toutes se terminent avec une plateforme que votre équipe maîtrise pleinement.",
+  "Technology services, delivered right": "Des services technologiques, livrés comme il se doit",
+  "Our platform services, talent offering, and technology partnerships — brought together with clear scope and disciplined delivery.":
+    "Nos services de plateforme, notre offre de talents et nos partenariats technologiques — réunis autour d'un périmètre clair et d'une livraison rigoureuse.",
   "Full Halo partner — delivering HaloITSM, HaloPSA, and HaloCRM across full-lifecycle implementations, migrations, process alignment, and managed support.":
     "Partenaire Halo à part entière — nous livrons HaloITSM, HaloPSA et HaloCRM, de l'implémentation de bout en bout aux migrations, à l'alignement des processus et au support géré.",
   "Explore Halo Services →": "Découvrir les services Halo →",
@@ -61,6 +63,10 @@ const FR = {
   "Managed services & day-2 operations": "Services gérés et exploitation au quotidien",
   "Independent advisory & health checks": "Conseil indépendant et bilans de santé plateforme",
   "Process design aligned to ITIL": "Conception de processus alignée sur ITIL",
+  "Our ServiceNow® services remain independent. We are an Anthropic Partner and an OpenAI Partner, alongside our full Halo Technology Alliance Partner status.":
+    "Nos services ServiceNow® restent indépendants. Nous sommes partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de notre statut de partenaire à part entière du Halo Technology Alliance.",
+  "View Our Partnerships →": "Voir nos partenariats →",
+  "Independent ServiceNow® services": "Services ServiceNow® indépendants",
   "We deploy pre-vetted Nigerian ServiceNow professionals globally — with mentorship, enterprise readiness, and flexible engagement structures.":
     "Nous déployons dans le monde entier des professionnels ServiceNow nigérians présélectionnés — avec mentorat, préparation aux exigences de l'entreprise et des formats d'engagement flexibles.",
   "Explore Talent →": "Découvrir nos talents →",
@@ -130,8 +136,8 @@ const FR = {
   "FAQ": "FAQ",
   "Frequently Asked Questions": "Questions fréquentes",
   "What does EquaCore Digital do?": "Que fait EquaCore Digital ?",
-  "EquaCore Digital is a technology services firm specialising in ServiceNow and the full Halo platform. We provide talent augmentation (placing pre-vetted ServiceNow professionals with global enterprises), managed services (day-2 platform operations), and independent advisory — plus full implementations of HaloITSM, HaloPSA, and HaloCRM as a full Halo Technology Alliance Partner.":
-    "EquaCore Digital est un cabinet de services technologiques spécialisé dans ServiceNow et l'ensemble de la plateforme Halo. Nous proposons du renfort de talents (placement de professionnels ServiceNow présélectionnés auprès d'entreprises internationales), des services gérés (exploitation de plateforme au quotidien) et du conseil indépendant — ainsi que des implémentations complètes de HaloITSM, HaloPSA et HaloCRM en tant que partenaire à part entière du Halo Technology Alliance.",
+  "EquaCore Digital is a technology services firm specialising in ServiceNow and the full Halo platform. We provide talent augmentation (placing pre-vetted ServiceNow professionals with global enterprises), managed services (day-2 platform operations), and independent advisory — plus full implementations of HaloITSM, HaloPSA, and HaloCRM as a full Halo Technology Alliance Partner. EquaCore Digital is also an Anthropic Partner and an OpenAI Partner.":
+    "EquaCore Digital est un cabinet de services technologiques spécialisé dans ServiceNow et l'ensemble de la plateforme Halo. Nous proposons du renfort de talents (placement de professionnels ServiceNow présélectionnés auprès d'entreprises internationales), des services gérés (exploitation de plateforme au quotidien) et du conseil indépendant — ainsi que des implémentations complètes de HaloITSM, HaloPSA et HaloCRM en tant que partenaire à part entière du Halo Technology Alliance. EquaCore Digital est également partenaire d'Anthropic et partenaire d'OpenAI.",
   "What ServiceNow and Halo roles can EquaCore place?": "Quels profils ServiceNow et Halo EquaCore peut-il placer ?",
   "We place administrators and system engineers, developers and integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists, and process consultants across ServiceNow and HaloITSM, HaloPSA, and HaloCRM, including certified Halo administrators, HaloITSM implementation specialists, and Halo Service Desk engineers. All candidates are technically assessed and enterprise-ready before placement.": "Nous plaçons des administrateurs et ingénieurs système, des développeurs et ingénieurs d'intégration, des architectes de solutions, des analystes métier, des spécialistes CMDB/Discovery/SAM et des consultants processus sur ServiceNow ainsi que sur HaloITSM, HaloPSA et HaloCRM, y compris des administrateurs Halo certifiés, des spécialistes de l'implémentation HaloITSM et des ingénieurs Halo Service Desk. Tous les candidats sont évalués techniquement et prêts pour l'entreprise avant placement.",
   "Is EquaCore an official Halo partner?": "EquaCore est-il un partenaire Halo officiel ?",
@@ -161,8 +167,8 @@ const FR = {
   // ---- Services page ----
   "Our Services": "Nos services",
   "What We Deliver": "Ce que nous livrons",
-  "A quick scan of EquaCore's primary offerings — from enterprise platform implementation to talent augmentation.":
-    "Un aperçu rapide des principales offres d'EquaCore — de l'implémentation de plateformes d'entreprise au renfort de talents.",
+  "A quick scan of EquaCore's platform services, talent offering, and technology partnerships. Our ServiceNow® services remain independent.":
+    "Un aperçu des services de plateforme, de l'offre de talents et des partenariats technologiques d'EquaCore. Nos services ServiceNow® restent indépendants.",
   "Full Halo partner delivering HaloITSM, HaloPSA, and HaloCRM — implementation, legacy migration, process alignment, and ongoing managed support across all three products.":
     "Partenaire Halo à part entière livrant HaloITSM, HaloPSA et HaloCRM — implémentation, migration d'outils existants, alignement des processus et support géré continu sur les trois produits.",
   "ServiceNow Services": "Services ServiceNow",
@@ -439,11 +445,10 @@ const FR = {
   "Let's Discuss →": "Discutons-en →",
 
   // ---- Partner credentials (home hero + About) ----
-  "Full Anthropic Partner": "Partenaire Anthropic complet",
   "Partnerships": "Partenariats",
   "Technology Partnerships": "Partenariats technologiques",
-  "EquaCore Digital is a full Anthropic partner, alongside our full Halo Technology Alliance Partner status.":
-    "EquaCore Digital est partenaire Anthropic complet, aux côtés de notre statut de partenaire complet de la Halo Technology Alliance.",
+  "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside our full Halo Technology Alliance Partner status. These relationships sit alongside our work in Talent, Managed Services, and Advisory. Our ServiceNow® services are independent.":
+    "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de notre statut de partenaire à part entière du Halo Technology Alliance. Ces relations accompagnent notre travail dans les domaines des talents, des services gérés et du conseil. Nos services ServiceNow® sont indépendants.",
 
   // ---- About page ----
   "Built by practitioners,": "Construit par des praticiens,",
@@ -897,10 +902,10 @@ const FR = {
   "Message Received — EquaCore Digital": "Message reçu — EquaCore Digital",
 
   // ---- SEO descriptions ----
-  "EquaCore Digital is a full Halo partner delivering HaloITSM, HaloPSA, and HaloCRM implementations — plus ServiceNow talent augmentation, managed services, and independent advisory. Based in Nigeria, delivering globally.":
-    "EquaCore Digital est un partenaire Halo à part entière livrant des implémentations HaloITSM, HaloPSA et HaloCRM — ainsi que du renfort de talents ServiceNow, des services gérés et du conseil indépendant. Basé au Nigeria, livrant dans le monde entier.",
-  "EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.":
-    "EquaCore Digital propose quatre services : renfort de talents ServiceNow, implémentation complète de la plateforme Halo (HaloITSM, HaloPSA, HaloCRM), services gérés et conseil indépendant.",
+  "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.":
+    "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de la livraison de la plateforme Halo complète et de services ServiceNow indépendants. Basé au Nigeria, actif dans le monde entier.",
+  "EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.":
+    "L'offre d'EquaCore Digital comprend la livraison complète de la plateforme Halo, des services ServiceNow indépendants, le renfort de talents, ainsi que ses statuts de partenaire d'Anthropic et d'OpenAI.",
   "EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.":
     "EquaCore Digital est une pratique ServiceNow basée au Nigeria, proposant conseil, renfort de talents, services gérés et conseil indépendant aux organisations du Nigeria et du monde entier. Siège à Lagos.",
   "EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.":
@@ -911,8 +916,8 @@ const FR = {
     "Rejoignez le vivier de talents EquaCore. Les professionnels ServiceNow et Halo au Nigeria peuvent s'inscrire pour être rapprochés de placements en entreprise au Nigeria, au Royaume-Uni et en Europe — permanent, contrat ou intégré.",
   "EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.":
     "Modèles d'engagement EquaCore Digital : renfort de personnel, services gérés et conseil — avec une gouvernance structurée et des résultats mesurables pour des équipes réparties.",
-  "EquaCore Digital is a practitioner-led digital operations firm specialising in ServiceNow and the full Halo platform, based in Nigeria and delivering globally.":
-    "EquaCore Digital est un cabinet d'opérations numériques dirigé par des praticiens, spécialisé dans ServiceNow et l'ensemble de la plateforme Halo, basé au Nigeria et livrant dans le monde entier.",
+  "EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.":
+    "EquaCore Digital est partenaire d'Anthropic, partenaire d'OpenAI et partenaire à part entière du Halo Technology Alliance, avec des services ServiceNow indépendants et une livraison mondiale.",
   "EquaCore Digital serves clients across Nigeria, the UK, Europe, and West Africa with ServiceNow and Halo platform delivery backed by structured governance.":
     "EquaCore Digital sert des clients au Nigeria, au Royaume-Uni, en Europe et en Afrique de l'Ouest avec une livraison ServiceNow et Halo appuyée sur une gouvernance structurée.",
   "Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.":

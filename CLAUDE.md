@@ -14,6 +14,16 @@ This repo is the canonical website source for EquaCore Digital Ltd.
 - Private operational reference: `INFRASTRUCTURE.md` in this folder. It contains live secrets and must remain untracked.
 - Canonical record of the July 2026 revamp (design system, demo funnel, form migration): `docs/WEBSITE-REVAMP-2026-07.md`.
 
+## Plane Work Item Gate
+
+Before any EquaCore website change or other EquaCore delivery work, create a
+work item in the `voidnox-trial` Plane workspace and implement against its
+identifier. Use a project named EquaCore when one exists; otherwise use
+Engineering (`ENG`, `d7e8822e-99b5-4701-841e-48b5d88f729f`). Record the
+request, acceptance criteria, implementation evidence, verification, and any
+blockers on that item. The Linear/Finn workflow below is separate and does not
+replace this Plane-first gate.
+
 ## Domains
 
 Both domains serve the same site content as separate hostnames:
