@@ -6,7 +6,7 @@ const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',s
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
-  home:'EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.',
+  home:'EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Anthropic Partner, OpenAI Partner and Freshworks Partner.',
   services:"EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.",
   servicenow:'EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.',
   haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
@@ -116,8 +116,13 @@ document.querySelectorAll('.nl.hd').forEach(function(hd){
   hd.addEventListener('focusout',function(e){if(window.innerWidth>768&&!hd.contains(e.relatedTarget))setDropdown(hd,false);});
 });
 
-// Close on Escape (works on both desktop and mobile)
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllDropdowns();});
+// Close open navigation on Escape and return focus to the mobile toggle.
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  closeAllDropdowns();
+  const nls=document.getElementById('nls'),ntBtn=document.getElementById('nt');
+  if(nls.classList.contains('op')){nls.classList.remove('op');ntBtn.classList.remove('op');ntBtn.setAttribute('aria-expanded','false');ntBtn.focus();}
+});
 
 // Close on outside click
 document.addEventListener('click',function(e){if(!e.target.closest('.nl.hd'))closeAllDropdowns();});
@@ -137,7 +142,9 @@ function tn(){
   const ntBtn=document.getElementById('nt');
   nls.classList.toggle('op');
   ntBtn.classList.toggle('op');
-  ntBtn.setAttribute('aria-expanded',nls.classList.contains('op'));
+  const open=nls.classList.contains('op');
+  ntBtn.setAttribute('aria-expanded',open);
+  if(open){const first=nls.querySelector('a,button');if(first)first.focus();}
 }
 
 // Scroll effects

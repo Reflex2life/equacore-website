@@ -27,6 +27,60 @@ const FR = {
   "Contact": "Contact",
   "Book a demo": "Réserver une démo",
 
+  // ---- Services-first home ----
+  "Digital operations, delivered right": "Opérations numériques, livrées comme il se doit",
+  "Halo delivery.": "Livraison Halo.",
+  "Independent ServiceNow® services.": "Services ServiceNow® indépendants.",
+  "Independent ServiceNow services": "Services ServiceNow indépendants",
+  "Pre-vetted talent.": "Talents présélectionnés.",
+  "We implement and support HaloITSM, HaloPSA and HaloCRM. For organisations using the ServiceNow® platform, we provide day-2 managed operations and independent advisory. We also place pre-vetted talent into delivery teams.":
+    "Nous implémentons et prenons en charge HaloITSM, HaloPSA et HaloCRM. Pour les organisations utilisant la plateforme ServiceNow®, nous assurons l'exploitation gérée au quotidien et un conseil indépendant. Nous intégrons également des talents présélectionnés aux équipes de livraison.",
+  "See the three offers": "Voir les trois offres",
+  "View partner relationships": "Voir nos relations partenaires",
+  "Delivery system": "Système de livraison",
+  "Platform": "Plateforme",
+  "Operations": "Opérations",
+  "People": "Personnes",
+  "Discover": "Découvrir",
+  "Deliver": "Livrer",
+  "Transfer": "Transférer",
+  "Clear scope": "Périmètre clair",
+  "Structured governance": "Gouvernance structurée",
+  "Knowledge transfer": "Transfert de compétences",
+  "Core services": "Services principaux",
+  "Three clear ways we help.": "Trois façons claires de vous aider.",
+  "Choose platform delivery, independent operations support or specialist talent—with the scope made clear before work begins.":
+    "Choisissez la livraison de plateforme, le support opérationnel indépendant ou des talents spécialisés, avec un périmètre clarifié avant le début des travaux.",
+  "Platform delivery": "Livraison de plateforme",
+  "Halo platform delivery": "Livraison de la plateforme Halo",
+  "Full-lifecycle delivery across HaloITSM, HaloPSA and HaloCRM—from implementation and legacy migration to process alignment, onboarding and managed support.":
+    "Livraison sur l'ensemble du cycle de HaloITSM, HaloPSA et HaloCRM, de l'implémentation et la migration des outils existants à l'alignement des processus, la prise en main et le support géré.",
+  "Implementation and migration": "Implémentation et migration",
+  "Process alignment": "Alignement des processus",
+  "Post-go-live support": "Support après mise en service",
+  "Independent services": "Services indépendants",
+  "ServiceNow® services": "Services ServiceNow®",
+  "Day-2 managed operations and independent platform advisory for organisations using the ServiceNow® platform.":
+    "Exploitation gérée au quotidien et conseil plateforme indépendant pour les organisations utilisant la plateforme ServiceNow®.",
+  "Day-2 managed operations": "Exploitation gérée au quotidien",
+  "Advisory and health checks": "Conseil et bilans de santé plateforme",
+  "Process design and optimisation": "Conception et optimisation des processus",
+  "Independent; no reseller or licensing arrangement": "Indépendant ; aucun accord de revente ou de licence",
+  "Talent augmentation": "Renfort de talents",
+  "Pre-vetted talent": "Talents présélectionnés",
+  "Pre-vetted Nigerian ServiceNow professionals for embedded teams, contracts or permanent placement—supported by mentorship and enterprise readiness.":
+    "Professionnels ServiceNow nigérians présélectionnés pour des équipes intégrées, des contrats ou des placements permanents, accompagnés par du mentorat et une préparation aux exigences de l'entreprise.",
+  "Technical assessment": "Évaluation technique",
+  "Mentorship and readiness": "Mentorat et préparation",
+  "Flexible engagement structures": "Formats d'engagement flexibles",
+  "Partner relationships": "Relations partenaires",
+  "Four distinct relationships.": "Quatre relations distinctes.",
+  "These relationships sit alongside our work in Talent, Managed Services, and Advisory. Our ServiceNow® services are independent.":
+    "Ces relations complètent nos activités de talents, de services gérés et de conseil. Nos services ServiceNow® sont indépendants.",
+  "We deliver HaloITSM, HaloPSA and HaloCRM across full-lifecycle implementations, legacy migrations, process alignment, user onboarding and post-go-live managed support.":
+    "Nous livrons HaloITSM, HaloPSA et HaloCRM sur l'ensemble du cycle : implémentations, migrations d'outils existants, alignement des processus, prise en main utilisateurs et support géré après mise en service.",
+  "Freshworks Partner": "Partenaire Freshworks",
+
   // ---- Home hero ----
   "Enterprise Platforms": "Plateformes d'entreprise",
   "Halo & ServiceNow — ": "Halo et ServiceNow — ",
@@ -904,6 +958,8 @@ const FR = {
   // ---- SEO descriptions ----
   "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.":
     "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de la livraison de la plateforme Halo complète et de services ServiceNow indépendants. Basé au Nigeria, actif dans le monde entier.",
+  "EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Anthropic Partner, OpenAI Partner and Freshworks Partner.":
+    "EquaCore Digital propose la livraison de la plateforme Halo, des services ServiceNow indépendants et des talents, et est partenaire à part entière du Halo Technology Alliance, partenaire d'Anthropic, partenaire d'OpenAI et partenaire de Freshworks.",
   "EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.":
     "L'offre d'EquaCore Digital comprend la livraison complète de la plateforme Halo, des services ServiceNow indépendants, le renfort de talents, ainsi que ses statuts de partenaire d'Anthropic et d'OpenAI.",
   "EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.":
@@ -943,6 +999,11 @@ const FR = {
 const FR_ATTR = {
   "EquaCore Digital - Home": "EquaCore Digital - Accueil",
   "Main navigation": "Navigation principale",
+  "Core offerings at a glance": "Aperçu des offres principales",
+  "Halo platform delivery, independent ServiceNow services and talent augmentation converge in EquaCore's delivery model": "La livraison de la plateforme Halo, les services ServiceNow indépendants et le renfort de talents convergent dans le modèle de livraison d'EquaCore",
+  "Three service channels labelled HaloITSM, HaloPSA and HaloCRM flow into a shared implementation and support workspace.": "Trois canaux de service nommés HaloITSM, HaloPSA et HaloCRM convergent vers un espace commun d'implémentation et de support.",
+  "Health assessment, managed operations and advisory connect to an independently supported ServiceNow platform workspace.": "L'évaluation de santé, l'exploitation gérée et le conseil se connectent à un espace de travail de la plateforme ServiceNow pris en charge de manière indépendante.",
+  "Three assessed professional profiles move through mentorship into an embedded enterprise delivery team.": "Trois profils professionnels évalués passent par le mentorat avant d'intégrer une équipe de livraison d'entreprise.",
   "Toggle navigation menu": "Afficher/masquer le menu de navigation",
   "Scroll to top": "Remonter en haut de la page",
   "Close": "Fermer",
