@@ -10,6 +10,8 @@ Quick orientation:
 - All three forms POST to n8n webhooks at `voidnox.app.n8n.cloud`
   (Make.com and Tally are decommissioned).
 - Deploy = fast-forward push to `main` over SSH.
+- Before any EquaCore website or delivery change, create the Plane work item
+  required by [`CLAUDE.md`](CLAUDE.md#plane-work-item-gate).
 - Run `python3 scripts/check-trademark-risk.py` before pushing copy changes.
 - July 2026 revamp record: `docs/WEBSITE-REVAMP-2026-07.md`.
   Environment/DNS/email: `docs/ENVIRONMENT.md`.

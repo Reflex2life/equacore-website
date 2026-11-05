@@ -43,7 +43,7 @@ SRC = ROOT / "index.html"
 ROUTES = {
     "services": (
         "Services — EquaCore Digital",
-        "EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.",
+        "EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.",
     ),
     "servicenow": (
         "ServiceNow Nigeria — Consulting, Talent & Managed Services",
@@ -67,7 +67,7 @@ ROUTES = {
     ),
     "about": (
         "About — EquaCore Digital",
-        "EquaCore Digital is a practitioner-led digital operations firm specialising in ServiceNow and the full Halo platform, based in Nigeria and delivering globally.",
+        "EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.",
     ),
     "markets": (
         "Markets Served — EquaCore Digital",

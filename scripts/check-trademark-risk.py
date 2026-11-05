@@ -17,12 +17,11 @@ claiming "Partner / Implementation Partner / Authorized / Certified / Official"
 in their context. This script catches accidental copy that drifts back into
 implementation-partner positioning.
 
-EquaCore IS a full Anthropic partner, so plain partner language for Anthropic is
-sanctioned and must not flag. What the Anthropic rules catch is *drift* — copy
-that later escalates the accurate claim into "certified", "official" or
-"authorised", or that ships a logo asset. The ServiceNow rules here were written
-after the drift happened; the Anthropic ones are deliberately in place before the
-AI-practice copy lands.
+EquaCore is an Anthropic Partner and an OpenAI Partner, so those exact plain
+partner claims are sanctioned and must not flag. The AI-partner rules catch
+*drift* into an unsupported tier or qualification, a product cited as the
+partner, or an unapproved logo asset. The ServiceNow rules here were written
+after claim drift happened; these rules are deliberately preventative.
 
 Updating patterns
 -----------------
@@ -115,10 +114,19 @@ BRAND_RISKS = [
      None),
 
     # ── Anthropic / Claude ───────────────────────────────────────────────────
-    # EquaCore IS a full Anthropic partner, so "Anthropic partner" and
-    # "partner of Anthropic" are sanctioned and deliberately absent below.
-    # Only escalations beyond plain partner language are risky.
+    # EquaCore is an Anthropic Partner, so "Anthropic partner" and "partner of
+    # Anthropic" are sanctioned and deliberately absent below. Only unsupported
+    # tiers or qualifications beyond plain partner language are risky.
     ("Anthropic partner-status escalation",
+     # Deny any modifier immediately attached to the sanctioned claim, except
+     # neutral grammar words. This catches unknown tiers such as "Premier" or
+     # "Gold" rather than relying on a finite list of programme names.
+     r"(?i:\b(?!(?:a|an|the|and|or|as|is|are|our|its|of|with|alongside)\b)"
+     r"[a-z0-9][a-z0-9.+/_-]*\s+Anthropic\s+partner\b)|"
+     r"(?i:\bAnthropic\s+(?!partner\b)"
+     r"(?:[a-z0-9][a-z0-9.+/_-]*\s+){1,3}partner\b)|"
+     r"(?i:\b(?!(?:a|an|the|and|or|as|is|are|our|its|of|with|alongside)\b)"
+     r"[a-z0-9][a-z0-9.+/_-]*\s+partner\s+of\s+Anthropic\b)|"
      r"[Cc]ertified\s+Anthropic\b|\bAnthropic\s+[Cc]ertified\b|"
      r"[Oo]fficial\s+Anthropic\b|\bAnthropic\s+[Oo]fficial\b|"
      r"\bAnthropic\b.{0,30}\b[Aa]uthori[sz](?:ed|ation)\b|"
@@ -140,6 +148,41 @@ BRAND_RISKS = [
     ("alt= mentions Anthropic imagery",
      r"alt=[\"'][^\"']*[Aa]nthropic[^\"']*[\"']",
      None),
+
+    # ── OpenAI / ChatGPT / GPT ───────────────────────────────────────────────
+    # EquaCore is an OpenAI Partner. Plain "OpenAI Partner" language is allowed;
+    # tiers, programme qualifiers, product-as-partner wording, and logo assets
+    # are not supported by the approved source statement.
+    ("OpenAI partner-status escalation",
+     r"(?i:\b(?!(?:a|an|the|and|or|as|is|are|our|its|of|with|alongside)\b)"
+     r"[a-z0-9][a-z0-9.+/_-]*\s+OpenAI\s+partner\b)|"
+     r"(?i:\bOpenAI\s+(?!partner\b)"
+     r"(?:[a-z0-9][a-z0-9.+/_-]*\s+){1,3}partner\b)|"
+     r"(?i:\b(?!(?:a|an|the|and|or|as|is|are|our|its|of|with|alongside)\b)"
+     r"[a-z0-9][a-z0-9.+/_-]*\s+partner\s+of\s+OpenAI\b)|"
+     r"\bOpenAI\s+[Pp]artner\s+[Nn]etwork\b|"
+     r"[Cc]ertified\s+OpenAI\b|\bOpenAI\s+[Cc]ertified\b|"
+     r"[Oo]fficial\s+OpenAI\b|\bOpenAI\s+[Oo]fficial\b|"
+     r"\bOpenAI\b.{0,30}\b[Aa]uthori[sz](?:ed|ation)\b|"
+     r"\b[Aa]uthori[sz](?:ed|ation)\b.{0,30}\bOpenAI\b",
+     None),
+
+    # The relationship is with OpenAI, not a product or model family.
+    ("OpenAI product cited as the partner/credential",
+     r"\b(?:ChatGPT|GPT(?:-\d+(?:\.\d+)?)?)\s+[Pp]artner\b|"
+     r"\b[Cc]ertified\s+(?:ChatGPT|GPT(?:-\d+(?:\.\d+)?)?)\b|"
+     r"\b(?:ChatGPT|GPT(?:-\d+(?:\.\d+)?)?)\s+[Cc]ertified\b|"
+     r"\b[Oo]fficial\s+(?:ChatGPT|GPT(?:-\d+(?:\.\d+)?)?)\b",
+     None),
+
+    ("OpenAI product logo asset reference",
+     r"src=[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']|"
+     r"href=[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']",
+     None),
+
+    ("alt= mentions OpenAI product imagery",
+     r"alt=[\"'][^\"']*(?:OpenAI|ChatGPT)[^\"']*[\"']",
+     None),
 ]
 
 # ------------------------------------------------------------------------------
@@ -154,12 +197,15 @@ def _context(text: str, start: int, end: int, pad: int = 60) -> str:
     return re.sub(r"\s+", " ", raw).strip()
 
 def _split_pages(html: str) -> list[tuple[str, str]]:
-    """Split the single-file SPA into (page_id, content) chunks plus footer."""
-    pages = re.findall(
+    """Split the SPA into independently reported head, page, and footer chunks."""
+    pages: list[tuple[str, str]] = []
+    if (m := re.search(r"<head.*?</head>", html, re.S)):
+        pages.append(("head", m.group(0)))
+    pages.extend(re.findall(
         r'<div class="pg[^"]*" id="(pg-[^"]+)">(.*?)'
         r'(?=<div class="pg[^"]*" id="pg-|<footer)',
         html, re.S,
-    )
+    ))
     if (m := re.search(r"<footer.*?</footer>", html, re.S)):
         pages.append(("footer", m.group(0)))
     return pages or [("(whole file)", html)]
@@ -219,24 +265,49 @@ def scan_html(path: Path) -> int:
 # the ones that matter — a rule that flags real copy gets disabled, not fixed.
 # ------------------------------------------------------------------------------
 SELFTEST_CASES: list[tuple[str, str, bool]] = [
-    # ── AC-2 sanctioned Anthropic partner language ───────────────────────────
-    ("AC-2 full Anthropic partner",   "EquaCore is a full Anthropic partner.",     False),
-    ("AC-2 Anthropic partner",        "As an Anthropic partner we build agents.",  False),
+    # ── AC-2 sanctioned partner language ─────────────────────────────────────
+    ("AC-2 Anthropic partner",        "EquaCore is an Anthropic Partner.",         False),
     ("AC-2 partner of Anthropic",     "EquaCore is a partner of Anthropic.",       False),
+    ("AC-2 OpenAI partner",           "EquaCore is an OpenAI Partner.",            False),
+    ("AC-2 partner of OpenAI",        "EquaCore is a partner of OpenAI.",          False),
 
     # ── AC-3 unsanctioned status escalation ──────────────────────────────────
+    ("AC-3 full Anthropic partner",   "EquaCore is a full Anthropic partner.",     True),
+    ("AC-3 Anthropic tier",           "EquaCore is a Preferred Anthropic Partner.", True),
+    ("AC-3 unknown Anthropic tier",   "EquaCore is a Premier Anthropic Partner.", True),
+    ("AC-3 reversed Anthropic tier",  "EquaCore is an Anthropic Gold Partner.",   True),
+    ("AC-3 numeric Anthropic tier",   "EquaCore is a Tier 1 Anthropic Partner.",  True),
+    ("AC-3 reversed numeric Anthropic tier",
+     "EquaCore is an Anthropic Tier 1 Partner.",                                True),
     ("AC-3 Certified Anthropic",      "We are a Certified Anthropic shop.",        True),
     ("AC-3 Anthropic certified",      "Our team is Anthropic certified.",          True),
     ("AC-3 Official Anthropic",       "An Official Anthropic delivery partner.",   True),
     ("AC-3 Anthropic Authorised",     "An Anthropic Authorised reseller.",         True),
     ("AC-3 Anthropic Authorized",     "An Anthropic Authorized reseller.",         True),
     ("AC-3 Authorised near Anthropic","Authorised to resell Anthropic licences.",  True),
+    ("AC-3 full OpenAI partner",      "EquaCore is a Full OpenAI Partner.",         True),
+    ("AC-3 certified OpenAI partner", "EquaCore is a Certified OpenAI Partner.",    True),
+    ("AC-3 OpenAI official partner",  "EquaCore is an OpenAI Official Partner.",    True),
+    ("AC-3 strategic OpenAI partner", "EquaCore is a Strategic OpenAI Partner.",    True),
+    ("AC-3 implementation partner",  "EquaCore is an OpenAI Implementation Partner.", True),
+    ("AC-3 OpenAI tier",              "EquaCore is an Elite OpenAI Partner.",       True),
+    ("AC-3 unknown OpenAI tier",      "EquaCore is a Gold OpenAI Partner.",        True),
+    ("AC-3 reversed OpenAI tier",     "EquaCore is an OpenAI Premier Partner.",    True),
+    ("AC-3 numeric OpenAI tier",      "EquaCore is a Tier 1 OpenAI Partner.",      True),
+    ("AC-3 reversed numeric OpenAI tier",
+     "EquaCore is an OpenAI Tier 1 Partner.",                                   True),
+    ("AC-3 OpenAI programme name",    "We joined the OpenAI Partner Network.",      True),
+    ("AC-3 OpenAI certified",         "Our team is OpenAI certified.",              True),
+    ("AC-3 OpenAI Authorized",        "An OpenAI Authorized reseller.",            True),
 
-    # ── AC-4 Claude is the product, not the partner ──────────────────────────
+    # ── AC-4 products are not the partner ────────────────────────────────────
     ("AC-4 Claude partner",           "EquaCore is a Claude partner.",             True),
     ("AC-4 Claude certified",         "Our engineers are Claude certified.",       True),
     ("AC-4 bare Claude product use",  "Claude-based implementations for ITSM.",    False),
     ("AC-4 Claude named as a tool",   "We build on Claude and Halo together.",     False),
+    ("AC-4 ChatGPT partner",          "EquaCore is a ChatGPT Partner.",            True),
+    ("AC-4 GPT-5 certified",          "Our team is GPT-5 certified.",             True),
+    ("AC-4 OpenAI technology use",    "We build solutions on OpenAI technology.", False),
 
     # ── AC-5 asset misuse ────────────────────────────────────────────────────
     ("AC-5 Anthropic logo src",
@@ -247,6 +318,14 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img src="/assets/img/team.jpg" alt="Anthropic partner badge">', True),
     ("AC-5 plain link to anthropic.com",
      '<a href="https://www.anthropic.com">Anthropic</a>',        False),
+    ("AC-5 OpenAI logo src",
+     '<img src="/assets/img/openai-logo.svg" alt="Partner">',   True),
+    ("AC-5 ChatGPT logo href",
+     '<a href="/assets/img/chatgpt-mark.png">Product</a>',       True),
+    ("AC-5 alt mentions OpenAI",
+     '<img src="/assets/img/team.jpg" alt="OpenAI partner badge">', True),
+    ("AC-5 plain link to openai.com",
+     '<a href="https://openai.com">OpenAI</a>',                  False),
 
     # ── NG-2 regression: existing ServiceNow rules still behave ──────────────
     ("NG-2 ServiceNow partner still flags",
@@ -277,15 +356,31 @@ def run_selftest() -> int:
             for label, hit, _ in findings:
                 print(f"      matched {YLO(label)} on {RED(hit)}")
 
+    # Regression for the file-level splitter: public claims in metadata and
+    # JSON-LD must pass through the same matcher as visible page copy.
+    head_probe = (
+        '<html><head><meta name="description" '
+        'content="EquaCore is a Premier Anthropic Partner."></head>'
+        '<body><div class="pg" id="pg-home"></div></body></html>'
+    )
+    head_chunks = dict(_split_pages(head_probe))
+    if _find_in_text(head_chunks.get("head", "")):
+        print(f"  {GRN('✓')} metadata/head claims are scanned")
+    else:
+        failures += 1
+        print(f"  {RED('✗')} metadata/head claims are scanned")
+
     print()
     if failures == 0:
-        print(GRN(BLD(f"✓ Selftest passed — {len(SELFTEST_CASES)} cases.")))
+        print(GRN(BLD(f"✓ Selftest passed — {len(SELFTEST_CASES) + 1} cases.")))
     else:
-        print(RED(BLD(f"✗ Selftest failed — {failures}/{len(SELFTEST_CASES)} cases.")))
+        print(RED(BLD(
+            f"✗ Selftest failed — {failures}/{len(SELFTEST_CASES) + 1} cases."
+        )))
     return failures
 
 def list_brand_mentions(path: Path) -> None:
-    """List every ServiceNow + HaloITSM mention for visual review."""
+    """List every governed brand mention for visual review."""
     html = _strip_svg(path.read_text(encoding="utf-8"))
     print(f"\n{BLD('All ServiceNow mentions:')}")
     for i, m in enumerate(re.finditer(r"\bServiceNow\b", html), 1):
@@ -293,6 +388,14 @@ def list_brand_mentions(path: Path) -> None:
         print(f"  {i}. {DIM(ctx)}")
     print(f"\n{BLD('All HaloITSM mentions:')}")
     for i, m in enumerate(re.finditer(r"\bHaloITSM\b", html), 1):
+        ctx = _context(html, m.start(), m.end(), pad=50)
+        print(f"  {i}. {DIM(ctx)}")
+    print(f"\n{BLD('All Anthropic mentions:')}")
+    for i, m in enumerate(re.finditer(r"\bAnthropic\b", html), 1):
+        ctx = _context(html, m.start(), m.end(), pad=50)
+        print(f"  {i}. {DIM(ctx)}")
+    print(f"\n{BLD('All OpenAI mentions:')}")
+    for i, m in enumerate(re.finditer(r"\bOpenAI\b", html), 1):
         ctx = _context(html, m.start(), m.end(), pad=50)
         print(f"  {i}. {DIM(ctx)}")
 

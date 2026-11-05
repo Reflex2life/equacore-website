@@ -6,14 +6,14 @@ const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',s
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
-  home:'EquaCore Digital is a full Halo partner delivering HaloITSM, HaloPSA, and HaloCRM implementations — plus ServiceNow talent augmentation, managed services, and independent advisory. Based in Nigeria, delivering globally.',
-  services:'EquaCore Digital delivers four services: ServiceNow talent augmentation, full Halo platform implementation (HaloITSM, HaloPSA, HaloCRM), managed services, and independent advisory.',
+  home:'EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.',
+  services:"EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.",
   servicenow:'EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.',
   haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
   talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.',
   'talent-pool':'Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.',
   engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
-  about:'EquaCore Digital is a practitioner-led digital operations firm specialising in ServiceNow and the full Halo platform, based in Nigeria and delivering globally.',
+  about:'EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.',
   markets:'EquaCore Digital serves clients across Nigeria, the UK, Europe, and West Africa with ServiceNow and Halo platform delivery backed by structured governance.',
   contact:'Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.',
   privacy:'EquaCore Digital privacy policy — how we collect, use, and protect your data.'

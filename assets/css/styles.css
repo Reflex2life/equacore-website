@@ -49,6 +49,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .card:hover .ci{background:var(--mint-glow)}.ci svg{width:24px;height:24px;color:var(--mint-dark)}
 .card h3{margin-bottom:10px;font-size:20px}.card p{color:var(--sl);font-size:15px;line-height:1.7}.card .btn-g{margin-top:20px}
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+#pg-services .card{display:flex;flex-direction:column}#pg-services .card p{flex:1}
 .sh{max-width:600px;margin-bottom:56px}.sh.ct{text-align:center;margin-left:auto;margin-right:auto}.sh .lbl{margin-bottom:14px;display:block}.sh h2{margin-bottom:14px}.sh p{font-size:16px;color:var(--sl);line-height:1.7}
 /* WHY */
 .ws{background:var(--bgw)}.wg{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
@@ -279,8 +280,9 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .hero-c .hbg-grid{background-image:linear-gradient(rgba(45,212,191,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.05) 1px,transparent 1px)}
 .hero-c::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.04;pointer-events:none}
 .hcc{padding-top:74px;width:100%}
-.hcc .ph-badge{flex-wrap:wrap;justify-content:center;row-gap:8px;border-radius:var(--rxl)}
-@media(max-width:768px){.hcc .ph-badge .ph-badge-sep{display:none}.hcc .ph-badge .ph-badge-pill{white-space:normal;text-align:center}}
+.hcc .ph-badge{display:flex;width:100%;max-width:100%;flex-wrap:wrap;justify-content:center;row-gap:8px;border-radius:var(--rxl)}
+.hcc .ph-badge-sep{display:none}
+@media(max-width:768px){.hcc .ph-badge{flex-direction:column;gap:8px;padding:14px 16px;border-radius:var(--rl)}.hcc .ph-badge .ph-badge-pill{white-space:normal;text-align:center}}
 .hcc::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:220px;height:2px;border-radius:2px;background:var(--grad-mint);box-shadow:0 0 12px rgba(45,212,191,.8),0 0 40px rgba(45,212,191,.45)}
 .hcc::after{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:440px;max-width:90vw;height:230px;background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(45,212,191,.16),transparent 70%);pointer-events:none;animation:lampBreathe 8s ease-in-out infinite}
 @keyframes lampBreathe{0%,100%{opacity:1}50%{opacity:.55}}
