@@ -30,10 +30,11 @@ from pathlib import Path
 BASE = "https://equacoredigital.com"
 
 # Routes that are children of /services (for breadcrumbs) and get a Service schema.
-SERVICES_CHILDREN = {"servicenow", "haloitsm", "talent"}
+SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "talent"}
 SERVICE_ROUTES = {
     "servicenow": "ServiceNow Consulting, Talent & Managed Services",
     "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
+    "freshworks": "Freshworks Implementation and Optimisation",
     "talent": "ServiceNow and Halo Talent Augmentation",
 }
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,7 +44,7 @@ SRC = ROOT / "index.html"
 ROUTES = {
     "services": (
         "Services — EquaCore Digital",
-        "EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.",
+        "EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.",
     ),
     "servicenow": (
         "ServiceNow Nigeria — Consulting, Talent & Managed Services",
@@ -52,6 +53,10 @@ ROUTES = {
     "haloitsm": (
         "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
         "EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.",
+    ),
+    "freshworks": (
+        "Freshworks Services & Implementation — EquaCore Digital",
+        "EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.",
     ),
     "talent": (
         "Talent Augmentation — EquaCore Digital",

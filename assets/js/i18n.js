@@ -80,6 +80,108 @@ const FR = {
   "We deliver HaloITSM, HaloPSA and HaloCRM across full-lifecycle implementations, legacy migrations, process alignment, user onboarding and post-go-live managed support.":
     "Nous livrons HaloITSM, HaloPSA et HaloCRM sur l'ensemble du cycle : implémentations, migrations d'outils existants, alignement des processus, prise en main utilisateurs et support géré après mise en service.",
   "Freshworks Partner": "Partenaire Freshworks",
+  "We help organisations implement and improve Freshservice and Freshworks solutions, covering workflow configuration, integrations, data migration, user enablement and ongoing optimisation to strengthen service delivery and customer support.":
+    "Nous aidons les organisations à implémenter et à améliorer Freshservice et les solutions Freshworks, en couvrant la configuration des flux de travail, les intégrations, la migration des données, l'accompagnement des utilisateurs et l'optimisation continue afin de renforcer la prestation de services et le support client.",
+  "We help organisations adopt Claude responsibly through practical use-case design, secure integrations, knowledge workflows and AI-assisted delivery, with governance and human oversight built around your operating needs.":
+    "Nous aidons les organisations à adopter Claude de manière responsable grâce à la conception de cas d'usage pratiques, à des intégrations sécurisées, à des flux de connaissances et à une livraison assistée par l'IA, avec une gouvernance et une supervision humaine adaptées à leurs besoins opérationnels.",
+  "We design and integrate practical OpenAI-powered solutions, from knowledge assistants and workflow automation to bespoke applications, with a focus on security, responsible adoption and measurable business value.":
+    "Nous concevons et intégrons des solutions pratiques basées sur OpenAI, des assistants de connaissances et de l'automatisation des flux de travail aux applications sur mesure, en mettant l'accent sur la sécurité, l'adoption responsable et une valeur métier mesurable.",
+  "Digital and process improvement": "Amélioration numérique et des processus",
+  "Better processes.": "De meilleurs processus.",
+  "Smarter digital operations.": "Des opérations numériques plus intelligentes.",
+  "We help organisations improve service delivery, simplify workflows and embed sustainable digital operations through platform implementation, independent advisory, managed support and specialist talent.":
+    "Nous aidons les organisations à améliorer la prestation de services, à simplifier les flux de travail et à ancrer des opérations numériques durables grâce à l'implémentation de plateformes, au conseil indépendant, au support géré et à des talents spécialisés.",
+  "Platform implementation & improvement": "Implémentation et amélioration de plateformes",
+  "Specialist talent": "Talents spécialisés",
+  "Improvement system": "Système d'amélioration",
+  "Processes": "Processus",
+  "Platforms": "Plateformes",
+  "Design": "Concevoir",
+  "Improve": "Améliorer",
+  "Embed": "Intégrer",
+  "Sustain": "Pérenniser",
+  "Clear outcomes": "Résultats clairs",
+  "Digital platform delivery": "Livraison de plateformes numériques",
+  "Platform implementation and improvement across HaloITSM, HaloPSA, HaloCRM, Freshservice and Freshworks solutions—covering workflow and process design, migrations, integrations, user enablement and ongoing optimisation.":
+    "Implémentation et amélioration de plateformes sur HaloITSM, HaloPSA, HaloCRM, Freshservice et les solutions Freshworks, couvrant la conception des flux de travail et des processus, les migrations, les intégrations, l'accompagnement des utilisateurs et l'optimisation continue.",
+  "Workflow and process design": "Conception des flux de travail et des processus",
+  "Migrations and integrations": "Migrations et intégrations",
+  "User enablement and optimisation": "Accompagnement des utilisateurs et optimisation",
+  "Halo and Freshworks solutions": "Solutions Halo et Freshworks",
+  "Explore Platform Delivery →": "Découvrir la livraison de plateformes →",
+  "Implement": "Implémenter",
+  "Assess": "Évaluer",
+  "Operate": "Exploiter",
+  "Advise": "Conseiller",
+  "Develop": "Développer",
+  "Configure": "Configurer",
+  "Enable": "Accompagner",
+  "Independent delivery": "Livraison indépendante",
+  "Mentored and enterprise-ready": "Accompagnés et prêts pour l'entreprise",
+  "Explore Freshworks services →": "Découvrir les services Freshworks →",
+
+  // ---- ENG-33 Freshworks page ----
+  "Freshworks Services": "Services Freshworks",
+  "Implementation and improvement across selected Freshworks solutions, from process mapping and workflow design to integrations, migration, enablement and ongoing optimisation.":
+    "Implémentation et amélioration de solutions Freshworks sélectionnées, de la cartographie des processus et la conception des flux de travail aux intégrations, à la migration, à l'accompagnement et à l'optimisation continue.",
+  "Explore Freshworks →": "Découvrir Freshworks →",
+  "Freshworks delivery, shaped around": "Une livraison Freshworks conçue pour",
+  "better service.": "un meilleur service.",
+  "We help organisations implement and improve selected Freshworks solutions, covering workflow configuration, integrations, data migration, user enablement and ongoing optimisation to strengthen service delivery and customer support.":
+    "Nous aidons les organisations à implémenter et à améliorer certaines solutions Freshworks, en couvrant la configuration des flux de travail, les intégrations, la migration des données, l'accompagnement des utilisateurs et l'optimisation continue afin de renforcer la prestation de services et le support client.",
+  "Discuss your Freshworks needs": "Discuter de vos besoins Freshworks",
+  "Explore the product fit": "Explorer l'adéquation des produits",
+  "Confirmed relationship": "Relation confirmée",
+  "Freshworks product fit": "Adéquation des produits Freshworks",
+  "One product family. Different operational needs.": "Une famille de produits. Des besoins opérationnels différents.",
+  "Freshworks provides products across IT and employee service, customer support, conversations, voice, sales and marketing. We help select and shape the parts that fit the process you need to improve.":
+    "Freshworks propose des produits pour les services IT et aux employés, le support client, les conversations, la voix, les ventes et le marketing. Nous aidons à sélectionner et à façonner les éléments adaptés au processus que vous devez améliorer.",
+  "IT and employee service": "Services IT et services aux employés",
+  "Freshservice brings IT service management, asset management, operations management and enterprise service management capabilities into a unified service environment.":
+    "Freshservice réunit les capacités de gestion des services IT, de gestion des actifs, de gestion des opérations et de gestion des services d'entreprise dans un environnement de service unifié.",
+  "IT service workflows": "Flux de services IT",
+  "Assets and operations": "Actifs et opérations",
+  "Enterprise service management": "Gestion des services d'entreprise",
+  "Customer service": "Service client",
+  "Freshdesk supports email-led ticketing, collaboration and automation. Freshdesk Omni connects email, chat, WhatsApp, social and portal support in one workspace, with phone available as an add-on.":
+    "Freshdesk prend en charge la gestion des tickets centrée sur l'e-mail, la collaboration et l'automatisation. Freshdesk Omni relie l'e-mail, le chat, WhatsApp, les réseaux sociaux et les portails dans un même espace de travail, la téléphonie étant disponible en option.",
+  "Conversation and voice": "Conversation et voix",
+  "Freshchat supports messaging, live chat and bot-assisted self-service across digital channels. Freshcaller provides cloud contact-centre voice capabilities including IVR and call routing, and can work with Freshdesk.":
+    "Freshchat prend en charge la messagerie, le chat en direct et le libre-service assisté par des bots sur les canaux numériques. Freshcaller fournit des capacités vocales de centre de contact dans le cloud, notamment le serveur vocal interactif et le routage des appels, et peut fonctionner avec Freshdesk.",
+  "Sales and marketing": "Ventes et marketing",
+  "Freshsales is the sales-focused CRM. Freshsales Suite brings sales and marketing together, while Freshmarketer supports multichannel marketing automation.":
+    "Freshsales est le CRM axé sur les ventes. Freshsales Suite réunit les ventes et le marketing, tandis que Freshmarketer prend en charge l'automatisation marketing multicanale.",
+  "Shared foundation": "Socle commun",
+  "The Freshworks Platform supports custom workflows and applications, integrations, custom objects, analytics, unified administration and developer tools across the product environment.":
+    "La plateforme Freshworks prend en charge les flux de travail et applications sur mesure, les intégrations, les objets personnalisés, l'analytique, l'administration unifiée et les outils de développement dans l'environnement produit.",
+  "Capabilities and availability vary by product, edition and plan. Product fit should be confirmed against current Freshworks documentation and your operating requirements.":
+    "Les capacités et la disponibilité varient selon le produit, l'édition et l'offre. L'adéquation du produit doit être confirmée à partir de la documentation Freshworks à jour et de vos besoins opérationnels.",
+  "Clear delivery boundaries": "Des limites de livraison claires",
+  "Product capability and delivery support, kept distinct.": "Capacités produit et accompagnement de livraison, clairement distingués.",
+  "Freshworks builds the products. EquaCore helps organisations translate process needs into a practical implementation and improvement programme.":
+    "Freshworks conçoit les produits. EquaCore aide les organisations à traduire leurs besoins de processus en un programme pratique d'implémentation et d'amélioration.",
+  "What Freshworks provides": "Ce que Freshworks fournit",
+  "Products for service, support and customer operations": "Des produits pour les services, le support et les opérations client",
+  "Platform capabilities, product features, editions and plans are provided and maintained by Freshworks.":
+    "Les capacités de la plateforme, les fonctionnalités produit, les éditions et les offres sont fournies et maintenues par Freshworks.",
+  "How EquaCore helps": "Comment EquaCore vous accompagne",
+  "Process-led implementation and improvement": "Implémentation et amélioration guidées par les processus",
+  "Discovery and process mapping, solution and workflow design, configuration, integrations, data migration, user enablement, rollout, ongoing optimisation and support.":
+    "Découverte et cartographie des processus, conception de la solution et des flux de travail, configuration, intégrations, migration des données, accompagnement des utilisateurs, déploiement, optimisation continue et support.",
+  "Delivery lifecycle": "Cycle de livraison",
+  "From process clarity to sustained improvement": "De la clarté des processus à l'amélioration durable",
+  "Each stage produces a clear hand-off into the next, with operational learning feeding the improvement backlog.":
+    "Chaque étape prépare clairement la suivante, les enseignements opérationnels alimentant le backlog d'amélioration.",
+  "Map the current process, users, data and constraints.": "Cartographier le processus actuel, les utilisateurs, les données et les contraintes.",
+  "Define the target workflow, product fit and integration needs.": "Définir le flux cible, l'adéquation du produit et les besoins d'intégration.",
+  "Build workflows, connections and migration paths around the agreed design.": "Construire les flux, les connexions et les parcours de migration autour de la conception convenue.",
+  "Prepare users, rollout activities and knowledge transfer.": "Préparer les utilisateurs, les activités de déploiement et le transfert de compétences.",
+  "Support operations and use feedback to prioritise ongoing optimisation.": "Soutenir les opérations et utiliser les retours pour prioriser l'optimisation continue.",
+  "Where could Freshworks simplify your operation?": "Où Freshworks pourrait-il simplifier vos opérations ?",
+  "Bring the process, service or customer-support challenge. We will help frame the product fit and delivery path.":
+    "Présentez-nous votre défi de processus, de service ou de support client. Nous vous aiderons à cadrer l'adéquation du produit et le parcours de livraison.",
+  "Book a 30-minute discussion": "Réserver une discussion de 30 minutes",
+  "Send us a message": "Nous envoyer un message",
 
   // ---- Home hero ----
   "Enterprise Platforms": "Plateformes d'entreprise",
@@ -119,6 +221,8 @@ const FR = {
   "Process design aligned to ITIL": "Conception de processus alignée sur ITIL",
   "Our ServiceNow® services remain independent. We are an Anthropic Partner and an OpenAI Partner, alongside our full Halo Technology Alliance Partner status.":
     "Nos services ServiceNow® restent indépendants. Nous sommes partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de notre statut de partenaire à part entière du Halo Technology Alliance.",
+  "Our ServiceNow® services remain independent. We are a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner.":
+    "Nos services ServiceNow® restent indépendants. Nous sommes partenaire à part entière du Halo Technology Alliance, partenaire Freshworks, partenaire Anthropic et partenaire OpenAI.",
   "View Our Partnerships →": "Voir nos partenariats →",
   "Independent ServiceNow® services": "Services ServiceNow® indépendants",
   "We deploy pre-vetted Nigerian ServiceNow professionals globally — with mentorship, enterprise readiness, and flexible engagement structures.":
@@ -183,6 +287,8 @@ const FR = {
     "Des équipes réparties qui livrent des implémentations ServiceNow et Halo avec gouvernance et résultats mesurables.",
 
   // ---- Topical density paragraph ----
+  "EquaCore Digital helps organisations improve service delivery, simplify workflows and embed sustainable digital operations. From our Nigeria base, we deliver platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow advisory and day-2 managed operations, and specialist talent for embedded delivery teams. Our relationships as a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner support practical delivery across service management, customer operations and responsible AI. We combine process design, platform delivery, user enablement and knowledge transfer for organisations in the UK, Europe and West Africa.":
+    "EquaCore Digital aide les organisations à améliorer la prestation de services, à simplifier les flux de travail et à ancrer des opérations numériques durables. Depuis notre base au Nigeria, nous assurons l'implémentation et l'amélioration de plateformes couvrant les solutions Halo et Freshworks, le conseil ServiceNow indépendant et l'exploitation gérée au quotidien, ainsi que des talents spécialisés pour les équipes de livraison intégrées. Nos relations en tant que partenaire à part entière du Halo Technology Alliance, partenaire Freshworks, partenaire Anthropic et partenaire OpenAI soutiennent une livraison pratique dans la gestion des services, les opérations client et l'IA responsable. Nous associons conception des processus, livraison de plateformes, accompagnement des utilisateurs et transfert de compétences pour des organisations au Royaume-Uni, en Europe et en Afrique de l'Ouest.",
   "EquaCore Digital is a ServiceNow consulting and full Halo platform partner headquartered in Nigeria and operating globally. We provide ServiceNow talent augmentation — placing pre-vetted administrators, developers, and architects with enterprise clients — alongside day-2 managed services and independent advisory. As a full Halo Technology Alliance Partner, we are authorised to deliver end-to-end implementations of HaloITSM (IT and Enterprise Service Management), HaloPSA (Professional Services Automation for MSPs), and HaloCRM (omnichannel CRM). Our delivery model combines African technology talent with structured governance frameworks, enabling organisations across the UK, Europe, and West Africa to modernise their service operations with confidence.":
     "EquaCore Digital est un cabinet de conseil ServiceNow et partenaire Halo à part entière, basé au Nigeria et actif dans le monde entier. Nous proposons du renfort de talents ServiceNow — en plaçant des administrateurs, développeurs et architectes présélectionnés auprès de clients grands comptes —, ainsi que des services gérés au quotidien et un conseil indépendant. En tant que partenaire à part entière du Halo Technology Alliance, nous sommes habilités à livrer des implémentations complètes de HaloITSM (gestion des services IT et d'entreprise), HaloPSA (automatisation des services professionnels pour MSP) et HaloCRM (CRM omnicanal). Notre modèle de livraison associe des talents technologiques africains à des cadres de gouvernance structurés, permettant aux organisations du Royaume-Uni, d'Europe et d'Afrique de l'Ouest de moderniser leurs opérations de service en toute confiance.",
 
@@ -190,6 +296,8 @@ const FR = {
   "FAQ": "FAQ",
   "Frequently Asked Questions": "Questions fréquentes",
   "What does EquaCore Digital do?": "Que fait EquaCore Digital ?",
+  "EquaCore Digital helps organisations improve service delivery and digital operations. We provide platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow advisory and day-2 managed operations, specialist talent, and responsible AI delivery. EquaCore is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner.":
+    "EquaCore Digital aide les organisations à améliorer la prestation de services et leurs opérations numériques. Nous assurons l'implémentation et l'amélioration de plateformes couvrant les solutions Halo et Freshworks, le conseil ServiceNow indépendant et l'exploitation gérée au quotidien, des talents spécialisés et une livraison responsable de solutions d'IA. EquaCore est partenaire à part entière du Halo Technology Alliance, partenaire Freshworks, partenaire Anthropic et partenaire OpenAI.",
   "EquaCore Digital is a technology services firm specialising in ServiceNow and the full Halo platform. We provide talent augmentation (placing pre-vetted ServiceNow professionals with global enterprises), managed services (day-2 platform operations), and independent advisory — plus full implementations of HaloITSM, HaloPSA, and HaloCRM as a full Halo Technology Alliance Partner. EquaCore Digital is also an Anthropic Partner and an OpenAI Partner.":
     "EquaCore Digital est un cabinet de services technologiques spécialisé dans ServiceNow et l'ensemble de la plateforme Halo. Nous proposons du renfort de talents (placement de professionnels ServiceNow présélectionnés auprès d'entreprises internationales), des services gérés (exploitation de plateforme au quotidien) et du conseil indépendant — ainsi que des implémentations complètes de HaloITSM, HaloPSA et HaloCRM en tant que partenaire à part entière du Halo Technology Alliance. EquaCore Digital est également partenaire d'Anthropic et partenaire d'OpenAI.",
   "What ServiceNow and Halo roles can EquaCore place?": "Quels profils ServiceNow et Halo EquaCore peut-il placer ?",
@@ -503,6 +611,8 @@ const FR = {
   "Technology Partnerships": "Partenariats technologiques",
   "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside our full Halo Technology Alliance Partner status. These relationships sit alongside our work in Talent, Managed Services, and Advisory. Our ServiceNow® services are independent.":
     "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de notre statut de partenaire à part entière du Halo Technology Alliance. Ces relations accompagnent notre travail dans les domaines des talents, des services gérés et du conseil. Nos services ServiceNow® sont indépendants.",
+  "EquaCore Digital is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner. These relationships sit alongside our work in Talent, Managed Services, and Advisory. Our ServiceNow® services are independent.":
+    "EquaCore Digital est partenaire à part entière du Halo Technology Alliance, partenaire Freshworks, partenaire Anthropic et partenaire OpenAI. Ces relations complètent nos activités dans les domaines des talents, des services gérés et du conseil. Nos services ServiceNow® sont indépendants.",
 
   // ---- About page ----
   "Built by practitioners,": "Construit par des praticiens,",
@@ -946,6 +1056,7 @@ const FR = {
   "EquaCore Digital — Digital Operations. Delivered Right.": "EquaCore Digital — Opérations numériques. Bien exécutées.",
   "ServiceNow Nigeria — Consulting, Talent & Managed Services": "ServiceNow Nigeria — Conseil, talents et services gérés",
   "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital": "Services Halo (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
+  "Freshworks Services & Implementation — EquaCore Digital": "Services et implémentation Freshworks — EquaCore Digital",
   "Talent Augmentation — EquaCore Digital": "Renfort de talents — EquaCore Digital",
   "Join Our Talent Pool — EquaCore Digital": "Rejoindre notre vivier de talents — EquaCore Digital",
   "Engagement Models — EquaCore Digital": "Modèles d'engagement — EquaCore Digital",
@@ -956,10 +1067,16 @@ const FR = {
   "Message Received — EquaCore Digital": "Message reçu — EquaCore Digital",
 
   // ---- SEO descriptions ----
+  "EquaCore Digital improves service delivery through platform implementation, independent advisory, managed support and specialist talent.":
+    "EquaCore Digital améliore la prestation de services grâce à l'implémentation de plateformes, au conseil indépendant, au support géré et aux talents spécialisés.",
+  "EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.":
+    "EquaCore Digital assure l'implémentation et l'amélioration de plateformes couvrant les solutions Halo et Freshworks, des services ServiceNow indépendants, des talents spécialisés et une livraison responsable de solutions d'IA.",
+  "EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.":
+    "EquaCore Digital assure l'implémentation et l'optimisation de Freshworks, de la cartographie des processus et de la configuration aux intégrations, à la migration et à l'accompagnement.",
   "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.":
     "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de la livraison de la plateforme Halo complète et de services ServiceNow indépendants. Basé au Nigeria, actif dans le monde entier.",
-  "EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Anthropic Partner, OpenAI Partner and Freshworks Partner.":
-    "EquaCore Digital propose la livraison de la plateforme Halo, des services ServiceNow indépendants et des talents, et est partenaire à part entière du Halo Technology Alliance, partenaire d'Anthropic, partenaire d'OpenAI et partenaire de Freshworks.",
+  "EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner.":
+    "EquaCore Digital propose la livraison de la plateforme Halo, des services ServiceNow indépendants et des talents, et est partenaire à part entière du Halo Technology Alliance, partenaire de Freshworks, partenaire d'Anthropic et partenaire d'OpenAI.",
   "EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.":
     "L'offre d'EquaCore Digital comprend la livraison complète de la plateforme Halo, des services ServiceNow indépendants, le renfort de talents, ainsi que ses statuts de partenaire d'Anthropic et d'OpenAI.",
   "EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.":
@@ -1000,6 +1117,11 @@ const FR_ATTR = {
   "EquaCore Digital - Home": "EquaCore Digital - Accueil",
   "Main navigation": "Navigation principale",
   "Core offerings at a glance": "Aperçu des offres principales",
+  "Processes, platforms and people converge in EquaCore's digital improvement delivery model": "Les processus, les plateformes et les personnes convergent dans le modèle d'amélioration numérique d'EquaCore",
+  "Halo and Freshworks solutions feed an improvement journey from discovery and design through implementation and continuous optimisation.": "Les solutions Halo et Freshworks alimentent un parcours d'amélioration allant de la découverte et de la conception jusqu'à l'implémentation et à l'optimisation continue.",
+  "Service requests move through an independent ServiceNow operations cycle of assessment, operation, advice and improvement, with resolved work feeding future improvement.": "Les demandes de service suivent un cycle d'exploitation ServiceNow indépendant comprenant l'évaluation, l'exploitation, le conseil et l'amélioration, les travaux résolus alimentant les améliorations futures.",
+  "Distinct specialist profiles progress through technical assessment and structured development before joining an embedded enterprise delivery team.": "Des profils spécialistes distincts passent par une évaluation technique et un développement structuré avant de rejoindre une équipe de livraison intégrée à l'entreprise.",
+  "A five-stage Freshworks delivery journey maps processes, designs the solution, configures workflows, enables users and feeds operational learning into continuous improvement.": "Un parcours de livraison Freshworks en cinq étapes cartographie les processus, conçoit la solution, configure les flux de travail, accompagne les utilisateurs et transforme les enseignements opérationnels en amélioration continue.",
   "Halo platform delivery, independent ServiceNow services and talent augmentation converge in EquaCore's delivery model": "La livraison de la plateforme Halo, les services ServiceNow indépendants et le renfort de talents convergent dans le modèle de livraison d'EquaCore",
   "Three service channels labelled HaloITSM, HaloPSA and HaloCRM flow into a shared implementation and support workspace.": "Trois canaux de service nommés HaloITSM, HaloPSA et HaloCRM convergent vers un espace commun d'implémentation et de support.",
   "Health assessment, managed operations and advisory connect to an independently supported ServiceNow platform workspace.": "L'évaluation de santé, l'exploitation gérée et le conseil se connectent à un espace de travail de la plateforme ServiceNow pris en charge de manière indépendante.",

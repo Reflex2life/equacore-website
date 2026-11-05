@@ -2,14 +2,15 @@
 const t=s=>(window.t||(x=>x))(s);
 
 // Page titles for SEO
-const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
+const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
-  home:'EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Anthropic Partner, OpenAI Partner and Freshworks Partner.',
-  services:"EquaCore Digital's offering includes full Halo platform delivery, independent ServiceNow services, talent augmentation, plus its Anthropic Partner and OpenAI Partner status.",
+  home:'EquaCore Digital improves service delivery through platform implementation, independent advisory, managed support and specialist talent.',
+  services:"EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.",
   servicenow:'EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.',
   haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
+  freshworks:'EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.',
   talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.',
   'talent-pool':'Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.',
   engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
@@ -56,7 +57,7 @@ function showPage(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('act'));
   document.getElementById('pg-'+id).classList.add('act');
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
-  const navMap={home:0,services:1,servicenow:1,haloitsm:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
+  const navMap={home:0,services:1,servicenow:1,haloitsm:1,freshworks:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
   const directLinks=document.querySelectorAll('.nls > .nl');
   if(directLinks[navMap[id]])directLinks[navMap[id]].classList.add('act');
   // Close mobile nav
