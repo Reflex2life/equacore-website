@@ -39,7 +39,10 @@ import argparse
 import hashlib
 import re
 import sys
+from html import unescape
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import unquote
 
 # ANSI colour helpers (no-op when piped to a non-tty)
 _TTY = sys.stdout.isatty()
@@ -74,43 +77,6 @@ def _not_in_disclaimer(window: str, _match: str, _element: str) -> bool:
     """'ServiceNow, Inc' is fine inside the footer trademark line."""
     return "registered trademark" not in window and "not affiliated" not in window
 
-def _attribute_value(text: str, name: str) -> str | None:
-    """Return one quoted or unquoted HTML attribute value."""
-    match = re.search(
-        rf"\b{name}\s*=\s*(?:([\"'])(.*?)\1|([^\s>]+))",
-        text,
-        re.I | re.S,
-    )
-    return (match.group(2) or match.group(3)) if match else None
-
-def _not_approved_anthropic_asset(
-    _window: str, match_text: str, _element: str
-) -> bool:
-    """Permit only the reviewed, official Anthropic wordmark file."""
-    return _attribute_value(match_text, "src") != "/assets/brand/anthropic-wordmark.svg" and _attribute_value(match_text, "href") != "/assets/brand/anthropic-wordmark.svg"
-
-def _not_approved_openai_asset(
-    _window: str, match_text: str, _element: str
-) -> bool:
-    """Permit only the reviewed, official OpenAI wordmark file."""
-    return _attribute_value(match_text, "src") != "/assets/brand/openai-wordmark.svg" and _attribute_value(match_text, "href") != "/assets/brand/openai-wordmark.svg"
-
-def _not_approved_anthropic_alt(
-    _window: str, _match: str, element: str
-) -> bool:
-    """Permit the plain accessible name only on the sanctioned wordmark."""
-    approved_asset = _attribute_value(element, "src") == "/assets/brand/anthropic-wordmark.svg"
-    plain_name = _attribute_value(element, "alt") == "Anthropic"
-    return not (approved_asset and plain_name)
-
-def _not_approved_openai_alt(
-    _window: str, _match: str, element: str
-) -> bool:
-    """Permit the plain accessible name only on the sanctioned wordmark."""
-    approved_asset = _attribute_value(element, "src") == "/assets/brand/openai-wordmark.svg"
-    plain_name = _attribute_value(element, "alt") == "OpenAI"
-    return not (approved_asset and plain_name)
-
 BRAND_RISKS = [
     # ── Direct partnership claims ────────────────────────────────────────────
     ("Partnership claim",
@@ -136,8 +102,8 @@ BRAND_RISKS = [
     # ── Trademark misuse ─────────────────────────────────────────────────────
     ("'ServiceNow' as bare noun (not adjective)",
      r"(?<![A-Za-z])the ServiceNow"
-     r"(?!\s*&reg;|\s+platform|\s+ecosystem|\s+community|\s+environment|"
-     r"\s+estate|\s+instance|\s+practice|\s+talent|\s+world|\s+lifecycle)",
+     r"(?!\s*(?:&reg;|®)?\s*(?:platform|ecosystem|community|environment|"
+     r"estate|instance|practice|talent|world|lifecycle)\b)",
      None),
 
     ("'ServiceNow, Inc' outside disclaimer",
@@ -148,16 +114,6 @@ BRAND_RISKS = [
     ("'Now Platform' branded term",   r"\bNow Platform\b",  None),
     ("'Now Assist' branded term",     r"\bNow Assist\b",    None),
     ("'Now Create' branded term",     r"\bNow Create\b",    None),
-
-    # ── Visual asset checks ──────────────────────────────────────────────────
-    ("ServiceNow logo asset reference",
-     r"src=[\"'][^\"']*servicenow[^\"']*[\"']|"
-     r"href=[\"'][^\"']*servicenow[^\"']*\.(?:svg|png)[\"']",
-     None),
-
-    ("alt= mentions ServiceNow imagery",
-     r"alt=[\"'][^\"']*ServiceNow[^\"']*[\"']",
-     None),
 
     # ── Anthropic / Claude ───────────────────────────────────────────────────
     # EquaCore is an Anthropic Partner, so "Anthropic partner" and "partner of
@@ -186,16 +142,6 @@ BRAND_RISKS = [
      r"\bClaude\s+[Cc]ertified\b|\b[Oo]fficial\s+Claude\b",
      None),
 
-    ("Anthropic/Claude logo asset reference",
-     r"(?i:\b(?:src|href)\s*=\s*(?:"
-     r"[\"'][^\"']*(?:anthropic|claude)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[^\"']*[\"']|"
-     r"[^\s>\"']*(?:anthropic|claude)[^\s>\"']*\.(?:svg|png|jpe?g|webp|gif)[^\s>]*))",
-     _not_approved_anthropic_asset),
-
-    ("alt= mentions Anthropic imagery",
-     r"(?i:\balt\s*=\s*(?:[\"'][^\"']*anthropic[^\"']*[\"']|[^\s>\"']*anthropic[^\s>]*))",
-     _not_approved_anthropic_alt),
-
     # ── OpenAI / ChatGPT / GPT ───────────────────────────────────────────────
     # EquaCore is an OpenAI Partner. Plain "OpenAI Partner" language is allowed;
     # tiers, programme qualifiers, product-as-partner wording, and logo assets
@@ -222,15 +168,6 @@ BRAND_RISKS = [
      r"\b[Oo]fficial\s+(?:ChatGPT|GPT(?:-\d+(?:\.\d+)?)?)\b",
      None),
 
-    ("OpenAI product logo asset reference",
-     r"(?i:\b(?:src|href)\s*=\s*(?:"
-     r"[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[^\"']*[\"']|"
-     r"[^\s>\"']*(?:openai|chatgpt|gpt)[^\s>\"']*\.(?:svg|png|jpe?g|webp|gif)[^\s>]*))",
-     _not_approved_openai_asset),
-
-    ("alt= mentions OpenAI product imagery",
-     r"(?i:\balt\s*=\s*(?:[\"'][^\"']*(?:openai|chatgpt)[^\"']*[\"']|[^\s>\"']*(?:openai|chatgpt)[^\s>]*))",
-     _not_approved_openai_alt),
 ]
 
 # ------------------------------------------------------------------------------
@@ -243,6 +180,84 @@ def _context(text: str, start: int, end: int, pad: int = 60) -> str:
     raw = text[max(0, start - pad):end + pad]
     raw = re.sub(r"<[^>]+>", "", raw)
     return re.sub(r"\s+", " ", raw).strip()
+
+_IMAGE_EXT = re.compile(r"\.(?:svg|png|jpe?g|webp|gif)(?:[?#].*)?$", re.I)
+
+class _BrandAssetParser(HTMLParser):
+    """Inspect decoded HTML attributes after the parser establishes boundaries."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.findings: list[tuple[str, str, str]] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        element = self.get_starttag_text() or f"<{tag}>"
+        attr_map: dict[str, str] = {}
+        for name, value in attrs:
+            attr_map.setdefault(name.lower(), value or "")
+
+        urls: list[tuple[str, str]] = []
+        for name in ("src", "href", "data"):
+            if value := attr_map.get(name):
+                urls.append((name, unquote(value)))
+        if srcset := attr_map.get("srcset"):
+            for candidate in srcset.split(","):
+                if value := candidate.strip().split(maxsplit=1)[0]:
+                    urls.append(("srcset", unquote(value)))
+
+        values = [value for _, value in urls]
+        for name, value in urls:
+            lowered = value.lower()
+            if _IMAGE_EXT.search(value) and re.search(r"anthropic|claude", lowered):
+                if value != "/assets/brand/anthropic-wordmark.svg":
+                    self.findings.append((
+                        "Anthropic/Claude logo asset reference",
+                        f'{name}="{value}"',
+                        element,
+                    ))
+            if _IMAGE_EXT.search(value) and re.search(r"openai|chatgpt|gpt", lowered):
+                if value != "/assets/brand/openai-wordmark.svg":
+                    self.findings.append((
+                        "OpenAI product logo asset reference",
+                        f'{name}="{value}"',
+                        element,
+                    ))
+            if _IMAGE_EXT.search(value) and "servicenow" in lowered:
+                self.findings.append((
+                    "ServiceNow logo asset reference",
+                    f'{name}="{value}"',
+                    element,
+                ))
+
+        alt = attr_map.get("alt")
+        if alt is not None:
+            lowered_alt = alt.lower()
+            if "anthropic" in lowered_alt and not (
+                alt == "Anthropic"
+                and "/assets/brand/anthropic-wordmark.svg" in values
+            ):
+                self.findings.append((
+                    "alt= mentions Anthropic imagery", f'alt="{alt}"', element
+                ))
+            if ("openai" in lowered_alt or "chatgpt" in lowered_alt) and not (
+                alt == "OpenAI"
+                and "/assets/brand/openai-wordmark.svg" in values
+            ):
+                self.findings.append((
+                    "alt= mentions OpenAI product imagery", f'alt="{alt}"', element
+                ))
+            if "servicenow" in lowered_alt:
+                self.findings.append((
+                    "alt= mentions ServiceNow imagery", f'alt="{alt}"', element
+                ))
+
+def _find_asset_markup(text: str) -> list[tuple[str, str, str]]:
+    parser = _BrandAssetParser()
+    parser.feed(text)
+    parser.close()
+    return parser.findings
 
 def _split_pages(html: str) -> list[tuple[str, str]]:
     """Split the SPA into independently reported head, page, and footer chunks."""
@@ -264,7 +279,10 @@ def _find_in_text(text: str) -> list[tuple[str, str, str]]:
     The single matching implementation, shared by scan_html and --selftest, so
     the fixtures exercise exactly what the gate runs.
     """
-    findings: list[tuple[str, str, str]] = []
+    findings = _find_asset_markup(text)
+    # Claims in visible copy and metadata are matched after character-reference
+    # decoding; asset attributes above are parsed from raw markup first.
+    text = unescape(text)
 
     for label, pattern, scope_filter in BRAND_RISKS:
         for m in re.finditer(pattern, text):
@@ -402,8 +420,20 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img SRC = "/assets/img/ANTHROPIC-logo.svg" alt="Partner">', True),
     ("AC-5 unquoted Anthropic asset attribute is scanned",
      '<img src=/assets/img/anthropic-logo.svg alt=Partner>', True),
+    ("AC-5 numeric entity in Anthropic asset is decoded",
+     '<img src="/assets/img/anthr&#111;pic-logo.svg" alt="Partner">', True),
+    ("AC-5 named entity in Anthropic extension is decoded",
+     '<img src="/assets/img/anthropic-logo&period;svg" alt="Partner">', True),
+    ("AC-5 hex entity in Anthropic alt is decoded",
+     '<img src="/assets/img/team.jpg" alt="Anthr&#x6f;pic">', True),
     ("AC-5 spaced approved Anthropic asset stays clean",
      '<img SRC = "/assets/brand/anthropic-wordmark.svg" ALT = "Anthropic">', False),
+    ("AC-5 encoded approved Anthropic asset stays clean",
+     '<img src="/assets/brand/anthropic-wordmark&period;svg" alt="Anthropic">', False),
+    ("AC-5 encoded quote cannot truncate an Anthropic asset value",
+     '<img src="/assets/brand/anthropic-wordmark.svg&#34;.png" alt="Partner">', True),
+    ("AC-5 percent-encoded Anthropic asset is decoded",
+     '<img src="/assets/img/anthr%6fpic-logo.svg" alt="Partner">', True),
     ("AC-5 spaced uppercase Anthropic alt is scanned",
      '<img src="/assets/img/team.jpg" ALT = "ANTHROPIC">', True),
     ("AC-5 adjacent approved Anthropic asset cannot mask a wrong alt",
@@ -432,8 +462,20 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img SRC = "/assets/img/OPENAI-logo.svg" alt="Partner">', True),
     ("AC-5 unquoted OpenAI asset attribute is scanned",
      '<img src=/assets/img/openai-logo.svg alt=Partner>', True),
+    ("AC-5 hex entity in OpenAI asset is decoded",
+     '<img src="/assets/img/open&#x41;i-logo.svg" alt="Partner">', True),
+    ("AC-5 named entity in OpenAI extension is decoded",
+     '<img src="/assets/img/openai-logo&period;svg" alt="Partner">', True),
+    ("AC-5 numeric entity in OpenAI alt is decoded",
+     '<img src="/assets/img/team.jpg" alt="Open&#65;I">', True),
     ("AC-5 spaced approved OpenAI asset stays clean",
      '<img SRC = "/assets/brand/openai-wordmark.svg" ALT = "OpenAI">', False),
+    ("AC-5 encoded approved OpenAI asset stays clean",
+     '<img src="/assets/brand/openai-wordmark&period;svg" alt="OpenAI">', False),
+    ("AC-5 encoded quote cannot truncate an OpenAI asset value",
+     '<img src="/assets/brand/openai-wordmark.svg&#x22;.png" alt="Partner">', True),
+    ("AC-5 percent-encoded OpenAI srcset is decoded",
+     '<img srcset="/assets/img/open%41i-logo.svg 2x" alt="Partner">', True),
     ("AC-5 spaced uppercase OpenAI alt is scanned",
      '<img src="/assets/img/team.jpg" ALT = "OPENAI">', True),
     ("AC-5 adjacent approved OpenAI asset cannot mask a wrong alt",
@@ -446,6 +488,14 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      "EquaCore is a ServiceNow Partner.",                        True),
     ("NG-2 Now Platform still flags",
      "Built on the Now Platform.",                               True),
+    ("NG-2 ServiceNow registered platform stays clean after entity decode",
+     "The client uses the ServiceNow&reg; platform.",             False),
+    ("NG-2 ServiceNow bare noun still flags after entity decode",
+     "The client selected the ServiceNow for this work.",        True),
+    ("NG-2 ServiceNow logo still flags through parsed attributes",
+     '<img src="/assets/img/servicenow-logo.svg" alt="Platform">', True),
+    ("NG-2 ServiceNow imagery alt still flags through parsed attributes",
+     '<img src="/assets/img/team.jpg" alt="ServiceNow team">',   True),
     ("NG-2 HaloITSM implementation still clean",
      "HaloITSM implementation specialists on the bench.",        False),
 ]
