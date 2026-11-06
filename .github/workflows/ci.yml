@@ -4,7 +4,7 @@ name: CI
 # (Cloudflare Pages) on merge to main, so this required check is the thing that
 # stands between a PR and the live site. It runs the same deterministic checks
 # as the local scripts/pre-push-check.sh hook: ServiceNow trademark/positioning
-# scan, prerender drift, and route/link+sitemap parity.
+# scan, prerender drift, route/link+sitemap parity, cache hashes, and routing.
 
 on:
   pull_request:
@@ -19,5 +19,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Pre-push gate (trademark + prerender drift + route parity)
+      - name: Pre-push gate (copy, prerender, routes, cache and 404)
         run: bash scripts/pre-push-check.sh

@@ -8,13 +8,15 @@ answer engines (Perplexity, ChatGPT browse, some AI-Overview fetchers) read the
 RAW HTML without executing JS — so without prerendering they see the homepage's
 meta on every URL.
 
-This script writes one static file per indexable route (e.g. services.html) with:
+This script writes one static file per supported route (e.g. services.html) with:
   - route-specific <title>, meta description, canonical, og/twitter tags
   - the matching `.pg` section pre-marked `act` so the correct page is the
     primary visible content on first paint, no JS required
 
-Cloudflare Pages serves /services.html for a request to /services (clean URLs),
-and the SPA fallback in _redirects only fires for paths with no matching file.
+Cloudflare Pages serves /services.html for a request to /services (clean URLs).
+Generated HTML files retain the two runtime-only thank-you views without adding
+them to the sitemap, while a top-level 404.html keeps unknown pages and missing
+assets out of the SPA shell.
 The in-page JS still runs and re-confirms meta against location.origin, so .ng
 hosts self-correct their canonical at render time.
 
@@ -93,6 +95,19 @@ ROUTES = {
     ),
 }
 
+# Supported direct-load views that deliberately remain outside the sitemap.
+# Keep their existing indexing policy: no sitemap entry and no robots override.
+RUNTIME_ROUTES = {
+    "thank-you": (
+        "Thank You — EquaCore Digital",
+        "EquaCore Digital improves service delivery through platform implementation, independent advisory, managed support and specialist talent.",
+    ),
+    "enquiry-thanks": (
+        "Message Received — EquaCore Digital",
+        "EquaCore Digital improves service delivery through platform implementation, independent advisory, managed support and specialist talent.",
+    ),
+}
+
 
 def esc(s: str) -> str:
     """Escape for use inside a double-quoted HTML attribute."""
@@ -164,10 +179,14 @@ def render(route: str, title: str, desc: str, src: str) -> str:
 
 def main() -> None:
     src = SRC.read_text(encoding="utf-8")
-    for route, (title, desc) in ROUTES.items():
+    generated_routes = {**ROUTES, **RUNTIME_ROUTES}
+    for route, (title, desc) in generated_routes.items():
         (ROOT / f"{route}.html").write_text(render(route, title, desc, src), encoding="utf-8")
         print(f"wrote {route}.html")
-    print(f"prerendered {len(ROUTES)} routes")
+    print(
+        f"prerendered {len(ROUTES)} indexable routes and "
+        f"{len(RUNTIME_ROUTES)} runtime routes"
+    )
 
     # Keep sitemap freshness accurate: stamp every <lastmod> with the build date.
     sitemap = ROOT / "sitemap.xml"

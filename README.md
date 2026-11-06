@@ -6,7 +6,7 @@ Source for [equacoredigital.com](https://equacoredigital.com) — the website fo
 
 - **Hosted on Cloudflare Pages** — auto-deploys on push to `main`.
 - DNS sits at Cloudflare (apex + `www` proxied; M365 / SendGrid / verification records DNS-only).
-- The `_redirects` file (`/* /index.html 200`) is a Cloudflare Pages SPA fallback rule: every path returns `index.html`, then the in-page JS router shows the matching page div.
+- Cloudflare Pages serves committed per-route HTML files at clean URLs. `_redirects` holds only the explicit toggle-only French redirects; generated, non-sitemap HTML files preserve the two runtime thank-you views, and `404.html` provides the genuine missing-page and missing-asset boundary.
 - The `CNAME` file at the repo root pins the custom domain.
 - The `_headers` file sets cache policy: HTML revalidates every request; static assets (`.js`, `.css`, `.svg`, `.jpg`, `.png`, `.webp`, `.woff2`) are immutable for one year.
 
@@ -16,7 +16,7 @@ For full infrastructure details (DNS records, Make.com pipeline, SendGrid, Share
 
 - Single-file HTML (`index.html`) with embedded CSS and JS — no build step, no dependencies.
 - Inter + Plus Jakarta Sans loaded from Google Fonts (preloaded, non-blocking).
-- Path-based routing using the History API (`pushState` / `popstate`) — no hash fragments. Cloudflare Pages serves `index.html` for any path; `handleRoute()` reads `location.pathname` and shows the matching `<div class="pg" id="pg-…">`.
+- Path-based routing using the History API (`pushState` / `popstate`) — no hash fragments. Cloudflare Pages serves each committed route document directly; `handleRoute()` keeps in-page navigation and route state aligned.
 - Google Analytics 4 (`G-JP8C5PXHH5`).
 - Strict CSP, including `frame-ancestors 'none'` and `tally.so` for the talent pool embed.
 
@@ -46,7 +46,8 @@ INFRASTRUCTURE.md                   — Full infra reference (untracked, contain
 EquaCore_Digital_Infrastructure.pdf — Same content as PDF (untracked)
 README.md                           — This file
 CNAME                               — Custom domain pin (equacoredigital.com)
-_redirects                          — Cloudflare Pages SPA fallback
+_redirects                          — Explicit toggle-only French redirects
+404.html                            — Standalone bilingual not-found response
 _headers                            — Cache headers for static assets
 sitemap.xml                         — 11 indexable URLs
 robots.txt                          — Allow all + sitemap pointer
@@ -102,7 +103,7 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-For path-based routing to work locally on every URL, you'll want a server that falls back to `index.html` for unknown paths (mirrors the `_redirects` behaviour) — `npx serve -s .` does this.
+The basic local server does not emulate Cloudflare's clean-URL, `_redirects`, or custom-404 handling. Use the immutable Cloudflare preview to validate raw route, redirect, query-string, missing-asset, and 404 behaviour before merge.
 
 ---
 

@@ -1,6 +1,6 @@
 # EquaCore Digital Website Environment
 
-Last updated: 2026-05-06
+Last updated: 2026-11-06
 
 This document describes the live website, domain, DNS, email, and repository environment for EquaCore Digital.
 
@@ -32,19 +32,26 @@ The deleted duplicate repo had GitHub Pages enabled with `CNAME = equacoredigita
 The website is a static single-page application:
 
 - Main app file: `index.html`
-- Cloudflare Pages fallback: `_redirects`
+- Cloudflare Pages routing rules: `_redirects`
+- Standalone not-found document: `404.html`
 - Cache headers: `_headers`
 - Custom domain pin for the original `.com` setup: `CNAME`
 - Sitemap: `sitemap.xml`
 - Robots file: `robots.txt`
 
-The current `_redirects` rule is:
+The current routing boundary is:
 
 ```text
-/* /index.html 200
+/fr/{known-route} /{known-route} 301
 ```
 
-This lets direct route visits such as `/talent`, `/contact`, or `/privacy` load `index.html`, after which the in-page router displays the matching page.
+Committed per-route HTML files let direct visits such as `/talent`, `/contact`,
+or `/privacy` resolve at clean URLs. The full `_redirects` table sends only known
+toggle-only French paths to their matching English canonical and retains the two
+runtime thank-you views through generated, non-sitemap HTML files. A top-level
+`404.html` makes unknown pages, unknown
+`/fr/*` paths, missing assets, and the deliberately unpublished `/llms.txt`
+return a genuine not-found response instead of the homepage shell.
 
 ## Hosting
 
