@@ -120,6 +120,13 @@ const FR = {
   "Mentored and enterprise-ready": "Accompagnés et prêts pour l'entreprise",
   "Explore Halo services →": "Découvrir les services Halo →",
   "Explore Freshworks services →": "Découvrir les services Freshworks →",
+  "Claude Adoption": "Adoption de Claude",
+  "We help organisations adopt Claude responsibly through practical use-case design, integration design with permissions and approval points, knowledge workflows and AI-assisted delivery, with governance and human oversight built around your operating needs.":
+    "Nous aidons les organisations à adopter Claude de manière responsable grâce à la conception de cas d'usage concrets, à des intégrations dotées d'autorisations et de points d'approbation, à des flux de connaissances et à une livraison assistée par l'IA, avec une gouvernance et une supervision humaine adaptées à leurs besoins opérationnels.",
+  "Explore Claude adoption →": "Découvrir l'adoption de Claude →",
+  "Responsible Claude adoption shaped around use-case discovery, organisational knowledge, integrations, human oversight, rollout and evaluation.":
+    "Une adoption responsable de Claude structurée autour de la découverte des cas d'usage, des connaissances de l'organisation, des intégrations, de la supervision humaine, du déploiement et de l'évaluation.",
+  "Explore Claude Adoption →": "Découvrir l'adoption de Claude →",
 
   // ---- ENG-33 Freshworks page ----
   "Freshworks Services": "Services Freshworks",
@@ -183,6 +190,85 @@ const FR = {
     "Présentez-nous votre défi de processus, de service ou de support client. Nous vous aiderons à cadrer l'adéquation du produit et le parcours de livraison.",
   "Book a 30-minute discussion": "Réserver une discussion de 30 minutes",
   "Send us a message": "Nous envoyer un message",
+
+  // ---- ENG-34 Anthropic / Claude adoption page ----
+  "Responsible Claude adoption": "Adoption responsable de Claude",
+  "Claude adoption, designed around": "L'adoption de Claude, conçue autour du",
+  "real work.": "travail réel.",
+  "We help organisations move from promising ideas to governed, useful Claude workflows—prioritising the right use cases, connecting knowledge and tools, keeping people in control, and improving against clear measures.":
+    "Nous aidons les organisations à passer d'idées prometteuses à des flux Claude utiles et gouvernés : prioriser les bons cas d'usage, relier les connaissances et les outils, maintenir le contrôle humain et s'améliorer selon des mesures claires.",
+  "Discuss Claude adoption": "Discuter de l'adoption de Claude",
+  "Explore where Claude can fit": "Explorer où Claude peut s'intégrer",
+  "Work": "Travail",
+  "Knowledge": "Connaissances",
+  "People": "Personnes",
+  "Claude workflow": "Flux Claude",
+  "Human review": "Validation humaine",
+  "Prioritise": "Prioriser",
+  "Connect": "Connecter",
+  "Govern": "Gouverner",
+  "Responsible Claude adoption journey": "Parcours d'adoption responsable de Claude",
+  "Operational inputs move through Discover, Prioritise, Connect, Govern and Improve. Human review sits inside the governed workspace and evaluation feeds the next cycle.":
+    "Les éléments opérationnels passent par les étapes Découvrir, Prioriser, Connecter, Gouverner et Améliorer. La validation humaine est intégrée à l'espace gouverné et l'évaluation alimente le cycle suivant.",
+  "Claude in context": "Claude dans son contexte",
+  "Where Claude can fit in the operation.": "Où Claude peut s'intégrer dans les opérations.",
+  "Start with a process and a defined user need, then choose the product surface, knowledge sources, tools and controls that support it.":
+    "Partez d'un processus et d'un besoin utilisateur défini, puis choisissez l'interface produit, les sources de connaissances, les outils et les contrôles qui le soutiennent.",
+  "Organisational knowledge": "Connaissances de l'organisation",
+  "Claude Projects and connected knowledge": "Projets Claude et connaissances connectées",
+  "Structure relevant working context, curate sources, define access expectations and establish ownership for keeping knowledge useful over time.":
+    "Structurez le contexte de travail pertinent, sélectionnez les sources, définissez les règles d'accès et attribuez la responsabilité de maintenir les connaissances utiles dans le temps.",
+  "Source selection": "Sélection des sources",
+  "Knowledge curation": "Gestion des connaissances",
+  "Access design": "Conception des accès",
+  "Integrated workflows": "Flux de travail intégrés",
+  "Claude Platform and tool use": "Claude Platform et utilisation d'outils",
+  "Connect Claude to approved tools and systems with explicit scopes, authentication, approval points, failure paths and operational ownership.":
+    "Connectez Claude aux outils et systèmes approuvés avec des périmètres explicites, une authentification, des points d'approbation, des scénarios d'échec et une responsabilité opérationnelle.",
+  "AI-assisted delivery": "Livraison assistée par l'IA",
+  "Claude Code workflows": "Flux de travail Claude Code",
+  "Introduce repository conventions, permission boundaries, test and review gates, usage guidance and adoption support around engineering work.":
+    "Mettez en place des conventions de dépôt, des limites d'autorisation, des contrôles de test et de revue, des consignes d'usage et un accompagnement à l'adoption pour les travaux d'ingénierie.",
+  "Product availability, connector behaviour and administrative controls vary by product, plan, permissions and configuration. Fit should be confirmed against current Anthropic documentation and your requirements.":
+    "La disponibilité des produits, le comportement des connecteurs et les contrôles d'administration varient selon le produit, l'offre, les autorisations et la configuration. L'adéquation doit être confirmée à partir de la documentation Anthropic à jour et de vos besoins.",
+  "Anthropic capability and EquaCore delivery, kept distinct.": "Capacités d'Anthropic et livraison d'EquaCore, clairement distinguées.",
+  "Anthropic builds and maintains Claude products and the Claude Platform. EquaCore helps organisations turn an operating need into a governed adoption programme.":
+    "Anthropic conçoit et maintient les produits Claude et la Claude Platform. EquaCore aide les organisations à transformer un besoin opérationnel en programme d'adoption gouverné.",
+  "What Anthropic provides": "Ce qu'Anthropic fournit",
+  "Claude products, platform capabilities and product controls": "Produits Claude, capacités de plateforme et contrôles produit",
+  "Models, product experiences, platform features, documentation and vendor-managed controls are provided and maintained by Anthropic.":
+    "Les modèles, les expériences produit, les fonctionnalités de plateforme, la documentation et les contrôles gérés par l'éditeur sont fournis et maintenus par Anthropic.",
+  "Process-led adoption and implementation": "Adoption et implémentation guidées par les processus",
+  "Use-case discovery and prioritisation, workflow and data design, integration configuration, permissions and approval design, rollout, training, evaluation and continuous improvement.":
+    "Découverte et priorisation des cas d'usage, conception des flux et des données, configuration des intégrations, conception des autorisations et des approbations, déploiement, formation, évaluation et amélioration continue.",
+  "Governance and human oversight": "Gouvernance et supervision humaine",
+  "Control is designed into the workflow.": "Le contrôle est intégré au flux de travail.",
+  "Every use case needs explicit boundaries for what Claude can access, what it can do, when a person must review, and how performance is assessed.":
+    "Chaque cas d'usage requiert des limites explicites sur ce à quoi Claude peut accéder, ce qu'il peut faire, quand une personne doit valider et comment la performance est évaluée.",
+  "Permissions": "Autorisations",
+  "Limit data and tool access to what the use case requires.": "Limitez l'accès aux données et aux outils à ce qu'exige le cas d'usage.",
+  "Approval points": "Points d'approbation",
+  "Keep meaningful human review before consequential actions.": "Conservez une validation humaine significative avant les actions à conséquence.",
+  "Evaluation": "Évaluation",
+  "Test representative tasks, edge cases and agreed success criteria.": "Testez des tâches représentatives, les cas limites et les critères de réussite convenus.",
+  "Ownership": "Responsabilité",
+  "Define monitoring, escalation and improvement responsibilities.": "Définissez les responsabilités de suivi, d'escalade et d'amélioration.",
+  "Adoption lifecycle": "Cycle d'adoption",
+  "From opportunity to an improving service": "De l'opportunité à un service qui s'améliore",
+  "Each stage produces evidence for the next decision, with evaluation and operational feedback feeding the improvement backlog.":
+    "Chaque étape produit des éléments pour la décision suivante, l'évaluation et les retours opérationnels alimentant le backlog d'amélioration.",
+  "Map the work, users, knowledge, pain points and constraints.": "Cartographiez le travail, les utilisateurs, les connaissances, les difficultés et les contraintes.",
+  "Compare value, feasibility, risk and readiness before selecting a pilot.": "Comparez la valeur, la faisabilité, le risque et la préparation avant de sélectionner un pilote.",
+  "Design and connect": "Concevoir et connecter",
+  "Shape the workflow, context, tools, permissions and failure paths.": "Concevez le flux, le contexte, les outils, les autorisations et les scénarios d'échec.",
+  "Govern and test": "Gouverner et tester",
+  "Set approval boundaries and evaluate representative tasks and edge cases.": "Définissez les limites d'approbation et évaluez des tâches représentatives ainsi que les cas limites.",
+  "Prepare users, guidance, rollout support and operating ownership.": "Préparez les utilisateurs, les consignes, le support au déploiement et la responsabilité opérationnelle.",
+  "Evaluate and improve": "Évaluer et améliorer",
+  "Review usage and quality against agreed measures, then iterate.": "Examinez l'usage et la qualité selon les mesures convenues, puis améliorez par itérations.",
+  "Where could Claude improve the way work gets done?": "Où Claude pourrait-il améliorer la manière dont le travail est réalisé ?",
+  "Bring the process, knowledge challenge or delivery workflow. We will help frame a responsible adoption path.":
+    "Présentez-nous le processus, le défi de connaissances ou le flux de livraison. Nous vous aiderons à cadrer un parcours d'adoption responsable.",
 
   // ---- Home hero ----
   "Enterprise Platforms": "Plateformes d'entreprise",
@@ -1058,6 +1144,7 @@ const FR = {
   "ServiceNow Nigeria — Consulting, Talent & Managed Services": "ServiceNow Nigeria — Conseil, talents et services gérés",
   "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital": "Services Halo (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
   "Freshworks Services & Implementation — EquaCore Digital": "Services et implémentation Freshworks — EquaCore Digital",
+  "Responsible Claude Adoption — EquaCore Digital": "Adoption responsable de Claude — EquaCore Digital",
   "Talent Augmentation — EquaCore Digital": "Renfort de talents — EquaCore Digital",
   "Join Our Talent Pool — EquaCore Digital": "Rejoindre notre vivier de talents — EquaCore Digital",
   "Engagement Models — EquaCore Digital": "Modèles d'engagement — EquaCore Digital",
@@ -1074,6 +1161,8 @@ const FR = {
     "EquaCore Digital assure l'implémentation et l'amélioration de plateformes couvrant les solutions Halo et Freshworks, des services ServiceNow indépendants, des talents spécialisés et une livraison responsable de solutions d'IA.",
   "EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.":
     "EquaCore Digital assure l'implémentation et l'optimisation de Freshworks, de la cartographie des processus et de la configuration aux intégrations, à la migration et à l'accompagnement.",
+  "EquaCore Digital helps organisations adopt Claude responsibly through use-case discovery, integration design, human oversight, rollout and evaluation.":
+    "EquaCore Digital aide les organisations à adopter Claude de manière responsable grâce à la découverte des cas d'usage, à la conception des intégrations, à la supervision humaine, au déploiement et à l'évaluation.",
   "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.":
     "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de la livraison de la plateforme Halo complète et de services ServiceNow indépendants. Basé au Nigeria, actif dans le monde entier.",
   "EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner.":
@@ -1123,12 +1212,14 @@ const FR_ATTR = {
   "Service requests move through an independent ServiceNow operations cycle of assessment, operation, advice and improvement, with resolved work feeding future improvement.": "Les demandes de service suivent un cycle d'exploitation ServiceNow indépendant comprenant l'évaluation, l'exploitation, le conseil et l'amélioration, les travaux résolus alimentant les améliorations futures.",
   "Distinct specialist profiles progress through technical assessment and structured development before joining an embedded enterprise delivery team.": "Des profils spécialistes distincts passent par une évaluation technique et un développement structuré avant de rejoindre une équipe de livraison intégrée à l'entreprise.",
   "A five-stage Freshworks delivery journey maps processes, designs the solution, configures workflows, enables users and feeds operational learning into continuous improvement.": "Un parcours de livraison Freshworks en cinq étapes cartographie les processus, conçoit la solution, configure les flux de travail, accompagne les utilisateurs et transforme les enseignements opérationnels en amélioration continue.",
+  "Work, knowledge and people move through a five-stage Claude adoption journey of discovery, prioritisation, connection, governance and improvement, with human review and evaluation built into the cycle.": "Le travail, les connaissances et les personnes suivent un parcours d'adoption de Claude en cinq étapes — découverte, priorisation, connexion, gouvernance et amélioration — avec validation humaine et évaluation intégrées au cycle.",
   "Halo platform delivery, independent ServiceNow services and talent augmentation converge in EquaCore's delivery model": "La livraison de la plateforme Halo, les services ServiceNow indépendants et le renfort de talents convergent dans le modèle de livraison d'EquaCore",
   "Three service channels labelled HaloITSM, HaloPSA and HaloCRM flow into a shared implementation and support workspace.": "Trois canaux de service nommés HaloITSM, HaloPSA et HaloCRM convergent vers un espace commun d'implémentation et de support.",
   "Health assessment, managed operations and advisory connect to an independently supported ServiceNow platform workspace.": "L'évaluation de santé, l'exploitation gérée et le conseil se connectent à un espace de travail de la plateforme ServiceNow pris en charge de manière indépendante.",
   "Three assessed professional profiles move through mentorship into an embedded enterprise delivery team.": "Trois profils professionnels évalués passent par le mentorat avant d'intégrer une équipe de livraison d'entreprise.",
   "Toggle navigation menu": "Afficher/masquer le menu de navigation",
   "Scroll to top": "Remonter en haut de la page",
+  "Chat with EquaCore on WhatsApp": "Discuter avec EquaCore sur WhatsApp",
   "Close": "Fermer",
   "EquaCore Digital on LinkedIn": "EquaCore Digital sur LinkedIn",
   "EquaCore Digital on Instagram": "EquaCore Digital sur Instagram",
@@ -1195,6 +1286,12 @@ function applyFrench() {
       node.nodeValue = lead + fr + trail;
     }
   });
+  // The Anthropic process graphic contains meaningful stage/input labels.
+  // Translate only those curated SVG text nodes; other inline SVGs are icons.
+  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc').forEach(el => {
+    const fr = FR_NORM[norm(el.textContent)];
+    if (fr !== undefined) el.textContent = fr;
+  });
   document.querySelectorAll('[placeholder],[aria-label],[alt],[title]').forEach(el => {
     ['placeholder', 'aria-label', 'alt', 'title'].forEach(attr => {
       const v = el.getAttribute(attr);
@@ -1204,7 +1301,7 @@ function applyFrench() {
   document.documentElement.lang = 'fr';
   if (FR_NORM[norm(document.title)]) document.title = FR_NORM[norm(document.title)];
   const btn = document.getElementById('langt');
-  if (btn) { btn.textContent = 'EN'; btn.setAttribute('aria-label', 'Switch to English'); }
+  if (btn) { btn.textContent = 'EN'; btn.setAttribute('aria-label', "Passer à l'anglais"); }
 }
 
 // Toggle entry point (wired to the nav button in index.html). A manual choice is
