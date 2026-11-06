@@ -65,6 +65,10 @@ APPROVED_ANTHROPIC_ASSET_URLS = {
     "/assets/brand/anthropic-wordmark.svg",
     "/assets/brand/anthropic-wordmark.svg?v=56cc8de5",
 }
+APPROVED_OPENAI_ASSET_URLS = {
+    "/assets/brand/openai-wordmark.svg",
+    "/assets/brand/openai-wordmark.svg?v=f5a8c4c3",
+}
 
 # ------------------------------------------------------------------------------
 # RISK PATTERNS
@@ -222,7 +226,7 @@ class _BrandAssetParser(HTMLParser):
                         element,
                     ))
             if _IMAGE_EXT.search(value) and re.search(r"openai|chatgpt|gpt", lowered):
-                if value != "/assets/brand/openai-wordmark.svg":
+                if value not in APPROVED_OPENAI_ASSET_URLS:
                     self.findings.append((
                         "OpenAI product logo asset reference",
                         f'{name}="{value}"',
@@ -247,7 +251,7 @@ class _BrandAssetParser(HTMLParser):
                 ))
             if ("openai" in lowered_alt or "chatgpt" in lowered_alt) and not (
                 alt == "OpenAI"
-                and "/assets/brand/openai-wordmark.svg" in values
+                and any(value in APPROVED_OPENAI_ASSET_URLS for value in values)
             ):
                 self.findings.append((
                     "alt= mentions OpenAI product imagery", f'alt="{alt}"', element
@@ -456,6 +460,10 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img src="/assets/img/team.jpg" alt="OpenAI partner badge">', True),
     ("AC-5 approved OpenAI wordmark",
      '<img src="/assets/brand/openai-wordmark.svg" alt="OpenAI">', False),
+    ("AC-5 approved cache-busted OpenAI wordmark",
+     '<img src="/assets/brand/openai-wordmark.svg?v=f5a8c4c3" alt="OpenAI">', False),
+    ("AC-5 unapproved OpenAI cache token",
+     '<img src="/assets/brand/openai-wordmark.svg?v=wrong" alt="OpenAI">', True),
     ("AC-5 wrong asset with plain OpenAI alt",
      '<img src="/assets/img/team.jpg" alt="OpenAI">', True),
     ("AC-5 sanctioned filename blocks a different asset type",
