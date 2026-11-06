@@ -1,1 +1,38 @@
-/* /index.html 200
+# Toggle-only French URLs: keep route intent and return visitors to the
+# corresponding English canonical. Query strings are retained by Pages.
+/fr / 301
+/fr/ / 301
+/fr/services /services 301
+/fr/services/ /services 301
+/fr/servicenow /servicenow 301
+/fr/servicenow/ /servicenow 301
+/fr/haloitsm /haloitsm 301
+/fr/haloitsm/ /haloitsm 301
+/fr/freshworks /freshworks 301
+/fr/freshworks/ /freshworks 301
+/fr/anthropic /anthropic 301
+/fr/anthropic/ /anthropic 301
+/fr/talent /talent 301
+/fr/talent/ /talent 301
+/fr/talent-pool /talent-pool 301
+/fr/talent-pool/ /talent-pool 301
+/fr/engagement /engagement 301
+/fr/engagement/ /engagement 301
+/fr/about /about 301
+/fr/about/ /about 301
+/fr/markets /markets 301
+/fr/markets/ /markets 301
+/fr/contact /contact 301
+/fr/contact/ /contact 301
+/fr/privacy /privacy 301
+/fr/privacy/ /privacy 301
+
+# These two success views are intentionally client-rendered and are not
+# indexable content routes. Preserve their existing direct-load behaviour.
+/thank-you /index.html 200
+/thank-you/ /index.html 200
+/enquiry-thanks /index.html 200
+/enquiry-thanks/ /index.html 200
+
+# No catch-all rewrite. The top-level 404.html is the deliberate boundary for
+# unknown pages, unknown /fr/* paths, missing assets and /llms.txt.

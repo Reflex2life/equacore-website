@@ -20,12 +20,12 @@
           "python3 scripts/check-cache-bust.py --fix",
           "python3 scripts/prerender.py"
         ],
-        "note": "Every CSS/JS URL in index.html carries a ?v=<content-hash>. Editing an asset changes its hash, so check-cache-bust.py --fix must rewrite index.html and then prerender.py must propagate the new hashes into all 10 route files. Skipping this fails check 4 of the gate. Order matters: --fix first, prerender second."
+        "note": "Every CSS/JS URL in index.html carries a ?v=<content-hash>. Editing an asset changes its hash, so check-cache-bust.py --fix must rewrite index.html and then prerender.py must propagate the new hashes into every generated route file. Skipping this fails check 4 of the gate. Order matters: --fix first, prerender second."
       },
       {
         "paths": ["index.html"],
         "run": ["python3 scripts/prerender.py"],
-        "note": "index.html is the single source of truth. prerender.py writes one static file per indexable route (services, servicenow, haloitsm, talent, talent-pool, engagement, about, markets, contact, privacy) and re-stamps sitemap.xml. Body content is byte-identical across all of them, so hand-editing a route file is always wrong and a missed regeneration ships stale pages. Commit every regenerated file with the index.html change."
+        "note": "index.html is the single source of truth. prerender.py writes one static file per indexable route from its ROUTES map and re-stamps sitemap.xml. Body content is byte-identical across all of them, so hand-editing a route file is always wrong and a missed regeneration ships stale pages. Commit every regenerated file with the index.html change."
       },
       {
         "paths": ["scripts/prerender.py"],
@@ -36,7 +36,7 @@
     "gate": [
       "bash scripts/pre-push-check.sh"
     ],
-    "_gate_comment": "One command on purpose. pre-push-check.sh runs all four checks - trademark scan, prerender drift, route/sitemap parity, cache-bust hashes - and treats a check it could not run as a failure rather than a pass. Do not add the individual scripts separately; they are already covered."
+    "_gate_comment": "One command on purpose. pre-push-check.sh runs all five checks - trademark scan, prerender drift, route/sitemap parity, cache-bust hashes, and the French/404 routing boundary - and treats a check it could not run as a failure rather than a pass. Do not add the individual scripts separately; they are already covered."
   },
 
   "_onApproval_comment": "Merge is intentionally OFF. Deploying this repo means pushing main, which Cloudflare Pages publishes to equacoredigital.com and equacoredigital.ng in 1-2 minutes. A merge to main IS a production deploy of the public company website, so it stays a human decision. Do not set this to true without the owner explicitly asking.",

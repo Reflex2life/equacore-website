@@ -10,6 +10,7 @@
 #      sitemap.xml must exist as a committed per-route HTML file
 #   4. Cache-bust: every CSS/JS asset URL in index.html carries a ?v=<hash>
 #      matching the asset's content hash (scripts/check-cache-bust.py)
+#   5. Routing: French redirects, runtime rewrites and the standalone 404 boundary
 #
 # Exit 0 = PASS, non-zero = FAIL. Checks that cannot run are reported as
 # SKIPPED (with reason) and count as failure — no false-pass.
@@ -33,7 +34,7 @@ report() { # status name detail
 hr() { printf '%s\n' "----------------------------------------------------------------"; }
 
 # ---------------------------------------------------------------- check 1
-hr; echo "[1/4] Trademark risk scan"
+hr; echo "[1/5] Trademark risk scan"
 if ! command -v python3 >/dev/null 2>&1; then
   report SKIP "trademark" "python3 not found on PATH"
 elif [ ! -f scripts/check-trademark-risk.py ]; then
@@ -47,7 +48,7 @@ else
 fi
 
 # ---------------------------------------------------------------- check 2
-hr; echo "[2/4] Prerender drift check"
+hr; echo "[2/5] Prerender drift check"
 ROUTES=""
 if command -v python3 >/dev/null 2>&1 && [ -f scripts/prerender.py ]; then
   ROUTES=$(python3 - <<'EOF'
@@ -93,7 +94,7 @@ else
 fi
 
 # ---------------------------------------------------------------- check 3
-hr; echo "[3/4] Internal link / route sanity"
+hr; echo "[3/5] Internal link / route sanity"
 if [ ! -f index.html ] || [ ! -f sitemap.xml ]; then
   report SKIP "routes" "index.html or sitemap.xml missing"
 else
@@ -123,7 +124,7 @@ else
 fi
 
 # ---------------------------------------------------------------- check 4
-hr; echo "[4/4] Cache-bust hash check"
+hr; echo "[4/5] Cache-bust hash check"
 if ! command -v python3 >/dev/null 2>&1; then
   report SKIP "cache-bust" "python3 not found on PATH"
 elif [ ! -f scripts/check-cache-bust.py ]; then
@@ -133,6 +134,18 @@ elif python3 scripts/check-cache-bust.py >/dev/null 2>&1; then
 else
   python3 scripts/check-cache-bust.py || true
   report FAIL "cache-bust" "asset ?v= out of sync (run --fix + prerender)"
+fi
+
+# ---------------------------------------------------------------- check 5
+hr; echo "[5/5] Routing and 404 boundary"
+if ! command -v python3 >/dev/null 2>&1; then
+  report SKIP "routing" "python3 not found on PATH"
+elif [ ! -f scripts/check-routing.py ]; then
+  report SKIP "routing" "scripts/check-routing.py missing"
+elif python3 scripts/check-routing.py; then
+  report PASS "routing" "French map, runtime routes and 404 boundary are consistent"
+else
+  report FAIL "routing" "routing regression found (see output above)"
 fi
 
 # ---------------------------------------------------------------- verdict

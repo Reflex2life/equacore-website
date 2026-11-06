@@ -13,8 +13,9 @@ This script writes one static file per indexable route (e.g. services.html) with
   - the matching `.pg` section pre-marked `act` so the correct page is the
     primary visible content on first paint, no JS required
 
-Cloudflare Pages serves /services.html for a request to /services (clean URLs),
-and the SPA fallback in _redirects only fires for paths with no matching file.
+Cloudflare Pages serves /services.html for a request to /services (clean URLs).
+Explicit _redirects rules retain the two runtime-only thank-you views, while a
+top-level 404.html keeps unknown pages and missing assets out of the SPA shell.
 The in-page JS still runs and re-confirms meta against location.origin, so .ng
 hosts self-correct their canonical at render time.
 
