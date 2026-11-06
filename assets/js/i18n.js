@@ -270,6 +270,113 @@ const FR = {
   "Bring the process, knowledge challenge or delivery workflow. We will help frame a responsible adoption path.":
     "Présentez-nous le processus, le défi de connaissances ou le flux de livraison. Nous vous aiderons à cadrer un parcours d'adoption responsable.",
 
+  // ---- ENG-37 OpenAI adoption and integration page ----
+  "OpenAI Solutions": "Solutions OpenAI",
+  "Explore OpenAI solutions →": "Découvrir les solutions OpenAI →",
+  "OpenAI adoption and integration for ChatGPT workspaces, API-enabled workflows, connected knowledge and AI-assisted delivery—with human approval and operating ownership designed in.":
+    "Adoption et intégration d'OpenAI pour les espaces de travail ChatGPT, les flux activés par API, les connaissances connectées et la livraison assistée par l'IA, avec validation humaine et responsabilité opérationnelle intégrées.",
+  "Explore OpenAI Solutions →": "Découvrir les solutions OpenAI →",
+  "OpenAI adoption and integration": "Adoption et intégration d'OpenAI",
+  "OpenAI capability, shaped into": "Les capacités d'OpenAI, transformées en",
+  "reliable work.": "travail fiable.",
+  "We help organisations identify where OpenAI can be useful, connect approved knowledge and tools, design human control around consequential actions, and establish an operating path from pilot to ongoing improvement.":
+    "Nous aidons les organisations à déterminer où OpenAI peut être utile, à connecter les connaissances et outils approuvés, à concevoir un contrôle humain autour des actions à conséquence et à établir un parcours opérationnel allant du pilote à l'amélioration continue.",
+  "Discuss an OpenAI use case": "Discuter d'un cas d'usage OpenAI",
+  "Explore the fit": "Explorer l'adéquation",
+  "Systems": "Systèmes",
+  "ChatGPT workspace": "Espace de travail ChatGPT",
+  "API + tools": "API + outils",
+  "OWNED OPERATION": "OPÉRATION MAÎTRISÉE",
+  "Operational workflow": "Flux opérationnel",
+  "Context, tools, controls": "Contexte, outils, contrôles",
+  "Review": "Validation",
+  "Assist": "Assister",
+  "Act": "Agir",
+  "Control": "Contrôler",
+  "Controlled OpenAI workflow map": "Carte d'un flux OpenAI contrôlé",
+  "People, knowledge and systems enter through ChatGPT workspace or API and tool connections. They converge in an owned workflow with human approval, then support assistance, action and improvement.":
+    "Les personnes, les connaissances et les systèmes entrent par un espace de travail ChatGPT ou par des connexions API et outils. Ils convergent dans un flux maîtrisé avec validation humaine, puis soutiennent l'assistance, l'action et l'amélioration.",
+  "OpenAI product capabilities": "Capacités des produits OpenAI",
+  "Choose the surface that fits the work.": "Choisissez l'interface adaptée au travail.",
+  "OpenAI provides several product surfaces for individual work, organisational knowledge and application workflows. The right choice depends on the users, data, actions and controls involved.":
+    "OpenAI propose plusieurs interfaces produit pour le travail individuel, les connaissances de l'organisation et les flux applicatifs. Le bon choix dépend des utilisateurs, des données, des actions et des contrôles concernés.",
+  "Workspace adoption": "Adoption de l'espace de travail",
+  "ChatGPT workspaces": "Espaces de travail ChatGPT",
+  "ChatGPT can support individual and team work within an organisation-managed environment, with available workspace controls and connected sources depending on product and configuration.":
+    "ChatGPT peut soutenir le travail individuel et collectif dans un environnement géré par l'organisation, avec des contrôles d'espace de travail et des sources connectées selon le produit et la configuration.",
+  "User enablement": "Accompagnement des utilisateurs",
+  "Approved knowledge": "Connaissances approuvées",
+  "Workspace controls": "Contrôles de l'espace de travail",
+  "Application workflows": "Flux applicatifs",
+  "Responses API and tool connections": "API Responses et connexions aux outils",
+  "The OpenAI API can combine model responses with retrieval, narrowly scoped functions and trusted tool or MCP connections to support application workflows.":
+    "L'API OpenAI peut combiner les réponses des modèles avec la recherche, des fonctions à périmètre restreint et des connexions fiables à des outils ou à MCP pour soutenir les flux applicatifs.",
+  "Retrieval": "Recherche",
+  "Functions and tools": "Fonctions et outils",
+  "Approval boundaries": "Limites d'approbation",
+  "Knowledge and delivery": "Connaissances et livraison",
+  "Source-aware assistance and AI-assisted delivery": "Assistance avec sources et livraison assistée par l'IA",
+  "File search can retrieve from approved knowledge bases, while OpenAI coding capabilities can support software delivery within defined repository, test and review practices.":
+    "La recherche de fichiers peut extraire des informations de bases de connaissances approuvées, tandis que les capacités de codage d'OpenAI peuvent soutenir la livraison logicielle dans le cadre de pratiques définies de dépôt, de test et de revue.",
+  "Knowledge assistants": "Assistants de connaissances",
+  "Source visibility": "Visibilité des sources",
+  "Test and review gates": "Contrôles de test et de revue",
+  "Product availability, data handling, connectors, administrative controls and limits vary by selected OpenAI product, plan, permissions and configuration. Fit should be confirmed against current OpenAI documentation and your requirements.":
+    "La disponibilité des produits, le traitement des données, les connecteurs, les contrôles d'administration et les limites varient selon le produit OpenAI, l'offre, les autorisations et la configuration choisis. L'adéquation doit être confirmée à partir de la documentation OpenAI à jour et de vos besoins.",
+  "OpenAI products and EquaCore delivery, kept distinct.": "Produits OpenAI et livraison d'EquaCore, clairement distingués.",
+  "OpenAI builds and maintains its models, products, APIs and platform controls. EquaCore helps organisations translate a work need into a controlled adoption and integration programme.":
+    "OpenAI conçoit et maintient ses modèles, produits, API et contrôles de plateforme. EquaCore aide les organisations à traduire un besoin de travail en programme contrôlé d'adoption et d'intégration.",
+  "What OpenAI provides": "Ce qu'OpenAI fournit",
+  "Products, models, APIs and product controls": "Produits, modèles, API et contrôles produit",
+  "OpenAI provides and maintains the product experiences, model and API capabilities, platform features, documentation and vendor-managed controls.":
+    "OpenAI fournit et maintient les expériences produit, les capacités des modèles et des API, les fonctionnalités de plateforme, la documentation et les contrôles gérés par l'éditeur.",
+  "Process-led adoption and integration": "Adoption et intégration guidées par les processus",
+  "Use-case discovery, workflow and data design, integration configuration, access and approval design, user enablement, operational ownership, evaluation practices and ongoing improvement.":
+    "Découverte des cas d'usage, conception des flux et des données, configuration des intégrations, conception des accès et des approbations, accompagnement des utilisateurs, responsabilité opérationnelle, pratiques d'évaluation et amélioration continue.",
+  "Practical patterns to explore": "Schémas pratiques à explorer",
+  "Start with a real workflow, not a generic AI promise.": "Partez d'un flux réel, pas d'une promesse générique sur l'IA.",
+  "These patterns are starting points for discovery. Each needs its own data, permission, quality and operating assessment.":
+    "Ces schémas sont des points de départ pour la découverte. Chacun nécessite sa propre évaluation des données, des autorisations, de la qualité et du fonctionnement.",
+  "Source-aware knowledge support": "Support des connaissances avec sources",
+  "Help people find and synthesise information from approved sources, with source references and clear ownership for the underlying knowledge.":
+    "Aidez les personnes à trouver et synthétiser des informations provenant de sources approuvées, avec des références et une responsabilité claire pour les connaissances sous-jacentes.",
+  "Governed workflow support": "Support de flux gouverné",
+  "Use narrowly scoped tools or functions to prepare work, recommend next steps or support actions, with approval before consequential side effects.":
+    "Utilisez des outils ou fonctions à périmètre restreint pour préparer le travail, recommander les prochaines étapes ou soutenir des actions, avec approbation avant tout effet à conséquence.",
+  "Support analysis, drafting, coding or review inside established working practices, with representative tests and accountable human judgement.":
+    "Soutenez l'analyse, la rédaction, le codage ou la revue dans le cadre de pratiques de travail établies, avec des tests représentatifs et un jugement humain responsable.",
+  "Control before scale": "Contrôler avant de déployer à grande échelle",
+  "Put ownership around every connection and action.": "Attribuez une responsabilité à chaque connexion et action.",
+  "Useful adoption depends on standard security controls, explicit boundaries and human responsibility—not on a model or guardrail alone.":
+    "Une adoption utile repose sur des contrôles de sécurité standard, des limites explicites et une responsabilité humaine, et non sur un modèle ou une barrière de sécurité seuls.",
+  "Access and data": "Accès et données",
+  "Define who can use the workflow and which approved information it can reach.": "Définissez qui peut utiliser le flux et à quelles informations approuvées il peut accéder.",
+  "Tools and approvals": "Outils et approbations",
+  "Scope each connection and require human approval before sensitive or consequential actions.": "Délimitez chaque connexion et exigez une approbation humaine avant les actions sensibles ou à conséquence.",
+  "Test and review": "Test et revue",
+  "Use representative tasks, edge cases and human review to assess quality and failure paths.": "Utilisez des tâches représentatives, des cas limites et une revue humaine pour évaluer la qualité et les scénarios d'échec.",
+  "Operate and improve": "Exploiter et améliorer",
+  "Assign monitoring, incident, escalation and improvement responsibilities after launch.": "Attribuez les responsabilités de suivi, d'incident, d'escalade et d'amélioration après le lancement.",
+  "EquaCore delivery path": "Parcours de livraison EquaCore",
+  "From useful opportunity to owned operation": "D'une opportunité utile à une opération maîtrisée",
+  "Each stage produces a decision or artefact for the next, so adoption can progress with evidence and clear ownership.":
+    "Chaque étape produit une décision ou un livrable pour la suivante, afin que l'adoption progresse avec des éléments probants et une responsabilité claire.",
+  "Discover the work": "Découvrir le travail",
+  "Map users, tasks, pain points and decide whether AI is an appropriate fit.": "Cartographiez les utilisateurs, les tâches et les difficultés, puis déterminez si l'IA est adaptée.",
+  "Design the boundaries": "Concevoir les limites",
+  "Define data, access, tool, approval, failure and ownership requirements.": "Définissez les exigences relatives aux données, aux accès, aux outils, aux approbations, aux échecs et aux responsabilités.",
+  "Build and connect": "Construire et connecter",
+  "Configure the workspace or application workflow and its approved connections.": "Configurez l'espace de travail ou le flux applicatif et ses connexions approuvées.",
+  "Validate and approve": "Valider et approuver",
+  "Test representative work, review failures and confirm readiness with accountable owners.": "Testez des travaux représentatifs, examinez les échecs et confirmez la préparation avec les responsables désignés.",
+  "Enable and improve": "Accompagner et améliorer",
+  "Support adoption, monitor operation and prioritise changes from real evidence.": "Soutenez l'adoption, surveillez le fonctionnement et priorisez les changements à partir d'éléments réels.",
+  "Where could OpenAI improve the way work gets done?": "Où OpenAI pourrait-il améliorer la manière dont le travail est réalisé ?",
+  "Bring the process, knowledge challenge or delivery workflow. We will help assess the fit and frame a controlled adoption path.":
+    "Présentez-nous le processus, le défi de connaissances ou le flux de livraison. Nous vous aiderons à évaluer l'adéquation et à cadrer un parcours d'adoption contrôlé.",
+  "Start a conversation": "Démarrer une conversation",
+  "Explore all services": "Découvrir tous les services",
+
   // ---- Home hero ----
   "Enterprise Platforms": "Plateformes d'entreprise",
   "Halo & ServiceNow — ": "Halo et ServiceNow — ",
@@ -1145,6 +1252,7 @@ const FR = {
   "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital": "Services Halo (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
   "Freshworks Services & Implementation — EquaCore Digital": "Services et implémentation Freshworks — EquaCore Digital",
   "Responsible Claude Adoption — EquaCore Digital": "Adoption responsable de Claude — EquaCore Digital",
+  "OpenAI Adoption & Integration — EquaCore Digital": "Adoption et intégration d'OpenAI — EquaCore Digital",
   "Talent Augmentation — EquaCore Digital": "Renfort de talents — EquaCore Digital",
   "Join Our Talent Pool — EquaCore Digital": "Rejoindre notre vivier de talents — EquaCore Digital",
   "Engagement Models — EquaCore Digital": "Modèles d'engagement — EquaCore Digital",
@@ -1163,6 +1271,8 @@ const FR = {
     "EquaCore Digital assure l'implémentation et l'optimisation de Freshworks, de la cartographie des processus et de la configuration aux intégrations, à la migration et à l'accompagnement.",
   "EquaCore Digital helps organisations adopt Claude responsibly through use-case discovery, integration design, human oversight, rollout and evaluation.":
     "EquaCore Digital aide les organisations à adopter Claude de manière responsable grâce à la découverte des cas d'usage, à la conception des intégrations, à la supervision humaine, au déploiement et à l'évaluation.",
+  "EquaCore Digital helps organisations adopt and integrate OpenAI through use-case discovery, connected knowledge and tools, human approval, rollout and ongoing improvement.":
+    "EquaCore Digital aide les organisations à adopter et intégrer OpenAI grâce à la découverte des cas d'usage, aux connaissances et outils connectés, à la validation humaine, au déploiement et à l'amélioration continue.",
   "EquaCore Digital is an Anthropic Partner and an OpenAI Partner, alongside full Halo platform delivery and independent ServiceNow services. Based in Nigeria, delivering globally.":
     "EquaCore Digital est partenaire d'Anthropic et partenaire d'OpenAI, aux côtés de la livraison de la plateforme Halo complète et de services ServiceNow indépendants. Basé au Nigeria, actif dans le monde entier.",
   "EquaCore Digital offers Halo platform delivery, independent ServiceNow services and talent, and is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner.":
@@ -1213,6 +1323,7 @@ const FR_ATTR = {
   "Distinct specialist profiles progress through technical assessment and structured development before joining an embedded enterprise delivery team.": "Des profils spécialistes distincts passent par une évaluation technique et un développement structuré avant de rejoindre une équipe de livraison intégrée à l'entreprise.",
   "A five-stage Freshworks delivery journey maps processes, designs the solution, configures workflows, enables users and feeds operational learning into continuous improvement.": "Un parcours de livraison Freshworks en cinq étapes cartographie les processus, conçoit la solution, configure les flux de travail, accompagne les utilisateurs et transforme les enseignements opérationnels en amélioration continue.",
   "Work, knowledge and people move through a five-stage Claude adoption journey of discovery, prioritisation, connection, governance and improvement, with human review and evaluation built into the cycle.": "Le travail, les connaissances et les personnes suivent un parcours d'adoption de Claude en cinq étapes — découverte, priorisation, connexion, gouvernance et amélioration — avec validation humaine et évaluation intégrées au cycle.",
+  "People, approved knowledge and systems move through ChatGPT workspace and API tool rails into an owned operational workflow, with human approval before assistance or action and learning feeding continuous improvement.": "Les personnes, les connaissances approuvées et les systèmes passent par les voies de l'espace de travail ChatGPT et des outils API vers un flux opérationnel maîtrisé, avec validation humaine avant l'assistance ou l'action et des enseignements qui alimentent l'amélioration continue.",
   "Halo platform delivery, independent ServiceNow services and talent augmentation converge in EquaCore's delivery model": "La livraison de la plateforme Halo, les services ServiceNow indépendants et le renfort de talents convergent dans le modèle de livraison d'EquaCore",
   "Three service channels labelled HaloITSM, HaloPSA and HaloCRM flow into a shared implementation and support workspace.": "Trois canaux de service nommés HaloITSM, HaloPSA et HaloCRM convergent vers un espace commun d'implémentation et de support.",
   "Health assessment, managed operations and advisory connect to an independently supported ServiceNow platform workspace.": "L'évaluation de santé, l'exploitation gérée et le conseil se connectent à un espace de travail de la plateforme ServiceNow pris en charge de manière indépendante.",
@@ -1286,9 +1397,9 @@ function applyFrench() {
       node.nodeValue = lead + fr + trail;
     }
   });
-  // The Anthropic process graphic contains meaningful stage/input labels.
-  // Translate only those curated SVG text nodes; other inline SVGs are icons.
-  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc').forEach(el => {
+  // The Anthropic and OpenAI process graphics contain meaningful labels.
+  // Translate only those curated SVG nodes; other inline SVGs are icons.
+  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc').forEach(el => {
     const fr = FR_NORM[norm(el.textContent)];
     if (fr !== undefined) el.textContent = fr;
   });
@@ -1299,9 +1410,11 @@ function applyFrench() {
     });
   });
   document.documentElement.lang = 'fr';
+  const active = document.querySelector('.pg.act');
+  if (active && typeof setMeta === 'function') setMeta(active.id.replace(/^pg-/, ''));
   if (FR_NORM[norm(document.title)]) document.title = FR_NORM[norm(document.title)];
   const btn = document.getElementById('langt');
-  if (btn) { btn.textContent = 'EN'; btn.setAttribute('aria-label', "Passer à l'anglais"); }
+  if (btn) { btn.textContent = 'EN'; btn.setAttribute('aria-label', "EN — Passer à l'anglais"); }
 }
 
 // Toggle entry point (wired to the nav button in index.html). A manual choice is

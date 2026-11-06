@@ -2,7 +2,7 @@
 const t=s=>(window.t||(x=>x))(s);
 
 // Page titles for SEO
-const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
+const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',openai:'OpenAI Adoption & Integration — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
@@ -12,6 +12,7 @@ const descs={
   haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
   freshworks:'EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.',
   anthropic:'EquaCore Digital helps organisations adopt Claude responsibly through use-case discovery, integration design, human oversight, rollout and evaluation.',
+  openai:'EquaCore Digital helps organisations adopt and integrate OpenAI through use-case discovery, connected knowledge and tools, human approval, rollout and ongoing improvement.',
   talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.',
   'talent-pool':'Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.',
   engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
@@ -24,8 +25,8 @@ const descs={
 // Update canonical, description, and Open Graph/Twitter meta to match the active route.
 // Canonical is origin-relative so .ng URLs stay self-referencing on the .ng hostname (compliance requirement).
 function setMeta(id){
-  const title=titles[id]||titles.home;
-  const desc=descs[id]||descs.home;
+  const title=t(titles[id]||titles.home);
+  const desc=t(descs[id]||descs.home);
   const path=(id==='home'||!id)?'/':'/'+id;
   const url=location.origin+path;
   const set=(sel,attr,val)=>{const el=document.querySelector(sel);if(el)el.setAttribute(attr,val);};
@@ -59,7 +60,7 @@ function showPage(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('act'));
   document.getElementById('pg-'+id).classList.add('act');
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
-  const navMap={home:0,services:1,servicenow:1,haloitsm:1,freshworks:1,anthropic:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
+  const navMap={home:0,services:1,servicenow:1,haloitsm:1,freshworks:1,anthropic:1,openai:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
   const directLinks=document.querySelectorAll('.nls > .nl');
   if(directLinks[navMap[id]])directLinks[navMap[id]].classList.add('act');
   // Close mobile nav
@@ -349,7 +350,7 @@ function hs(e){
 // Process-journey replay. Each visible journey resolves in about 4.8 seconds,
 // holds its completed state, then restarts on a shared 8.5-second cadence.
 (function(){
-  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual')];
+  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')];
   if(!roots.length)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   const cycleMs=8500;
