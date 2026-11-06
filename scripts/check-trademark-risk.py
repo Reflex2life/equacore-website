@@ -36,6 +36,7 @@ Exit code
 """
 from __future__ import annotations
 import argparse
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -50,20 +51,65 @@ YLO = lambda s: _c("33", s)
 DIM = lambda s: _c("2",  s)
 BLD = lambda s: _c("1",  s)
 
+ROOT = Path(__file__).resolve().parent.parent
+APPROVED_BRAND_ASSET_HASHES = {
+    "assets/brand/anthropic-wordmark.svg": "56cc8de50f5c863520c7ae24464a8b2fd5c2f66f9063b9790aff8c37b4a0a554",
+    "assets/brand/freshworks-wordmark.png": "ace7f595d81a231ca8f4b1204d50d89bbe602f75481c2c3de471889a62621cc3",
+    "assets/brand/halo-wordmark.svg": "92326e5b54542e5469cbcbfea22fff8ebfdb62acd386760f0938ae461c14e9e2",
+    "assets/brand/openai-wordmark.svg": "f5a8c4c38b81972f2ede620b06ac5c51fa7cd16a35a3b8361deffaa3202a351e",
+}
+
 # ------------------------------------------------------------------------------
 # RISK PATTERNS
 # Each entry: (label, regex_pattern, scope_filter)
-#   scope_filter is a callable(window_text) -> bool that returns True if the
-#   match should be FLAGGED. Returns False to suppress (e.g. inside a HaloITSM
-#   context where implementation language is fine).
+#   scope_filter is a callable(window_text, match_text, element_text) -> bool
+#   that returns True if the match should be FLAGGED. Returns False to suppress
+#   (e.g. inside a HaloITSM context where implementation language is fine).
 # ------------------------------------------------------------------------------
-def _not_haloitsm_context(window: str) -> bool:
+def _not_haloitsm_context(window: str, _match: str, _element: str) -> bool:
     """Implementation language is fine when surrounded by HaloITSM context."""
     return "HaloITSM" not in window and "Halo Service" not in window
 
-def _not_in_disclaimer(window: str) -> bool:
+def _not_in_disclaimer(window: str, _match: str, _element: str) -> bool:
     """'ServiceNow, Inc' is fine inside the footer trademark line."""
     return "registered trademark" not in window and "not affiliated" not in window
+
+def _attribute_value(text: str, name: str) -> str | None:
+    """Return one quoted or unquoted HTML attribute value."""
+    match = re.search(
+        rf"\b{name}\s*=\s*(?:([\"'])(.*?)\1|([^\s>]+))",
+        text,
+        re.I | re.S,
+    )
+    return (match.group(2) or match.group(3)) if match else None
+
+def _not_approved_anthropic_asset(
+    _window: str, match_text: str, _element: str
+) -> bool:
+    """Permit only the reviewed, official Anthropic wordmark file."""
+    return _attribute_value(match_text, "src") != "/assets/brand/anthropic-wordmark.svg" and _attribute_value(match_text, "href") != "/assets/brand/anthropic-wordmark.svg"
+
+def _not_approved_openai_asset(
+    _window: str, match_text: str, _element: str
+) -> bool:
+    """Permit only the reviewed, official OpenAI wordmark file."""
+    return _attribute_value(match_text, "src") != "/assets/brand/openai-wordmark.svg" and _attribute_value(match_text, "href") != "/assets/brand/openai-wordmark.svg"
+
+def _not_approved_anthropic_alt(
+    _window: str, _match: str, element: str
+) -> bool:
+    """Permit the plain accessible name only on the sanctioned wordmark."""
+    approved_asset = _attribute_value(element, "src") == "/assets/brand/anthropic-wordmark.svg"
+    plain_name = _attribute_value(element, "alt") == "Anthropic"
+    return not (approved_asset and plain_name)
+
+def _not_approved_openai_alt(
+    _window: str, _match: str, element: str
+) -> bool:
+    """Permit the plain accessible name only on the sanctioned wordmark."""
+    approved_asset = _attribute_value(element, "src") == "/assets/brand/openai-wordmark.svg"
+    plain_name = _attribute_value(element, "alt") == "OpenAI"
+    return not (approved_asset and plain_name)
 
 BRAND_RISKS = [
     # ── Direct partnership claims ────────────────────────────────────────────
@@ -141,13 +187,14 @@ BRAND_RISKS = [
      None),
 
     ("Anthropic/Claude logo asset reference",
-     r"src=[\"'][^\"']*(?:anthropic|claude)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']|"
-     r"href=[\"'][^\"']*(?:anthropic|claude)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']",
-     None),
+     r"(?i:\b(?:src|href)\s*=\s*(?:"
+     r"[\"'][^\"']*(?:anthropic|claude)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[^\"']*[\"']|"
+     r"[^\s>\"']*(?:anthropic|claude)[^\s>\"']*\.(?:svg|png|jpe?g|webp|gif)[^\s>]*))",
+     _not_approved_anthropic_asset),
 
     ("alt= mentions Anthropic imagery",
-     r"alt=[\"'][^\"']*[Aa]nthropic[^\"']*[\"']",
-     None),
+     r"(?i:\balt\s*=\s*(?:[\"'][^\"']*anthropic[^\"']*[\"']|[^\s>\"']*anthropic[^\s>]*))",
+     _not_approved_anthropic_alt),
 
     # ── OpenAI / ChatGPT / GPT ───────────────────────────────────────────────
     # EquaCore is an OpenAI Partner. Plain "OpenAI Partner" language is allowed;
@@ -176,13 +223,14 @@ BRAND_RISKS = [
      None),
 
     ("OpenAI product logo asset reference",
-     r"src=[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']|"
-     r"href=[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[\"']",
-     None),
+     r"(?i:\b(?:src|href)\s*=\s*(?:"
+     r"[\"'][^\"']*(?:openai|chatgpt|gpt)[^\"']*\.(?:svg|png|jpe?g|webp|gif)[^\"']*[\"']|"
+     r"[^\s>\"']*(?:openai|chatgpt|gpt)[^\s>\"']*\.(?:svg|png|jpe?g|webp|gif)[^\s>]*))",
+     _not_approved_openai_asset),
 
     ("alt= mentions OpenAI product imagery",
-     r"alt=[\"'][^\"']*(?:OpenAI|ChatGPT)[^\"']*[\"']",
-     None),
+     r"(?i:\balt\s*=\s*(?:[\"'][^\"']*(?:openai|chatgpt)[^\"']*[\"']|[^\s>\"']*(?:openai|chatgpt)[^\s>]*))",
+     _not_approved_openai_alt),
 ]
 
 # ------------------------------------------------------------------------------
@@ -221,6 +269,13 @@ def _find_in_text(text: str) -> list[tuple[str, str, str]]:
     for label, pattern, scope_filter in BRAND_RISKS:
         for m in re.finditer(pattern, text):
             window = text[max(0, m.start() - 60):m.end() + 60]
+            tag_start = text.rfind("<", 0, m.start() + 1)
+            tag_end = text.find(">", m.end())
+            element = (
+                text[tag_start:tag_end + 1]
+                if tag_start >= 0 and tag_end >= 0
+                else m.group()
+            )
 
             # Special handling for the "implement near ServiceNow" rule:
             # only flag if "implement" actually appears in the 60-char window.
@@ -230,7 +285,7 @@ def _find_in_text(text: str) -> list[tuple[str, str, str]]:
                     continue
 
             # Scope filter (e.g., suppress HaloITSM contexts)
-            if scope_filter and not scope_filter(window):
+            if scope_filter and not scope_filter(window, m.group(), element):
                 continue
 
             findings.append(
@@ -238,6 +293,21 @@ def _find_in_text(text: str) -> list[tuple[str, str, str]]:
             )
 
     return findings
+
+def verify_approved_asset_hashes() -> list[str]:
+    """Reject missing or changed logo bytes that would inherit an allowlisted path."""
+    errors: list[str] = []
+    for relative_path, expected in APPROVED_BRAND_ASSET_HASHES.items():
+        path = ROOT / relative_path
+        if not path.is_file():
+            errors.append(f"{relative_path}: approved asset is missing")
+            continue
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        if actual != expected:
+            errors.append(
+                f"{relative_path}: SHA-256 {actual} does not match approved {expected}"
+            )
+    return errors
 
 def scan_html(path: Path) -> int:
     """Returns count of real violations (post scope-filter)."""
@@ -316,6 +386,28 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img src="/assets/img/claude-mark.png" alt="Partner">',    True),
     ("AC-5 alt mentions Anthropic",
      '<img src="/assets/img/team.jpg" alt="Anthropic partner badge">', True),
+    ("AC-5 approved Anthropic wordmark",
+     '<img src="/assets/brand/anthropic-wordmark.svg" alt="Anthropic">', False),
+    ("AC-5 wrong asset with plain Anthropic alt",
+     '<img src="/assets/img/team.jpg" alt="Anthropic">', True),
+    ("AC-5 sanctioned filename blocks a different asset type",
+     '<img src="/assets/brand/anthropic-wordmark.png" alt="Anthropic">', True),
+    ("AC-5 sanctioned Anthropic filename suffix is not approved",
+     '<img src="/assets/brand/anthropic-wordmark.svg.png" alt="Partner">', True),
+    ("AC-5 adjacent approved Anthropic asset cannot mask another asset",
+     '<img src="/assets/brand/anthropic-wordmark.svg" alt=""><img src="/assets/img/anthropic-logo.svg" alt="Partner">', True),
+    ("AC-5 external Anthropic lookalike path is not approved",
+     '<img src="https://example.com/assets/brand/anthropic-wordmark.svg" alt="Partner">', True),
+    ("AC-5 spaced uppercase Anthropic asset attribute is scanned",
+     '<img SRC = "/assets/img/ANTHROPIC-logo.svg" alt="Partner">', True),
+    ("AC-5 unquoted Anthropic asset attribute is scanned",
+     '<img src=/assets/img/anthropic-logo.svg alt=Partner>', True),
+    ("AC-5 spaced approved Anthropic asset stays clean",
+     '<img SRC = "/assets/brand/anthropic-wordmark.svg" ALT = "Anthropic">', False),
+    ("AC-5 spaced uppercase Anthropic alt is scanned",
+     '<img src="/assets/img/team.jpg" ALT = "ANTHROPIC">', True),
+    ("AC-5 adjacent approved Anthropic asset cannot mask a wrong alt",
+     '<img src="/assets/brand/anthropic-wordmark.svg" alt=""><img src="/assets/img/team.jpg" alt="Anthropic">', True),
     ("AC-5 plain link to anthropic.com",
      '<a href="https://www.anthropic.com">Anthropic</a>',        False),
     ("AC-5 OpenAI logo src",
@@ -324,6 +416,28 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<a href="/assets/img/chatgpt-mark.png">Product</a>',       True),
     ("AC-5 alt mentions OpenAI",
      '<img src="/assets/img/team.jpg" alt="OpenAI partner badge">', True),
+    ("AC-5 approved OpenAI wordmark",
+     '<img src="/assets/brand/openai-wordmark.svg" alt="OpenAI">', False),
+    ("AC-5 wrong asset with plain OpenAI alt",
+     '<img src="/assets/img/team.jpg" alt="OpenAI">', True),
+    ("AC-5 sanctioned filename blocks a different asset type",
+     '<img src="/assets/brand/openai-wordmark.png" alt="OpenAI">', True),
+    ("AC-5 sanctioned OpenAI filename suffix is not approved",
+     '<img src="/assets/brand/openai-wordmark.svg.png" alt="Partner">', True),
+    ("AC-5 adjacent approved OpenAI asset cannot mask another asset",
+     '<img src="/assets/brand/openai-wordmark.svg" alt=""><img src="/assets/img/openai-logo.svg" alt="Partner">', True),
+    ("AC-5 external OpenAI lookalike path is not approved",
+     '<img src="https://example.com/assets/brand/openai-wordmark.svg" alt="Partner">', True),
+    ("AC-5 spaced uppercase OpenAI asset attribute is scanned",
+     '<img SRC = "/assets/img/OPENAI-logo.svg" alt="Partner">', True),
+    ("AC-5 unquoted OpenAI asset attribute is scanned",
+     '<img src=/assets/img/openai-logo.svg alt=Partner>', True),
+    ("AC-5 spaced approved OpenAI asset stays clean",
+     '<img SRC = "/assets/brand/openai-wordmark.svg" ALT = "OpenAI">', False),
+    ("AC-5 spaced uppercase OpenAI alt is scanned",
+     '<img src="/assets/img/team.jpg" ALT = "OPENAI">', True),
+    ("AC-5 adjacent approved OpenAI asset cannot mask a wrong alt",
+     '<img src="/assets/brand/openai-wordmark.svg" alt=""><img src="/assets/img/team.jpg" alt="OpenAI">', True),
     ("AC-5 plain link to openai.com",
      '<a href="https://openai.com">OpenAI</a>',                  False),
 
@@ -416,6 +530,13 @@ def main() -> int:
         return 1 if run_selftest() else 0
 
     total = 0
+    asset_errors = verify_approved_asset_hashes()
+    if asset_errors:
+        total += len(asset_errors)
+        if not args.quiet:
+            print(BLD("\nApproved brand asset integrity"))
+            for error in asset_errors:
+                print(f"  {RED('✗')} {error}")
     for f in args.files:
         path = Path(f)
         if not path.exists():

@@ -30,11 +30,12 @@ from pathlib import Path
 BASE = "https://equacoredigital.com"
 
 # Routes that are children of /services (for breadcrumbs) and get a Service schema.
-SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "talent"}
+SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "anthropic", "talent"}
 SERVICE_ROUTES = {
     "servicenow": "ServiceNow Consulting, Talent & Managed Services",
     "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
     "freshworks": "Freshworks Implementation and Optimisation",
+    "anthropic": "Responsible Claude Adoption",
     "talent": "ServiceNow and Halo Talent Augmentation",
 }
 ROOT = Path(__file__).resolve().parent.parent
@@ -57,6 +58,10 @@ ROUTES = {
     "freshworks": (
         "Freshworks Services & Implementation — EquaCore Digital",
         "EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.",
+    ),
+    "anthropic": (
+        "Responsible Claude Adoption — EquaCore Digital",
+        "EquaCore Digital helps organisations adopt Claude responsibly through use-case discovery, integration design, human oversight, rollout and evaluation.",
     ),
     "talent": (
         "Talent Augmentation — EquaCore Digital",
