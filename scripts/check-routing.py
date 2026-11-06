@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PERMANENT = {"301", "308"}
+EXPECTED_RUNTIME_ROUTES = {"thank-you", "enquiry-thanks"}
 
 
 def fail(message: str) -> None:
@@ -72,6 +73,10 @@ class ErrorPageParser(HTMLParser):
 
 def main() -> None:
     routes, runtime_routes = route_maps()
+    if runtime_routes != EXPECTED_RUNTIME_ROUTES:
+        fail(
+            "RUNTIME_ROUTES must contain exactly thank-you and enquiry-thanks"
+        )
     rules = redirect_rules()
     expected_french_sources = {"/fr", "/fr/"}
 
