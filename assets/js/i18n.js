@@ -118,6 +118,7 @@ const FR = {
   "Enable": "Accompagner",
   "Independent delivery": "Livraison indépendante",
   "Mentored and enterprise-ready": "Accompagnés et prêts pour l'entreprise",
+  "Explore Halo services →": "Découvrir les services Halo →",
   "Explore Freshworks services →": "Découvrir les services Freshworks →",
 
   // ---- ENG-33 Freshworks page ----

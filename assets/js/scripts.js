@@ -43,6 +43,7 @@ function setMeta(id){
 
 // Single reveal observer, re-created on each route so new .rv nodes get observed.
 let observer=null;
+let journeyReplaySync=()=>{};
 function initObserver(){
   if(observer)observer.disconnect();
   observer=new IntersectionObserver(entries=>{
@@ -70,7 +71,7 @@ function showPage(id){
   setMeta(id);
   // Scroll & re-observe
   window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(()=>{document.querySelectorAll('.pg.act .rv').forEach(el=>el.classList.remove('vis'));initObserver()},120);
+  setTimeout(()=>{document.querySelectorAll('.pg.act .rv').forEach(el=>el.classList.remove('vis'));initObserver();journeyReplaySync()},120);
 }
 
 // Path-based routing - handles direct URLs, back/forward, and SPA navigation
@@ -342,6 +343,52 @@ function hs(e){
       err.textContent=t('Connection error — please try again.');err.style.display='block';
     });
   });
+})();
+
+// Process-journey replay. Each visible journey resolves in about 4.8 seconds,
+// holds its completed state, then restarts on a shared 8.5-second cadence.
+(function(){
+  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual')];
+  if(!roots.length)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  const cycleMs=8500;
+  const state=new Map(roots.map(root=>[root,{visible:false,timer:null}]));
+
+  function eligible(root,s){
+    const page=root.closest('.pg');
+    return s.visible&&!document.hidden&&!reduce.matches&&(!page||page.classList.contains('act'));
+  }
+  function stop(root,s){
+    if(s.timer!==null){clearTimeout(s.timer);s.timer=null}
+    root.classList.remove('is-replaying');
+  }
+  function start(root,s){
+    if(!eligible(root,s)){stop(root,s);return}
+    if(s.timer!==null)clearTimeout(s.timer);
+    root.style.setProperty('--journey-cycle',cycleMs+'ms');
+    root.classList.remove('is-replaying');
+    void root.offsetWidth;
+    root.classList.add('is-replaying');
+    s.timer=setTimeout(function(){s.timer=null;start(root,s)},cycleMs);
+  }
+  journeyReplaySync=function(){
+    state.forEach(function(s,root){
+      if(eligible(root,s)){if(s.timer===null)start(root,s)}else stop(root,s);
+    });
+  };
+
+  const io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      const s=state.get(entry.target);
+      const visible=entry.isIntersecting&&entry.intersectionRatio>=.08;
+      if(s.visible===visible)return;
+      s.visible=visible;
+      if(eligible(entry.target,s))start(entry.target,s);else stop(entry.target,s);
+    });
+  },{threshold:.08,rootMargin:'0px 0px -24px 0px'});
+  roots.forEach(function(root){io.observe(root)});
+  document.addEventListener('visibilitychange',journeyReplaySync);
+  reduce.addEventListener('change',journeyReplaySync);
 })();
 
 // Aether Flow — particle network behind the home hero. Runs only while the
