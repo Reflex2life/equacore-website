@@ -14,16 +14,18 @@ def fail(message: str) -> None:
     raise SystemExit(f"routing: {message}")
 
 
-def route_names() -> set[str]:
+def route_maps() -> tuple[set[str], set[str]]:
     tree = ast.parse((ROOT / "scripts/prerender.py").read_text(encoding="utf-8"))
+    found: dict[str, set[str]] = {}
     for node in tree.body:
-        if isinstance(node, ast.Assign) and any(
-            isinstance(target, ast.Name) and target.id == "ROUTES"
-            for target in node.targets
-        ):
-            routes = ast.literal_eval(node.value)
-            return set(routes)
-    fail("ROUTES map not found in scripts/prerender.py")
+        if not isinstance(node, ast.Assign):
+            continue
+        for target in node.targets:
+            if isinstance(target, ast.Name) and target.id in {"ROUTES", "RUNTIME_ROUTES"}:
+                found[target.id] = set(ast.literal_eval(node.value))
+    if set(found) != {"ROUTES", "RUNTIME_ROUTES"}:
+        fail("ROUTES and RUNTIME_ROUTES maps are required in scripts/prerender.py")
+    return found["ROUTES"], found["RUNTIME_ROUTES"]
 
 
 def redirect_rules() -> dict[str, tuple[str, str]]:
@@ -69,7 +71,7 @@ class ErrorPageParser(HTMLParser):
 
 
 def main() -> None:
-    routes = route_names()
+    routes, runtime_routes = route_maps()
     rules = redirect_rules()
     expected_french_sources = {"/fr", "/fr/"}
 
@@ -88,19 +90,13 @@ def main() -> None:
         if destination != "/" or status not in PERMANENT:
             fail(f"{source} must permanently redirect to /")
 
-    expected_rewrites = {
-        "/thank-you": ("/index.html", "200"),
-        "/thank-you/": ("/index.html", "200"),
-        "/enquiry-thanks": ("/index.html", "200"),
-        "/enquiry-thanks/": ("/index.html", "200"),
-    }
-    for source, expected in expected_rewrites.items():
-        if rules.get(source) != expected:
-            fail(f"{source} must retain its explicit runtime rewrite")
+    for route in runtime_routes:
+        if not (ROOT / f"{route}.html").is_file():
+            fail(f"missing runtime route file {route}.html")
 
     for source, (_destination, status) in rules.items():
-        if status == "200" and source not in expected_rewrites:
-            fail(f"unexpected rewrite {source}; catch-all SPA rewrites are forbidden")
+        if status == "200":
+            fail(f"unexpected rewrite {source}; SPA rewrites are forbidden")
         if source == "/fr" or source.startswith("/fr/"):
             if source not in expected_french_sources:
                 fail(f"unrecognised French route {source} must fall through to 404")
@@ -129,10 +125,14 @@ def main() -> None:
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     if "404.html" in sitemap or "/fr/" in sitemap:
         fail("404 and toggle-only French URLs must not appear in sitemap.xml")
+    for route in runtime_routes:
+        if f"/{route}" in sitemap:
+            fail(f"runtime route /{route} must remain outside sitemap.xml")
 
     print(
         f"routing: PASS ({len(routes) + 1} canonical routes, "
-        f"{len(expected_french_sources)} French redirects, standalone 404 boundary)"
+        f"{len(runtime_routes)} runtime routes, {len(expected_french_sources)} "
+        "French redirects, standalone 404 boundary)"
     )
 
 

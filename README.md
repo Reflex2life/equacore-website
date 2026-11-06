@@ -6,7 +6,7 @@ Source for [equacoredigital.com](https://equacoredigital.com) — the website fo
 
 - **Hosted on Cloudflare Pages** — auto-deploys on push to `main`.
 - DNS sits at Cloudflare (apex + `www` proxied; M365 / SendGrid / verification records DNS-only).
-- Cloudflare Pages serves committed per-route HTML files at clean URLs. `_redirects` holds only the explicit toggle-only French redirects and the two runtime thank-you rewrites; `404.html` provides the genuine missing-page and missing-asset boundary.
+- Cloudflare Pages serves committed per-route HTML files at clean URLs. `_redirects` holds only the explicit toggle-only French redirects; generated, non-sitemap HTML files preserve the two runtime thank-you views, and `404.html` provides the genuine missing-page and missing-asset boundary.
 - The `CNAME` file at the repo root pins the custom domain.
 - The `_headers` file sets cache policy: HTML revalidates every request; static assets (`.js`, `.css`, `.svg`, `.jpg`, `.png`, `.webp`, `.woff2`) are immutable for one year.
 
@@ -46,7 +46,7 @@ INFRASTRUCTURE.md                   — Full infra reference (untracked, contain
 EquaCore_Digital_Infrastructure.pdf — Same content as PDF (untracked)
 README.md                           — This file
 CNAME                               — Custom domain pin (equacoredigital.com)
-_redirects                          — French redirects + runtime thank-you rewrites
+_redirects                          — Explicit toggle-only French redirects
 404.html                            — Standalone bilingual not-found response
 _headers                            — Cache headers for static assets
 sitemap.xml                         — 11 indexable URLs

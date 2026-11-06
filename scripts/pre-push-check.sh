@@ -10,7 +10,7 @@
 #      sitemap.xml must exist as a committed per-route HTML file
 #   4. Cache-bust: every CSS/JS asset URL in index.html carries a ?v=<hash>
 #      matching the asset's content hash (scripts/check-cache-bust.py)
-#   5. Routing: French redirects, runtime rewrites and the standalone 404 boundary
+#   5. Routing: French redirects, runtime routes and the standalone 404 boundary
 #
 # Exit 0 = PASS, non-zero = FAIL. Checks that cannot run are reported as
 # SKIPPED (with reason) and count as failure — no false-pass.
@@ -52,10 +52,16 @@ hr; echo "[2/5] Prerender drift check"
 ROUTES=""
 if command -v python3 >/dev/null 2>&1 && [ -f scripts/prerender.py ]; then
   ROUTES=$(python3 - <<'EOF'
-import re, pathlib
-src = pathlib.Path("scripts/prerender.py").read_text()
-m = re.search(r"^ROUTES = \{(.*?)^\}", src, re.S | re.M)
-print(" ".join(re.findall(r'^\s{4}"([a-z-]+)":', m.group(1), re.M)) if m else "")
+import ast, pathlib
+tree = ast.parse(pathlib.Path("scripts/prerender.py").read_text())
+names = []
+for node in tree.body:
+    if not isinstance(node, ast.Assign):
+        continue
+    for target in node.targets:
+        if isinstance(target, ast.Name) and target.id in {"ROUTES", "RUNTIME_ROUTES"}:
+            names.extend(ast.literal_eval(node.value))
+print(" ".join(names))
 EOF
   )
 fi

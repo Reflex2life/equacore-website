@@ -27,12 +27,7 @@
 /fr/privacy /privacy 301
 /fr/privacy/ /privacy 301
 
-# These two success views are intentionally client-rendered and are not
-# indexable content routes. Preserve their existing direct-load behaviour.
-/thank-you /index.html 200
-/thank-you/ /index.html 200
-/enquiry-thanks /index.html 200
-/enquiry-thanks/ /index.html 200
-
 # No catch-all rewrite. The top-level 404.html is the deliberate boundary for
-# unknown pages, unknown /fr/* paths, missing assets and /llms.txt.
+# unknown pages, unknown /fr/* paths, missing assets and /llms.txt. The two
+# non-indexable success views are committed as generated HTML files so their
+# clean URLs resolve directly without weakening this boundary.

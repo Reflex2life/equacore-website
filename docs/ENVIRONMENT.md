@@ -43,14 +43,13 @@ The current routing boundary is:
 
 ```text
 /fr/{known-route} /{known-route} 301
-/thank-you /index.html 200
-/enquiry-thanks /index.html 200
 ```
 
 Committed per-route HTML files let direct visits such as `/talent`, `/contact`,
 or `/privacy` resolve at clean URLs. The full `_redirects` table sends only known
 toggle-only French paths to their matching English canonical and retains the two
-runtime thank-you views. A top-level `404.html` makes unknown pages, unknown
+runtime thank-you views through generated, non-sitemap HTML files. A top-level
+`404.html` makes unknown pages, unknown
 `/fr/*` paths, missing assets, and the deliberately unpublished `/llms.txt`
 return a genuine not-found response instead of the homepage shell.
 
