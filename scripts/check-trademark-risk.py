@@ -61,6 +61,10 @@ APPROVED_BRAND_ASSET_HASHES = {
     "assets/brand/halo-wordmark.svg": "92326e5b54542e5469cbcbfea22fff8ebfdb62acd386760f0938ae461c14e9e2",
     "assets/brand/openai-wordmark.svg": "f5a8c4c38b81972f2ede620b06ac5c51fa7cd16a35a3b8361deffaa3202a351e",
 }
+APPROVED_ANTHROPIC_ASSET_URLS = {
+    "/assets/brand/anthropic-wordmark.svg",
+    "/assets/brand/anthropic-wordmark.svg?v=56cc8de5",
+}
 
 # ------------------------------------------------------------------------------
 # RISK PATTERNS
@@ -211,7 +215,7 @@ class _BrandAssetParser(HTMLParser):
         for name, value in urls:
             lowered = value.lower()
             if _IMAGE_EXT.search(value) and re.search(r"anthropic|claude", lowered):
-                if value != "/assets/brand/anthropic-wordmark.svg":
+                if value not in APPROVED_ANTHROPIC_ASSET_URLS:
                     self.findings.append((
                         "Anthropic/Claude logo asset reference",
                         f'{name}="{value}"',
@@ -236,7 +240,7 @@ class _BrandAssetParser(HTMLParser):
             lowered_alt = alt.lower()
             if "anthropic" in lowered_alt and not (
                 alt == "Anthropic"
-                and "/assets/brand/anthropic-wordmark.svg" in values
+                and any(value in APPROVED_ANTHROPIC_ASSET_URLS for value in values)
             ):
                 self.findings.append((
                     "alt= mentions Anthropic imagery", f'alt="{alt}"', element
@@ -406,6 +410,10 @@ SELFTEST_CASES: list[tuple[str, str, bool]] = [
      '<img src="/assets/img/team.jpg" alt="Anthropic partner badge">', True),
     ("AC-5 approved Anthropic wordmark",
      '<img src="/assets/brand/anthropic-wordmark.svg" alt="Anthropic">', False),
+    ("AC-5 approved cache-busted Anthropic wordmark",
+     '<img src="/assets/brand/anthropic-wordmark.svg?v=56cc8de5" alt="Anthropic">', False),
+    ("AC-5 unapproved Anthropic cache token",
+     '<img src="/assets/brand/anthropic-wordmark.svg?v=wrong" alt="Anthropic">', True),
     ("AC-5 wrong asset with plain Anthropic alt",
      '<img src="/assets/img/team.jpg" alt="Anthropic">', True),
     ("AC-5 sanctioned filename blocks a different asset type",
