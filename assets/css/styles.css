@@ -143,7 +143,7 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .btn-c{background:var(--cobalt);color:var(--pw);box-shadow:var(--shcob)}.btn-c:hover{background:var(--cobalt-dark);transform:translateY(-1px);box-shadow:0 6px 28px rgba(37,99,235,.4)}
 .btn-ol-w{border:1.5px solid rgba(255,255,255,.3);color:var(--pw)}.btn-ol-w:hover{border-color:var(--pw);background:rgba(255,255,255,.08)}
 .lbl.c{color:var(--cobalt-text)}.lbl.c::before{background:var(--cobalt)}
-.lbl.t{color:var(--mint)}.lbl.t::before{background:var(--mint)}
+.lbl.t{color:var(--mint-text)}.lbl.t::before{background:var(--mint)}
 .btn-g.c{color:var(--cobalt-text)}.btn-g.c:hover{color:var(--cobalt-dark)}
 /* CENTERED HERO WITH BG IMAGE */
 .hero-c{padding-top:72px;min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--navy);text-align:center}
