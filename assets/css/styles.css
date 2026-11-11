@@ -742,3 +742,12 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 #pg-health-check .emp p+p{margin-top:12px}
 @media(max-width:1024px){.hc-hero-grid{grid-template-columns:1fr;gap:32px}}
 @media(max-width:768px){.hc-report{padding:28px}}
+
+/* Compact problem list within the existing homepage ServiceNow card. */
+.eng32-service-copy .hc-problems{margin-top:20px;padding-top:18px;border-top:1px solid var(--brl)}
+.hc-problems h4{font-size:15px;margin-bottom:12px}
+.eng32-service-copy .hc-problems ul{display:grid;gap:12px;margin:0 0 14px;padding:0;border:0}
+.eng32-service-copy .hc-problems li{padding:0;font-size:13px;font-weight:400}
+.eng32-service-copy .hc-problems li::before{content:none}
+.hc-problems strong{display:block;font-size:13px;margin-bottom:3px}
+.hc-problems p{font-size:13px;line-height:1.6;color:var(--sl)}

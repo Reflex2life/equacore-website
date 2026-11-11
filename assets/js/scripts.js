@@ -73,30 +73,36 @@ function showPage(id){
   document.title=titles[id]||titles.home;
   setMeta(id);
   // Scroll & re-observe
-  window.scrollTo({top:0,behavior:'smooth'});
+  let anchor=location.hash.slice(1);
+  try{anchor=decodeURIComponent(anchor)}catch(e){/* Keep malformed fragments literal. */}
+  const target=anchor&&document.getElementById(anchor);
+  const top=target&&target.closest('.pg.act')?target.getBoundingClientRect().top+window.scrollY-document.querySelector('.nav').offsetHeight-16:0;
+  window.scrollTo({top,behavior:'smooth'});
   setTimeout(()=>{document.querySelectorAll('.pg.act .rv').forEach(el=>el.classList.remove('vis'));initObserver();journeyReplaySync()},120);
 }
 
 // Path-based routing - handles direct URLs, back/forward, and SPA navigation
 function handleRoute(){
   let path=location.pathname.replace(/^\//, '').replace(/\.html$/, '').replace(/\/$/, '')||'';
-  if(!path && location.hash){
+  if(!path && location.hash && document.getElementById('pg-'+location.hash.slice(1))){
     // Some referrers redirect to /#page — canonicalise to /page
     path=location.hash.replace(/^#/,'');
-    history.replaceState(null,'','/'+path);
+    history.replaceState(null,'','/'+path+location.search);
   }
   showPage(path||'home');
 }
 // Intercept internal link clicks - push state without full page reload
 document.addEventListener('click',function(e){
   const a=e.target.closest('a[href]');
-  if(!a)return;
+  if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.hasAttribute('download')||(a.target&&a.target!=='_self'))return;
   const href=a.getAttribute('href');
-  if(!href||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('//')||href==='#main')return;
+  if(!href||/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href)||href==='#main')return;
+  const url=new URL(href,location.href);
+  const path=url.pathname.replace(/^\//,'').replace(/\.html$/,'').replace(/\/$/,'')||'home';
+  if(!document.getElementById('pg-'+path))return;
   e.preventDefault();
-  const path=href.replace(/^\//, '').replace(/\/$/, '')||'home';
   history.pushState(null,'',href);
-  showPage(path);
+  handleRoute();
 });
 window.addEventListener('popstate',handleRoute);
 window.addEventListener('hashchange',handleRoute);
