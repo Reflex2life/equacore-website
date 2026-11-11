@@ -4,6 +4,8 @@
 /fr/ / 301
 /fr/services /services 301
 /fr/services/ /services 301
+/fr/health-check /health-check 301
+/fr/health-check/ /health-check 301
 /fr/servicenow /servicenow 301
 /fr/servicenow/ /servicenow 301
 /fr/haloitsm /haloitsm 301
