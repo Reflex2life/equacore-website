@@ -357,7 +357,7 @@ function hs(e){
 // Process-journey replay. Each visible journey resolves in about 4.8 seconds,
 // holds its completed state, then restarts on a shared 8.5-second cadence.
 (function(){
-  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')].filter(root=>!root.hasAttribute('data-motion-scene'));
+  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')].filter(root=>!root.hasAttribute('data-motion-scene')&&!root.hasAttribute('data-sn-operations')&&!root.hasAttribute('data-labelled-journey'));
   if(!roots.length)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   const cycleMs=8500;
@@ -422,9 +422,13 @@ function hs(e){
     const talent=scene.profiles.length>0;
     const stepMs=talent?4000:2400;
     const duration=scene.stages.length*stepMs;
-    scene.root.dataset.sceneCycle=reduce.matches?0:Math.floor(scene.elapsed/duration);
-    scene.root.dataset.sceneElapsed=reduce.matches?duration:Math.round(scene.elapsed%duration);
-    const stage=reduce.matches?scene.stages.length:Math.min(scene.stages.length,1+Math.floor((scene.elapsed%duration)/stepMs));
+    const holdMs=8000,cycleMs=duration+holdMs;
+    const cycle=reduce.matches?0:Math.floor(scene.elapsed/cycleMs);
+    const time=reduce.matches?duration:scene.elapsed%cycleMs;
+    scene.root.dataset.sceneCycle=cycle;
+    scene.root.dataset.sceneElapsed=Math.round(time);
+    scene.root.dataset.scenePhase=reduce.matches?'complete':time>=duration?'hold':'active';
+    const stage=Math.min(scene.stages.length,1+Math.floor(time/stepMs));
     scene.root.dataset.activeStage=stage;
     scene.stages.forEach((node,i)=>{
       node.classList.toggle('is-current',i===stage-1);
@@ -434,12 +438,13 @@ function hs(e){
     scene.root.querySelectorAll('.eng32-journey-strip span').forEach((label,i)=>label.classList.toggle('is-current',i===stage-1));
     if(talent){
       // Replace only the role absent from the other cards, including during fades.
-      const time=reduce.matches?0:scene.elapsed;
-      const turns=Math.floor(time/6000)%12;
+      // Count only active time so role swaps settle and freeze between passes.
+      const roleTime=reduce.matches?0:cycle*duration+Math.min(time,duration);
+      const turns=Math.floor(roleTime/6000)%12;
       const roles=[0,1,2];let missing=3;
       for(let n=0;n<turns;n++){const card=n%3,old=roles[card];roles[card]=missing;missing=old}
       const changing=turns%3;
-      const blend=Math.max(0,Math.min(1,((time%6000)-5000)/1000));
+      const blend=Math.max(0,Math.min(1,((roleTime%6000)-5000)/1000));
       scene.profiles.forEach((profile,card)=>{
         profile.querySelectorAll('[data-role]').forEach(label=>{
           const role=Number(label.dataset.role);

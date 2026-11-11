@@ -115,6 +115,17 @@ const FR = {
   "Your registration is now in our system. We’ll review your profile within one business day and reach out when a relevant opportunity emerges.": "Votre inscription est désormais enregistrée dans notre système. Nous examinerons votre profil dans un délai d’un jour ouvré et vous contacterons lorsqu’une opportunité pertinente se présentera.",
   "is an omnichannel customer relationship platform for sales, marketing, and customer service teams. As a Full Halo Technology Alliance Partner, EquaCore can implement and support any or all three.": "est une plateforme de relation client omnicanale destinée aux équipes commerciales, marketing et de service client. En tant que Full Halo Technology Alliance Partner, EquaCore peut mettre en œuvre et prendre en charge un ou plusieurs de ces trois produits.",
   "permanent placement, fixed-term contract, and embedded squads.": "placement permanent, contrat à durée déterminée et équipes intégrées.",
+  "Process": "Processus",
+  "Technology": "Technologie",
+  "Asset": "Actifs",
+  "signals": "les signaux",
+  "Coordinate": "Coordonner",
+  "work": "le travail",
+  "findings": "les constats",
+  "Feed": "Alimenter",
+  "next pass": "la suite",
+  "Independent ServiceNow operations cycle": "Cycle indépendant d’exploitation ServiceNow",
+  "People, Process and Technology feed a continuous Assess, Operate, Advise and Improve cycle. Platform capabilities include AI (Now Assist), ITSM, CMDB, ITOM, CSM, Asset (ITAM) and HR (HRSD). Resolved work feeds the next pass.": "Les personnes, les processus et la technologie alimentent un cycle continu d’évaluation, d’exploitation, de conseil et d’amélioration. Les capacités de la plateforme comprennent AI (Now Assist), ITSM, CMDB, ITOM, CSM, les actifs (ITAM) et HR (HRSD). Le travail résolu alimente le cycle suivant.",
 
   // Labelled delivery sequences.
   "Intake": "Réception",
@@ -255,16 +266,15 @@ const FR = {
   "View partner relationships": "Voir nos relations partenaires",
   "Platform": "Plateforme",
   "Operations": "Opérations",
-  "People": "Personnes",
   "Discover": "Découvrir",
   "Deliver": "Livrer",
   "Transfer": "Transférer",
   "Structured governance": "Gouvernance structurée",
   "Knowledge transfer": "Transfert de compétences",
   "Core services": "Services principaux",
-  "Three clear ways we help.": "Trois façons claires de vous aider.",
-  "Choose platform delivery, independent operations support or specialist talent—with the scope made clear before work begins.":
-    "Choisissez la livraison de plateforme, le support opérationnel indépendant ou des talents spécialisés, avec un périmètre clarifié avant le début des travaux.",
+  "Clear ways we help.": "Des façons claires de vous aider.",
+  "Choose platform delivery or independent operations support—with the scope made clear before work begins.":
+    "Choisissez la livraison de plateforme ou le support opérationnel indépendant, avec un périmètre clarifié avant le début des travaux.",
   "Platform delivery": "Livraison de plateforme",
   "Independent services": "Services indépendants",
   "ServiceNow® services": "Services ServiceNow®",
@@ -272,9 +282,6 @@ const FR = {
   "Advisory and health checks": "Conseil et bilans de santé plateforme",
   "Process design and optimisation": "Conception et optimisation des processus",
   "Independent; no reseller or licensing arrangement": "Indépendant ; aucun accord de revente ou de licence",
-  "Technical assessment": "Évaluation technique",
-  "Mentorship and readiness": "Mentorat et préparation",
-  "Flexible engagement structures": "Formats d'engagement flexibles",
   "Partner relationships": "Relations partenaires",
   "Four distinct relationships.": "Quatre relations distinctes.",
   "These relationships sit alongside our work in Talent, Managed Services, and Advisory. Our ServiceNow® services are independent.":
@@ -387,9 +394,28 @@ const FR = {
   "Prioritise": "Prioriser",
   "Connect": "Connecter",
   "Govern": "Gouverner",
+  "HaloITSM and QuickStart, Freshservice and Freshdesk feed Discover (health check), Design (workflow), Implement (configure) and Improve (optimise). Live service, handover pack and run and improve are delivery process states.":
+    "HaloITSM et QuickStart, Freshservice et Freshdesk alimentent Découvrir (bilan), Concevoir (flux de travail), Implémenter (configurer) et Améliorer (optimiser). Service actif, dossier transmis et exploiter et améliorer sont des étapes du processus de livraison.",
+  "Work, Knowledge and People feed Discover, Prioritise, Connect, Govern and Improve. Claude workflow progresses from Draft through Human review to Approved as process states. Human review and explicit boundaries remain part of the workflow; evaluation feeds the next cycle.":
+    "Travail, connaissances et personnes alimentent Découvrir, Prioriser, Connecter, Gouverner et Améliorer. Le flux Claude passe par les étapes Brouillon, Validation humaine et Approuvé. La validation humaine et des limites explicites restent intégrées au flux ; l'évaluation alimente le cycle suivant.",
+  "Health check": "Bilan",
+  "Optimise": "Optimiser",
+  "Live service": "Service actif",
+  "Handover pack": "Dossier transmis",
+  "Run & improve": "Exploiter et améliorer",
+  "Use cases": "Cas d'usage",
+  "Value / risk": "Valeur / risque",
+  "Tools / data": "Outils / données",
+  "Boundaries": "Limites",
+  "Measures": "Mesures",
+  "Tasks &": "Tâches et",
+  "requests": "demandes",
+  "Documents &": "Documents et",
+  "policies": "règles",
+  "Teams & roles": "Équipes et rôles",
+  "Draft": "Brouillon",
+  "Approved": "Approuvé",
   "Responsible Claude adoption journey": "Parcours d'adoption responsable de Claude",
-  "Operational inputs move through Discover, Prioritise, Connect, Govern and Improve. Human review sits inside the governed workspace and evaluation feeds the next cycle.":
-    "Les éléments opérationnels passent par les étapes Découvrir, Prioriser, Connecter, Gouverner et Améliorer. La validation humaine est intégrée à l'espace gouverné et l'évaluation alimente le cycle suivant.",
   "Claude in context": "Claude dans son contexte",
   "Where Claude can fit in the operation.": "Où Claude peut s'intégrer dans les opérations.",
   "Organisational knowledge": "Connaissances de l'organisation",
@@ -1135,9 +1161,6 @@ const FR_ATTR = {
   "Main navigation": "Navigation principale",
   "Core offerings at a glance": "Aperçu des offres principales",
   "Processes, platforms and people converge in EquaCore's digital improvement delivery model": "Les processus, les plateformes et les personnes convergent dans le modèle d'amélioration numérique d'EquaCore",
-  "Halo and Freshworks solutions feed an improvement journey from discovery and design through implementation and continuous optimisation.": "Les solutions Halo et Freshworks alimentent un parcours d'amélioration allant de la découverte et de la conception jusqu'à l'implémentation et à l'optimisation continue.",
-  "Service requests move through an independent ServiceNow operations cycle of assessment, operation, advice and improvement, with resolved work feeding future improvement.": "Les demandes de service suivent un cycle d'exploitation ServiceNow indépendant comprenant l'évaluation, l'exploitation, le conseil et l'amélioration, les travaux résolus alimentant les améliorations futures.",
-  "Work, knowledge and people move through a five-stage Claude adoption journey of discovery, prioritisation, connection, governance and improvement, with human review and evaluation built into the cycle.": "Le travail, les connaissances et les personnes suivent un parcours d'adoption de Claude en cinq étapes — découverte, priorisation, connexion, gouvernance et amélioration — avec validation humaine et évaluation intégrées au cycle.",
   "People, approved knowledge and systems move through ChatGPT workspace and API tool rails into an owned operational workflow, with human approval before assistance or action and learning feeding continuous improvement.": "Les personnes, les connaissances approuvées et les systèmes passent par les voies de l'espace de travail ChatGPT et des outils API vers un flux opérationnel maîtrisé, avec validation humaine avant l'assistance ou l'action et des enseignements qui alimentent l'amélioration continue.",
   "Toggle navigation menu": "Afficher/masquer le menu de navigation",
   "Scroll to top": "Remonter en haut de la page",
@@ -1209,7 +1232,7 @@ function applyFrench() {
     }
   });
   // Translate the curated process graphics with meaningful labels; other SVGs are icons.
-  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc').forEach(el => {
+  document.querySelectorAll('.platform-delivery-svg text,.platform-delivery-svg title,.platform-delivery-svg desc,.an-process-svg text,.an-process-svg tspan,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc,.sn-operations-svg text:not(.sn-workspace text),.sn-operations-svg title,.sn-operations-svg desc').forEach(el => {
     const fr = FR_NORM[norm(el.textContent)];
     if (fr !== undefined) el.textContent = fr;
   });
