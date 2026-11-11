@@ -782,3 +782,72 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
  [data-motion-scene] .scene-motion-toggle{font-size:11px}
  [data-motion-scene] .scene-toolbar{margin-bottom:0}
 }
+
+/* The ServiceNow platform illustration settles once, with readable HTML labels. */
+#sn-one-platform{padding:72px 0;background:var(--bgw)}
+#sn-one-platform .sn-platform-card{padding:32px 42px 30px;background:var(--pw);border:1px solid var(--brd);border-radius:var(--rl)}
+#sn-one-platform .scene-toolbar{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;min-height:44px;margin-bottom:28px}
+#sn-one-platform .scene-motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:8px 12px;border:1px solid var(--mint-dark);border-radius:6px;background:var(--pw);color:var(--navy);font:700 12px var(--f);cursor:pointer}
+#sn-one-platform .scene-motion-toggle:hover{background:var(--mint-sub)}
+#sn-one-platform .scene-motion-toggle:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+#sn-one-platform .scene-motion-toggle:disabled{cursor:default;opacity:1;background:var(--bg);border-color:var(--brd);color:var(--sl)}
+#sn-one-platform .scene-control-icon{font-size:14px;line-height:1}
+#sn-one-platform .sn-platform-diagram{display:grid;grid-template-columns:320px minmax(0,1fr);align-items:end}
+#sn-one-platform .sn-platform-inputs{display:grid;grid-template-columns:minmax(0,1fr) 62px}
+#sn-one-platform .sn-platform-sources{display:grid;gap:12px}
+#sn-one-platform .sn-platform-source{display:grid;grid-template-columns:minmax(0,1fr) 72px;align-items:center;min-height:44px}
+#sn-one-platform .sn-platform-source-label{display:flex;align-items:center;min-height:44px;padding:9px 14px;background:var(--bg);border:1px solid var(--brd);border-radius:var(--rs);font-size:14px;font-weight:600;line-height:1.35;color:var(--sl)}
+#sn-one-platform .sn-platform-source svg{display:block;width:100%;height:24px;overflow:visible}
+#sn-one-platform .sn-platform-source path{fill:none;stroke:#a0aab6;stroke-width:2;vector-effect:non-scaling-stroke}
+#sn-one-platform .sn-source-broken{stroke-dasharray:5 7}
+#sn-one-platform .sn-source-solid{stroke-dasharray:100;stroke-dashoffset:0}
+#sn-one-platform .sn-source-signal{fill:var(--mint-dark);opacity:0}
+#sn-one-platform .sn-platform-bar{display:flex;align-items:center;justify-content:center;background:var(--mint-dark);border-radius:var(--rs);color:var(--pw);min-height:268px;position:relative}
+#sn-one-platform .sn-platform-bar span{display:block;white-space:nowrap;transform:rotate(-90deg);font-size:15px;font-weight:700;line-height:1.2}
+#sn-one-platform .sn-platform-outcomes{position:relative;min-width:0;padding-top:46px}
+#sn-one-platform .sn-platform-headings{position:absolute;top:0;left:0;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;font-size:14px;font-weight:700;color:var(--navy);line-height:1.35}
+#sn-one-platform .sn-platform-links{position:absolute;left:0;bottom:0;width:100%;height:222px;overflow:visible}
+#sn-one-platform .sn-platform-links path{fill:none;stroke-width:2;vector-effect:non-scaling-stroke}
+#sn-one-platform .sn-platform-track{stroke:var(--brd)}
+#sn-one-platform .sn-platform-segment{stroke:var(--navy);stroke-dasharray:100;stroke-dashoffset:0}
+#sn-one-platform .sn-platform-row{height:74px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));place-items:center;position:relative}
+#sn-one-platform .sn-platform-marker{display:block;width:24px;height:24px;border:2px solid var(--navy);border-radius:50%;background:var(--pw)}
+#sn-one-platform .sn-platform-marker[data-column="measured"]{border-color:#b9780b;background:#d99b2b}
+#sn-one-platform.is-enhanced .sn-platform-marker:not(.is-complete){border-color:#a0aab6;background:var(--pw)}
+#sn-one-platform .sn-platform-leadership{position:relative;max-width:500px;margin:34px 0 0 auto;padding:22px 24px;border:1px solid var(--brd);border-radius:var(--rs);background:var(--bg)}
+#sn-one-platform .sn-platform-leadership h2{margin:0 0 6px;font-size:18px;letter-spacing:-.02em;line-height:1.3}
+#sn-one-platform .sn-platform-leadership p{margin:0;font-size:14px;line-height:1.55;color:var(--sl)}
+#sn-one-platform figcaption{margin-top:28px;text-align:center;font-size:16px;line-height:1.65;color:var(--sl)}
+@media(max-width:900px){
+ #sn-one-platform .sn-platform-card{padding:28px}
+ #sn-one-platform .sn-platform-diagram{grid-template-columns:270px minmax(0,1fr)}
+ #sn-one-platform .sn-platform-source-label{padding:9px 10px}
+ #sn-one-platform .sn-platform-inputs{grid-template-columns:minmax(0,1fr) 54px}
+ #sn-one-platform .sn-platform-source{grid-template-columns:minmax(0,1fr) 54px}
+}
+@media(max-width:640px){
+ #sn-one-platform{padding:48px 0}
+ #sn-one-platform .sn-platform-card{padding:20px 16px 24px}
+ #sn-one-platform .scene-toolbar{margin-bottom:24px;gap:6px}
+ #sn-one-platform .scene-motion-toggle{padding:8px 10px;font-size:11px}
+ #sn-one-platform .sn-platform-diagram{grid-template-columns:minmax(0,1fr);gap:28px}
+ #sn-one-platform .sn-platform-inputs{grid-template-columns:minmax(0,1fr) 54px}
+ #sn-one-platform .sn-platform-source{grid-template-columns:minmax(0,1fr) 72px}
+ #sn-one-platform .sn-platform-headings{font-size:12px}
+ #sn-one-platform .sn-platform-outcomes{padding-top:36px}
+ #sn-one-platform .sn-platform-outcomes::before{content:'';position:absolute;left:0;right:26px;top:-28px;height:18px;border-right:2px solid var(--mint-dark);border-bottom:2px solid var(--mint-dark)}
+ #sn-one-platform .sn-platform-outcomes::after{content:'';position:absolute;left:0;top:-10px;bottom:32px;width:2px;background:var(--mint-dark)}
+ #sn-one-platform .sn-platform-row{height:64px}
+ #sn-one-platform .sn-platform-links{height:192px}
+ #sn-one-platform .sn-platform-marker{width:22px;height:22px}
+ #sn-one-platform .sn-platform-leadership{margin-top:26px;padding:20px 18px}
+ #sn-one-platform .sn-platform-leadership h2{font-size:17px}
+ #sn-one-platform figcaption{font-size:14px;margin-top:24px}
+}
+@media(prefers-reduced-motion:reduce){
+ #sn-one-platform .sn-source-solid,#sn-one-platform .sn-platform-segment{stroke-dashoffset:0!important}
+ #sn-one-platform .sn-source-signal{opacity:0!important}
+ #sn-one-platform .sn-platform-marker{border-color:var(--navy)!important;background:var(--pw)!important}
+ #sn-one-platform .sn-platform-marker[data-column="measured"]{border-color:#b9780b!important;background:#d99b2b!important}
+ #sn-one-platform .sn-platform-leadership{opacity:1!important;transform:none!important}
+}

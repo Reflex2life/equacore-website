@@ -1436,7 +1436,24 @@ const FR = {
   "Your CV is larger than 8 MB. Please upload a smaller file.": "Votre CV dépasse 8 Mo. Veuillez charger un fichier plus léger.",
   "Submitting...": "Envoi en cours...",
   "We could not verify your application. Please complete the security check and try again.":
-    "Nous n'avons pas pu vérifier votre candidature. Veuillez terminer la vérification de sécurité et réessayer."
+    "Nous n'avons pas pu vérifier votre candidature. Veuillez terminer la vérification de sécurité et réessayer.",
+  // ServiceNow: connected operation illustration.
+  "IT requests": "Demandes IT",
+  "Infra alerts": "Alertes infra",
+  "Asset data": "Données d’actifs",
+  "HR cases": "Dossiers RH",
+  "Customers": "Clients",
+  "One platform": "Une plateforme",
+  "Visible": "Visible",
+  "Owned": "Pris en charge",
+  "Measured": "Mesuré",
+  "Visible to leadership": "Visible pour la direction",
+  "Services, assets, risk, SLAs": "Services, actifs, risques, SLA",
+  "From fragmented work to one connected operation.": "D’un travail fragmenté à une organisation connectée.",
+  "Replay": "Rejouer",
+  "Replay animation": "Rejouer l’animation",
+  "Fragmented work connects through one platform.": "Le travail fragmenté est relié par une plateforme unique.",
+  "IT requests, infrastructure alerts, asset data, HR cases and customers connect to one platform. Three rows progress from visible to owned to measured work, giving leadership a view of services, assets, risk and SLAs.": "Les demandes IT, les alertes d’infrastructure, les données d’actifs, les dossiers RH et les clients sont reliés à une plateforme unique. Trois lignes passent de la visibilité à la prise en charge, puis à la mesure du travail, donnant à la direction une vue des services, des actifs, des risques et des SLA."
 };
 const FR_ATTR = {
   "EquaCore Digital - Home": "EquaCore Digital - Accueil",
