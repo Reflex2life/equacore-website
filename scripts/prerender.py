@@ -35,7 +35,7 @@ BASE = "https://equacoredigital.com"
 SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "anthropic", "openai", "talent", "health-check"}
 SERVICE_ROUTES = {
     "health-check": "ITSM Health Check",
-    "servicenow": "ServiceNow Consulting, Talent & Managed Services",
+    "servicenow": "ServiceNow Talent, Managed Operations and Independent Advisory",
     "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
     "freshworks": "Freshworks Implementation and Optimisation",
     "anthropic": "Responsible Claude Adoption",
@@ -56,12 +56,12 @@ ROUTES = {
         "EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.",
     ),
     "servicenow": (
-        "ServiceNow Nigeria — Consulting, Talent & Managed Services",
-        "EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.",
+        "ServiceNow Talent, Managed Operations & Independent Advisory — EquaCore Digital",
+        "Independent ServiceNow services from a Nigeria-based practice: pre-vetted talent, ongoing managed operations and advisory for organisations in Nigeria, West Africa, the UK and Europe.",
     ),
     "haloitsm": (
         "Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital",
-        "EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.",
+        "EquaCore Digital is a Full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.",
     ),
     "freshworks": (
         "Freshworks Services & Implementation — EquaCore Digital",
@@ -77,7 +77,7 @@ ROUTES = {
     ),
     "talent": (
         "Talent Augmentation — EquaCore Digital",
-        "EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.",
+        "Pre-vetted ServiceNow and Halo administrators, system engineers, developers, integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists and process consultants for clients in Nigeria, West Africa, the UK and Europe.",
     ),
     "talent-pool": (
         "Join Our Talent Pool — EquaCore Digital",
@@ -85,19 +85,19 @@ ROUTES = {
     ),
     "engagement": (
         "Engagement Models — EquaCore Digital",
-        "EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.",
+        "How EquaCore Digital works with you: independent advisory, project-based delivery, ongoing support, embedded consulting and hybrid models — each with a written scope, a named lead and change control.",
     ),
     "about": (
         "About — EquaCore Digital",
-        "EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.",
+        "EquaCore Digital is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner, with independent ServiceNow services. Founded by service management practitioners and based in Lagos, Nigeria.",
     ),
     "markets": (
-        "Markets Served — EquaCore Digital",
-        "EquaCore Digital serves clients across Nigeria, the UK, Europe, and West Africa with ServiceNow and Halo platform delivery backed by structured governance.",
+        "Where we work — EquaCore Digital",
+        "EquaCore Digital is based in Lagos, Nigeria, and works with organisations in Nigeria, across West Africa, the UK and Europe.",
     ),
     "contact": (
         "Contact — EquaCore Digital",
-        "Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.",
+        "Contact EquaCore Digital to discuss ServiceNow or Halo talent, platform implementation, managed operations or advisory in Nigeria, West Africa, the UK and Europe.",
     ),
     "privacy": (
         "Privacy Policy — EquaCore Digital",
@@ -154,7 +154,7 @@ def extra_schema(route: str, title: str, desc: str) -> str:
             "name": SERVICE_ROUTES[route],
             "serviceType": SERVICE_ROUTES[route],
             "provider": {"@type": "Organization", "name": "EquaCore Digital", "url": BASE},
-            "areaServed": ["NG", "GB", "EU", "US"],
+            "areaServed": ["NG", "GB", "EU", "West Africa"],
             "description": desc,
         })
     return "".join(f'<script type="application/ld+json">{json.dumps(b)}</script>\n' for b in blocks)

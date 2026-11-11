@@ -2,24 +2,24 @@
 const t=s=>(window.t||(x=>x))(s);
 
 // Page titles for SEO
-const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital','health-check':'ITSM Health Check — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',openai:'OpenAI Adoption & Integration — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
+const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital','health-check':'ITSM Health Check — EquaCore Digital',servicenow:'ServiceNow Talent, Managed Operations & Independent Advisory — EquaCore Digital',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',openai:'OpenAI Adoption & Integration — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Where we work — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
   home:'EquaCore Digital improves service delivery through platform implementation, independent advisory, managed support and specialist talent.',
   services:"EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.",
   'health-check':'A platform-neutral assessment of your service operation, with a customer-owned Health and Maturity Report, scored assessment areas and a prioritised roadmap.',
-  servicenow:'EquaCore Digital is a Nigeria-based ServiceNow practice offering consulting, talent augmentation, managed services, and independent advisory for organisations in Nigeria and worldwide. Headquartered in Lagos.',
-  haloitsm:'EquaCore Digital is a full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
+  servicenow:'Independent ServiceNow services from a Nigeria-based practice: pre-vetted talent, ongoing managed operations and advisory for organisations in Nigeria, West Africa, the UK and Europe.',
+  haloitsm:'EquaCore Digital is a Full Halo Technology Alliance Partner implementing HaloITSM, HaloPSA, and HaloCRM — covering migrations, process alignment, onboarding, and post-go-live managed support.',
   freshworks:'EquaCore Digital delivers Freshworks implementation and optimisation, from process mapping and configuration to integrations, migration and enablement.',
   anthropic:'EquaCore Digital helps organisations adopt Claude responsibly through use-case discovery, integration design, human oversight, rollout and evaluation.',
   openai:'EquaCore Digital helps organisations adopt and integrate OpenAI through use-case discovery, connected knowledge and tools, human approval, rollout and ongoing improvement.',
-  talent:'EquaCore Digital places pre-vetted, enterprise-ready ServiceNow and Halo professionals — administrators, developers, architects, BAs, CMDB/Discovery/SAM specialists, and certified Halo administrators — with global enterprises.',
+  talent:'Pre-vetted ServiceNow and Halo administrators, system engineers, developers, integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists and process consultants for clients in Nigeria, West Africa, the UK and Europe.',
   'talent-pool':'Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.',
-  engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
-  about:'EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.',
-  markets:'EquaCore Digital serves clients across Nigeria, the UK, Europe, and West Africa with ServiceNow and Halo platform delivery backed by structured governance.',
-  contact:'Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.',
+  engagement:'How EquaCore Digital works with you: independent advisory, project-based delivery, ongoing support, embedded consulting and hybrid models — each with a written scope, a named lead and change control.',
+  about:'EquaCore Digital is a Full Halo Technology Alliance Partner, Freshworks Partner, Anthropic Partner and OpenAI Partner, with independent ServiceNow services. Founded by service management practitioners and based in Lagos, Nigeria.',
+  markets:'EquaCore Digital is based in Lagos, Nigeria, and works with organisations in Nigeria, across West Africa, the UK and Europe.',
+  contact:'Contact EquaCore Digital to discuss ServiceNow or Halo talent, platform implementation, managed operations or advisory in Nigeria, West Africa, the UK and Europe.',
   privacy:'EquaCore Digital privacy policy — how we collect, use, and protect your data.'
 };
 
