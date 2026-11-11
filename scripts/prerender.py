@@ -94,10 +94,6 @@ ROUTES = {
         "Contact — EquaCore Digital",
         "Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.",
     ),
-    "health-check": (
-        "ITSM Health Check — EquaCore Digital",
-        "A platform-neutral ITSM Health Check from EquaCore Digital: current-state assessment, maturity scoring and a prioritised improvement roadmap for your service operation.",
-    ),
     "privacy": (
         "Privacy Policy — EquaCore Digital",
         "EquaCore Digital privacy policy — how we collect, use, and protect your data.",
