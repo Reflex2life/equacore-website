@@ -40,7 +40,7 @@ SERVICE_ROUTES = {
     "freshworks": "Freshworks Implementation and Optimisation",
     "anthropic": "Responsible Claude Adoption",
     "openai": "OpenAI Adoption and Integration",
-    "talent": "ServiceNow and Halo Talent Augmentation",
+    "talent": "Platform-ready Talent",
 }
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
@@ -76,12 +76,12 @@ ROUTES = {
         "EquaCore Digital helps organisations adopt and integrate OpenAI through use-case discovery, connected knowledge and tools, human approval, rollout and ongoing improvement.",
     ),
     "talent": (
-        "Talent Augmentation — EquaCore Digital",
-        "Pre-vetted ServiceNow and Halo administrators, system engineers, developers, integration engineers, solution architects, business analysts, CMDB/Discovery/SAM specialists and process consultants for clients in Nigeria, West Africa, the UK and Europe.",
+        "Platform-ready Talent — EquaCore Digital",
+        "Pre-vetted, platform-ready talent for ServiceNow; HaloITSM, HaloPSA and HaloCRM; Freshservice and Freshworks solutions; OpenAI adoption and integration; and Claude adoption.",
     ),
     "talent-pool": (
         "Join Our Talent Pool — EquaCore Digital",
-        "Join the EquaCore talent pool. ServiceNow and Halo professionals in Nigeria can register to be matched with enterprise placements across Nigeria, the UK, and Europe — permanent, contract, or embedded.",
+        "Join the EquaCore talent pool. Platform-ready professionals in Nigeria can register for permanent, contract or embedded placements across Nigeria, the UK and Europe.",
     ),
     "engagement": (
         "Engagement Models — EquaCore Digital",
@@ -97,7 +97,7 @@ ROUTES = {
     ),
     "contact": (
         "Contact — EquaCore Digital",
-        "Contact EquaCore Digital to discuss ServiceNow or Halo talent, platform implementation, managed operations or advisory in Nigeria, West Africa, the UK and Europe.",
+        "Contact EquaCore Digital to discuss platform-ready talent, platform implementation, managed operations or advisory in Nigeria, West Africa, the UK and Europe.",
     ),
     "privacy": (
         "Privacy Policy — EquaCore Digital",
