@@ -753,13 +753,9 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 .hc-problems p{font-size:13px;line-height:1.6;color:var(--sl)}
 
 /* Labelled Freshworks and talent sequences: emphasis follows the work. */
-[data-motion-scene] .scene-toolbar{display:flex;justify-content:flex-end;min-height:44px;margin-bottom:8px}
-[data-motion-scene] .scene-motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:8px 12px;border:1px solid var(--mint-dark);border-radius:6px;background:var(--pw);color:var(--navy);font:700 12px var(--f);cursor:pointer}
-[data-motion-scene] .scene-motion-toggle:hover{background:var(--mint-sub)}
-[data-motion-scene] .scene-motion-toggle:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
-[data-motion-scene] .scene-motion-toggle:disabled{cursor:default;opacity:1;background:var(--bg)}
-[data-motion-scene] .scene-control-icon{font-size:14px;line-height:1}
 [data-motion-scene] .delivery-scene-svg{max-height:none;overflow:hidden}
+[data-motion-scene] .scene-stage>rect,[data-motion-scene] .scene-stage>circle,[data-motion-scene] .scene-link{transition:fill .3s,stroke .3s,stroke-width .3s}
+[data-motion-scene] .eng32-journey-strip span{transition:background-color .3s,box-shadow .3s}
 [data-motion-scene] .delivery-scene-svg text{text-anchor:middle;font-size:24px;font-weight:600;letter-spacing:0}
 [data-motion-scene] .delivery-scene-svg .scene-heading{font-size:26px;font-weight:800}
 [data-motion-scene] .delivery-scene-svg .scene-cue{font-size:24px}
@@ -779,19 +775,11 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
  [data-motion-scene] .fw-journey-five{grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
  [data-motion-scene] .fw-journey-five span{grid-column:span 2;display:flex;min-height:38px;padding:8px 2px;font-size:10px;line-height:1.3;text-transform:none}
  [data-motion-scene] .fw-journey-five span:nth-child(4){grid-column:2/span 2}
- [data-motion-scene] .scene-motion-toggle{font-size:11px}
- [data-motion-scene] .scene-toolbar{margin-bottom:0}
 }
 
-/* The ServiceNow platform illustration settles once, with readable HTML labels. */
+/* The ServiceNow platform loop keeps its HTML labels readable throughout. */
 #sn-one-platform{padding:72px 0;background:var(--bgw)}
 #sn-one-platform .sn-platform-card{padding:32px 42px 30px;background:var(--pw);border:1px solid var(--brd);border-radius:var(--rl)}
-#sn-one-platform .scene-toolbar{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;min-height:44px;margin-bottom:28px}
-#sn-one-platform .scene-motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:8px 12px;border:1px solid var(--mint-dark);border-radius:6px;background:var(--pw);color:var(--navy);font:700 12px var(--f);cursor:pointer}
-#sn-one-platform .scene-motion-toggle:hover{background:var(--mint-sub)}
-#sn-one-platform .scene-motion-toggle:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
-#sn-one-platform .scene-motion-toggle:disabled{cursor:default;opacity:1;background:var(--bg);border-color:var(--brd);color:var(--sl)}
-#sn-one-platform .scene-control-icon{font-size:14px;line-height:1}
 #sn-one-platform .sn-platform-diagram{display:grid;grid-template-columns:320px minmax(0,1fr);align-items:end}
 #sn-one-platform .sn-platform-inputs{display:grid;grid-template-columns:minmax(0,1fr) 62px}
 #sn-one-platform .sn-platform-sources{display:grid;gap:12px}
@@ -811,7 +799,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 #sn-one-platform .sn-platform-track{stroke:var(--brd)}
 #sn-one-platform .sn-platform-segment{stroke:var(--navy);stroke-dasharray:100;stroke-dashoffset:0}
 #sn-one-platform .sn-platform-row{height:74px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));place-items:center;position:relative}
-#sn-one-platform .sn-platform-marker{display:block;width:24px;height:24px;border:2px solid var(--navy);border-radius:50%;background:var(--pw)}
+#sn-one-platform .sn-platform-marker{transition:background-color .6s,border-color .6s;display:block;width:24px;height:24px;border:2px solid var(--navy);border-radius:50%;background:var(--pw)}
 #sn-one-platform .sn-platform-marker[data-column="measured"]{border-color:#b9780b;background:#d99b2b}
 #sn-one-platform.is-enhanced .sn-platform-marker:not(.is-complete){border-color:#a0aab6;background:var(--pw)}
 #sn-one-platform .sn-platform-leadership{position:relative;max-width:500px;margin:34px 0 0 auto;padding:22px 24px;border:1px solid var(--brd);border-radius:var(--rs);background:var(--bg)}
@@ -828,8 +816,6 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 @media(max-width:640px){
  #sn-one-platform{padding:48px 0}
  #sn-one-platform .sn-platform-card{padding:20px 16px 24px}
- #sn-one-platform .scene-toolbar{margin-bottom:24px;gap:6px}
- #sn-one-platform .scene-motion-toggle{padding:8px 10px;font-size:11px}
  #sn-one-platform .sn-platform-diagram{grid-template-columns:minmax(0,1fr);gap:28px}
  #sn-one-platform .sn-platform-inputs{grid-template-columns:minmax(0,1fr) 54px}
  #sn-one-platform .sn-platform-source{grid-template-columns:minmax(0,1fr) 72px}
@@ -845,7 +831,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
  #sn-one-platform figcaption{font-size:14px;margin-top:24px}
 }
 @media(prefers-reduced-motion:reduce){
- #sn-one-platform .sn-source-solid,#sn-one-platform .sn-platform-segment{stroke-dashoffset:0!important}
+ [data-motion-scene] .scene-stage>rect,[data-motion-scene] .scene-stage>circle,[data-motion-scene] .scene-link,[data-motion-scene] .eng32-journey-strip span,#sn-one-platform .sn-platform-marker{transition:none}
+ #sn-one-platform .sn-source-solid,#sn-one-platform .sn-platform-segment{stroke-dashoffset:0!important;opacity:1!important}
  #sn-one-platform .sn-source-signal{opacity:0!important}
  #sn-one-platform .sn-platform-marker{border-color:var(--navy)!important;background:var(--pw)!important}
  #sn-one-platform .sn-platform-marker[data-column="measured"]{border-color:#b9780b!important;background:#d99b2b!important}

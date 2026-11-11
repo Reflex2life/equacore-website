@@ -400,13 +400,13 @@ function hs(e){
   reduce.addEventListener('change',journeyReplaySync);
 })();
 
-// These two labelled scenes keep elapsed time when paused or out of view.
+// Labelled scenes loop while visible and retain elapsed time out of view.
 (function(){
   const roots=[...document.querySelectorAll('[data-motion-scene]')];
   if(!roots.length)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-  const scenes=roots.map(root=>({root,visible:false,paused:false,elapsed:0,last:null,
-    button:root.querySelector('.scene-motion-toggle'),stages:[...root.querySelectorAll('.scene-stage')],
+  const scenes=roots.map(root=>({root,visible:false,elapsed:0,last:null,
+    stages:[...root.querySelectorAll('.scene-stage')],
     profiles:[...root.querySelectorAll('.scene-profile')]}));
   let frame=null;
   function fitLabels(scene){
@@ -421,7 +421,9 @@ function hs(e){
   function draw(scene){
     const talent=scene.profiles.length>0;
     const stepMs=talent?4000:2400;
-    const duration=talent?18000:15000;
+    const duration=scene.stages.length*stepMs;
+    scene.root.dataset.sceneCycle=reduce.matches?0:Math.floor(scene.elapsed/duration);
+    scene.root.dataset.sceneElapsed=reduce.matches?duration:Math.round(scene.elapsed%duration);
     const stage=reduce.matches?scene.stages.length:Math.min(scene.stages.length,1+Math.floor((scene.elapsed%duration)/stepMs));
     scene.root.dataset.activeStage=stage;
     scene.stages.forEach((node,i)=>{
@@ -447,17 +449,11 @@ function hs(e){
       });
       scene.root.dataset.roleSet=roles.join(',');
     }
-    const label=reduce.matches?'Static illustration':scene.paused?'Resume animation':'Pause animation';
-    scene.button.disabled=reduce.matches;
-    scene.button.setAttribute('aria-label',t(label));
-    scene.button.setAttribute('aria-pressed',String(scene.paused));
-    const caption=scene.button.querySelector('.scene-control-label');
-    if(caption.textContent!==t(label))caption.textContent=t(label);
-    scene.button.querySelector('.scene-control-icon').textContent=reduce.matches?'✓':scene.paused?'▶':'Ⅱ';
+
   }
   function eligible(scene){
     const page=scene.root.closest('.pg');
-    return scene.visible&&!scene.paused&&!reduce.matches&&!document.hidden&&(!page||page.classList.contains('act'));
+    return scene.visible&&!reduce.matches&&!document.hidden&&(!page||page.classList.contains('act'));
   }
   function tick(now){
     frame=null;
@@ -476,9 +472,6 @@ function hs(e){
     scenes.forEach(scene=>{if(!eligible(scene))scene.last=null;draw(scene);fitLabels(scene)});
     if(frame===null&&scenes.some(eligible))frame=requestAnimationFrame(tick);
   }
-  scenes.forEach(scene=>scene.button.addEventListener('click',()=>{
-    scene.paused=!scene.paused;scene.last=null;sync();
-  }));
   const io=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{const scene=scenes.find(s=>s.root===entry.target);scene.visible=entry.isIntersecting&&entry.intersectionRatio>=.08});sync();
   },{threshold:.08});

@@ -13,7 +13,7 @@
 
 // ===== BEGIN TRANSLATION DICTIONARY (draft — pending human review) =====
 const FR = {
-  // Labelled delivery sequences and their motion controls.
+  // Labelled delivery sequences.
   "Intake": "Réception",
   "Routing": "Routage",
   "Owner": "Responsable",
@@ -32,9 +32,6 @@ const FR = {
   "Skills review": "Bilan technique",
   "Mentorship": "Mentorat",
   "Readiness": "Préparation",
-  "Pause animation": "Mettre en pause",
-  "Resume animation": "Reprendre l’animation",
-  "Static illustration": "Illustration statique",
   "Requests move from intake and ownership through connected workflows and user enablement to review and measured improvement.": "Les demandes passent de la réception et de la prise en charge aux flux connectés et à l’accompagnement des utilisateurs, puis à la revue et à l’amélioration mesurée.",
   "Email, portal and chat requests enter a five-stage EquaCore delivery sequence: intake, routing to an owner, workflow integration, user guidance and handover, then review and feedback into the next cycle. This is an abstract delivery diagram.": "Les demandes par e-mail, portail et chat suivent cinq étapes de livraison EquaCore : réception, attribution à un responsable, intégration des flux, accompagnement et transmission, puis revue et retours pour le cycle suivant. Ce schéma est une représentation abstraite du processus de livraison.",
   "Specialist roles progress through skills assessment, mentorship and readiness for an embedded delivery team.": "Les profils spécialistes passent par l’évaluation des compétences, le mentorat et la préparation à l’intégration dans une équipe de livraison.",
@@ -1450,8 +1447,6 @@ const FR = {
   "Visible to leadership": "Visible pour la direction",
   "Services, assets, risk, SLAs": "Services, actifs, risques, SLA",
   "From fragmented work to one connected operation.": "D’un travail fragmenté à une organisation connectée.",
-  "Replay": "Rejouer",
-  "Replay animation": "Rejouer l’animation",
   "Fragmented work connects through one platform.": "Le travail fragmenté est relié par une plateforme unique.",
   "IT requests, infrastructure alerts, asset data, HR cases and customers connect to one platform. Three rows progress from visible to owned to measured work, giving leadership a view of services, assets, risk and SLAs.": "Les demandes IT, les alertes d’infrastructure, les données d’actifs, les dossiers RH et les clients sont reliés à une plateforme unique. Trois lignes passent de la visibilité à la prise en charge, puis à la mesure du travail, donnant à la direction une vue des services, des actifs, des risques et des SLA."
 };
