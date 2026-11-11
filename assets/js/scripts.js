@@ -2,7 +2,7 @@
 const t=s=>(window.t||(x=>x))(s);
 
 // Page titles for SEO
-const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',openai:'OpenAI Adoption & Integration — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
+const titles={home:'EquaCore Digital — Digital Operations. Delivered Right.',services:'Services — EquaCore Digital',servicenow:'ServiceNow Nigeria — Consulting, Talent & Managed Services',haloitsm:'Halo Services (HaloITSM, HaloPSA, HaloCRM) — EquaCore Digital',freshworks:'Freshworks Services & Implementation — EquaCore Digital',anthropic:'Responsible Claude Adoption — EquaCore Digital',openai:'OpenAI Adoption & Integration — EquaCore Digital',talent:'Talent Augmentation — EquaCore Digital','talent-pool':'Join Our Talent Pool — EquaCore Digital',engagement:'Engagement Models — EquaCore Digital',about:'About — EquaCore Digital',markets:'Markets Served — EquaCore Digital','health-check':'ITSM Health Check — EquaCore Digital',contact:'Contact — EquaCore Digital',privacy:'Privacy Policy — EquaCore Digital','thank-you':'Thank You — EquaCore Digital','enquiry-thanks':'Message Received — EquaCore Digital'};
 
 // Per-route meta descriptions — answer-first, distinct per page so each indexed URL has its own snippet (SEO + AI answer engines)
 const descs={
@@ -18,6 +18,7 @@ const descs={
   engagement:'EquaCore Digital engagement models: staff augmentation, managed services, and advisory — with structured governance and measurable outcomes for distributed teams.',
   about:'EquaCore Digital is an Anthropic Partner, an OpenAI Partner, and a full Halo Technology Alliance Partner, with independent ServiceNow services and global delivery.',
   markets:'EquaCore Digital serves clients across Nigeria, the UK, Europe, and West Africa with ServiceNow and Halo platform delivery backed by structured governance.',
+  'health-check':'A platform-neutral ITSM Health Check from EquaCore Digital: current-state assessment, maturity scoring and a prioritised improvement roadmap for your service operation.',
   contact:'Contact EquaCore Digital to discuss ServiceNow talent, Halo platform implementation, managed services, or advisory. Based in Lagos, Nigeria, delivering globally.',
   privacy:'EquaCore Digital privacy policy — how we collect, use, and protect your data.'
 };
@@ -60,7 +61,7 @@ function showPage(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('act'));
   document.getElementById('pg-'+id).classList.add('act');
   document.querySelectorAll('.nl').forEach(l=>l.classList.remove('act'));
-  const navMap={home:0,services:1,servicenow:1,haloitsm:1,freshworks:1,anthropic:1,openai:1,talent:1,'talent-pool':1,'thank-you':1,engagement:2,about:3,markets:3,contact:4,privacy:4,'enquiry-thanks':4};
+  const navMap={home:0,services:1,servicenow:1,haloitsm:1,freshworks:1,anthropic:1,openai:1,talent:1,'talent-pool':1,'thank-you':1,'health-check':2,engagement:3,about:4,markets:4,contact:5,privacy:5,'enquiry-thanks':5};
   const directLinks=document.querySelectorAll('.nls > .nl');
   if(directLinks[navMap[id]])directLinks[navMap[id]].classList.add('act');
   // Close mobile nav
@@ -91,7 +92,13 @@ document.addEventListener('click',function(e){
   const a=e.target.closest('a[href]');
   if(!a)return;
   const href=a.getAttribute('href');
-  if(!href||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('//')||href==='#main')return;
+  if(!href||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||href.startsWith('//')||href==='#main')return;
+  // In-page anchors (e.g. #book) scroll within the active page instead of routing.
+  if(href.startsWith('#')){
+    const el=document.querySelector('.pg.act '+href)||document.getElementById(href.slice(1));
+    if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
+    return;
+  }
   e.preventDefault();
   const path=href.replace(/^\//, '').replace(/\/$/, '')||'home';
   history.pushState(null,'',href);
@@ -183,10 +190,18 @@ function hs(e){
   const form=e.target;
   if(!form.checkValidity()){form.reportValidity();return}
   const b=form.querySelector('button[type="submit"]');
-  const errEl=document.getElementById('cf-error');
+  const bLabel=b.innerHTML;
+  const errEl=form.querySelector('[data-form-error]')||document.getElementById('cf-error');
   errEl.style.display='none';errEl.textContent='';
   const fd=new FormData(form);
-  const payload={name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',platform:fd.get('platform')||'',message:fd.get('message'),website:fd.get('website')||'',cf_token:fd.get('cf-turnstile-response')||'',elapsed_ms:Date.now()-PAGE_LOADED_AT,src:'web'};
+  // Homepage and Health Check forms carry extra fields; fold them into the message
+  // so they reach the existing n8n workflow without a schema change.
+  const extra=[];
+  if(form.dataset.source)extra.push('Source: '+form.dataset.source);
+  [['Phone / WhatsApp','phone'],['Interested in','interest'],['Current tool','tool'],['Team size served','size'],['Preferred next step','next']].forEach(function(p){const v=fd.get(p[1]);if(v)extra.push(p[0]+': '+v)});
+  let message=(fd.get('message')||'').trim();
+  if(extra.length)message=(message?message+'\n\n':'')+extra.join('\n');
+  const payload={name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',platform:fd.get('platform')||fd.get('interest')||fd.get('tool')||'',message:message,website:fd.get('website')||'',cf_token:fd.get('cf-turnstile-response')||'',elapsed_ms:Date.now()-PAGE_LOADED_AT,src:'web'};
   const spam=isSpam(payload, payload.elapsed_ms);
   if(spam){
     if(spam.silent){
@@ -219,7 +234,7 @@ function hs(e){
   .catch(()=>{
     b.innerHTML='<span>'+t('Error — please try again')+'</span>';
     b.style.background='#e53e3e';
-    setTimeout(()=>{b.innerHTML=t('Send Message')+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';b.style.background='';b.disabled=false},3000);
+    setTimeout(()=>{b.innerHTML=bLabel;b.style.background='';b.disabled=false},3000);
   });
 }
 
