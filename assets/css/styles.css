@@ -807,7 +807,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 #sn-one-platform .sn-platform-marker[data-column="measured"]{border-color:#b9780b;background:#d99b2b}
 #sn-one-platform.is-enhanced .sn-platform-marker:not(.is-complete){border-color:#a0aab6;background:var(--pw)}
 #sn-one-platform .sn-platform-leadership{position:relative;max-width:500px;margin:34px 0 0 auto;padding:22px 24px;border:1px solid var(--brd);border-radius:var(--rs);background:var(--bg)}
-#sn-one-platform .sn-platform-leadership h2{margin:0 0 6px;font-size:18px;letter-spacing:-.02em;line-height:1.3}
+#sn-one-platform .sn-platform-leadership h2{margin:0 0 6px;font-size:18px;font-weight:500;letter-spacing:-.02em;line-height:1.3}
 #sn-one-platform .sn-platform-leadership p{margin:0;font-size:14px;line-height:1.55;color:var(--sl)}
 #sn-one-platform figcaption{margin-top:28px;text-align:center;font-size:16px;line-height:1.65;color:var(--sl)}
 @media(max-width:900px){
@@ -920,4 +920,5 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 }
 
 html[lang="fr"] [data-labelled-journey="claude"] .an-inputs .source-label{font-size:12px;font-weight:500;letter-spacing:0}
-html[lang="fr"] [data-labelled-journey="platform"] svg .journey-status{font-size:12px;font-weight:500}
+html[lang="fr"] [data-labelled-journey="platform"] svg .journey-status{font-size:10.5px;font-weight:500}
+html[lang="fr"] [data-sn-operations] .sn-signals text{font-size:11.5px;font-weight:500}
