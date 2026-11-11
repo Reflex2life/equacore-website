@@ -895,9 +895,3 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
   .eq-form{padding:22px}
   .eq-contact .intro .eq-btns{flex-direction:column}.eq-contact .intro .eq-btn{width:100%}
 }
-
-/* Header logo sits directly on the navy bar (white wordmark, white/aqua/gold mark); no white box. */
-.nl-w{background:transparent!important}
-/* Header logo: viewBox trimmed to the artwork, sized up ~40% */
-.nl-w svg{height:36px!important;width:auto}
-@media(max-width:768px){.nl-w svg{height:32px!important}}
