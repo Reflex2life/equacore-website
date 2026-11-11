@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "index.html"
-ASSETS = ["assets/css/styles.css", "assets/js/scripts.js", "assets/js/i18n.js", "assets/js/sn-one-platform.js", "assets/js/sn-operations.js"]
+ASSETS = ["assets/css/styles.css", "assets/js/scripts.js", "assets/js/i18n.js", "assets/js/sn-one-platform.js", "assets/js/sn-operations.js", "assets/js/labelled-journeys.js"]
 
 
 def content_hash(rel: str) -> str:

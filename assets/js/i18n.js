@@ -342,6 +342,27 @@ const FR = {
   "Prioritise": "Prioriser",
   "Connect": "Connecter",
   "Govern": "Gouverner",
+  "HaloITSM and QuickStart, Freshservice and Freshdesk feed Discover (health check), Design (workflow), Implement (configure) and Improve (optimise). Live service, handover pack and run and improve are delivery process states.":
+    "HaloITSM et QuickStart, Freshservice et Freshdesk alimentent Découvrir (bilan), Concevoir (flux de travail), Implémenter (configurer) et Améliorer (optimiser). Service actif, dossier transmis et exploiter et améliorer sont des étapes du processus de livraison.",
+  "Work, Knowledge and People feed Discover, Prioritise, Connect, Govern and Improve. Claude workflow progresses from Draft through Human review to Approved as process states. Human review and explicit boundaries remain part of the workflow; evaluation feeds the next cycle.":
+    "Travail, connaissances et personnes alimentent Découvrir, Prioriser, Connecter, Gouverner et Améliorer. Le flux Claude passe par les étapes Brouillon, Validation humaine et Approuvé. La validation humaine et des limites explicites restent intégrées au flux ; l'évaluation alimente le cycle suivant.",
+  "Health check": "Bilan",
+  "Optimise": "Optimiser",
+  "Live service": "Service actif",
+  "Handover pack": "Dossier transmis",
+  "Run & improve": "Exploiter et améliorer",
+  "Use cases": "Cas d'usage",
+  "Value / risk": "Valeur / risque",
+  "Tools / data": "Outils / données",
+  "Boundaries": "Limites",
+  "Measures": "Mesures",
+  "Tasks &": "Tâches et",
+  "requests": "demandes",
+  "Documents &": "Documents et",
+  "policies": "règles",
+  "Teams & roles": "Équipes et rôles",
+  "Draft": "Brouillon",
+  "Approved": "Approuvé",
   "Responsible Claude adoption journey": "Parcours d'adoption responsable de Claude",
   "Operational inputs move through Discover, Prioritise, Connect, Govern and Improve. Human review sits inside the governed workspace and evaluation feeds the next cycle.":
     "Les éléments opérationnels passent par les étapes Découvrir, Prioriser, Connecter, Gouverner et Améliorer. La validation humaine est intégrée à l'espace gouverné et l'évaluation alimente le cycle suivant.",
@@ -1548,7 +1569,7 @@ function applyFrench() {
     }
   });
   // Translate the curated process graphics with meaningful labels; other SVGs are icons.
-  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc,.sn-operations-svg text:not(.sn-workspace text),.sn-operations-svg title,.sn-operations-svg desc').forEach(el => {
+  document.querySelectorAll('.platform-delivery-svg text,.platform-delivery-svg title,.platform-delivery-svg desc,.an-process-svg text,.an-process-svg tspan,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc,.sn-operations-svg text:not(.sn-workspace text),.sn-operations-svg title,.sn-operations-svg desc').forEach(el => {
     const fr = FR_NORM[norm(el.textContent)];
     if (fr !== undefined) el.textContent = fr;
   });

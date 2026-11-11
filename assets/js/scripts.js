@@ -357,7 +357,7 @@ function hs(e){
 // Process-journey replay. Each visible journey resolves in about 4.8 seconds,
 // holds its completed state, then restarts on a shared 8.5-second cadence.
 (function(){
-  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')].filter(root=>!root.hasAttribute('data-motion-scene')&&!root.hasAttribute('data-sn-operations'));
+  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')].filter(root=>!root.hasAttribute('data-motion-scene')&&!root.hasAttribute('data-sn-operations')&&!root.hasAttribute('data-labelled-journey'));
   if(!roots.length)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   const cycleMs=8500;

@@ -873,3 +873,39 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
  [data-sn-operations] .eng32-journey-strip{gap:4px}
  [data-sn-operations] .eng32-journey-strip span{font-size:11px;padding:8px 2px}
 }
+
+/* Labelled platform and Claude journeys have their own clock and fully inked rest. */
+[data-labelled-journey] .eng32-process-svg{max-height:none;overflow:hidden}
+[data-labelled-journey] svg .source-label{font-size:26px;letter-spacing:-.03em}
+[data-labelled-journey] svg .source-detail{font-size:23px;font-weight:600;letter-spacing:-.03em}
+[data-labelled-journey="claude"] .source-detail{text-anchor:middle}
+[data-labelled-journey] .labelled-stage{text-anchor:middle;opacity:1}
+[data-labelled-journey] .labelled-stage rect{fill:var(--pw)!important;stroke-width:1.5}
+[data-labelled-journey] .labelled-stage circle{fill:var(--mint-sub)!important;stroke-width:1.5}
+[data-labelled-journey] .labelled-stage.is-current circle,[data-labelled-journey] .labelled-stage.is-current rect{fill:var(--mint-sub)!important;stroke-width:3}
+[data-labelled-journey] .labelled-stage.is-complete circle{stroke-width:2.5}
+[data-labelled-journey] .labelled-stage path{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+[data-labelled-journey] .journey-label{font-size:26px;letter-spacing:-.03em}
+[data-labelled-journey] .journey-detail{font-size:23px;font-weight:600;letter-spacing:-.03em}
+[data-labelled-journey] svg .journey-status{font-size:26px;text-anchor:middle;letter-spacing:-.03em}
+[data-labelled-journey] .journey-input-base,[data-labelled-journey] .journey-input-pulse{fill:none;stroke-width:2;stroke-linejoin:round}
+[data-labelled-journey] .journey-input-pulse{stroke:var(--mint-dark)!important;stroke-width:4;stroke-dasharray:16 84}
+[data-labelled-journey] .process-route-highlight{stroke-dasharray:45 955;filter:none}
+[data-labelled-journey] .eng32-journey-strip span{font-size:11px;letter-spacing:0;text-transform:none}
+[data-labelled-journey] .eng32-journey-strip span.is-current{background:var(--mint-sub);box-shadow:inset 0 -2px var(--mint-dark)}
+[data-labelled-journey] .eng32-journey-strip span.is-complete{border-width:2}
+[data-labelled-journey="claude"] .an-governed-core{opacity:1;text-anchor:middle}
+[data-labelled-journey="claude"] .an-governed-core>rect{fill:var(--mint-sub)!important;stroke-width:2}
+[data-labelled-journey="claude"] svg .an-core-title{font-size:26px;letter-spacing:-.04em}
+[data-labelled-journey="claude"] svg .an-core-label{font-size:22px;letter-spacing:-.03em}
+[data-labelled-journey="claude"] .an-governed-core .journey-dot{fill:var(--pw)!important;stroke:var(--mint-dark)!important;stroke-width:2}
+[data-labelled-journey="claude"] .an-governed-core .journey-dot.is-complete{fill:var(--mint-dark)!important}
+[data-labelled-journey="claude"] .an-eval-loop,[data-labelled-journey="claude"] .an-eval-arrow{opacity:1;stroke-width:2}
+@media(max-width:640px){
+ [data-labelled-journey="platform"] .eng32-service-visual{padding:12px}
+ [data-labelled-journey] .eng32-journey-strip span{font-size:11px;padding:8px 2px}
+ [data-labelled-journey="claude"] .an-journey-five span{font-size:11px}
+}
+
+html[lang="fr"] [data-labelled-journey="claude"] .an-inputs .source-label{font-size:22px;letter-spacing:-.06em}
+html[lang="fr"] [data-labelled-journey="platform"] svg .journey-status{font-size:22px}
