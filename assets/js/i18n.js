@@ -13,6 +13,19 @@
 
 // ===== BEGIN TRANSLATION DICTIONARY (draft — pending human review) =====
 const FR = {
+  "Process": "Processus",
+  "Technology": "Technologie",
+  "Asset": "Actifs",
+  "Review": "Examiner",
+  "signals": "les signaux",
+  "Coordinate": "Coordonner",
+  "work": "le travail",
+  "findings": "les constats",
+  "Feed": "Alimenter",
+  "next pass": "la suite",
+  "Independent ServiceNow operations cycle": "Cycle indépendant d’exploitation ServiceNow",
+  "People, Process and Technology feed a continuous Assess, Operate, Advise and Improve cycle. Platform capabilities include AI (Now Assist), ITSM, CMDB, ITOM, CSM, Asset (ITAM) and HR (HRSD). Resolved work feeds the next pass.": "Les personnes, les processus et la technologie alimentent un cycle continu d’évaluation, d’exploitation, de conseil et d’amélioration. Les capacités de la plateforme comprennent AI (Now Assist), ITSM, CMDB, ITOM, CSM, les actifs (ITAM) et HR (HRSD). Le travail résolu alimente le cycle suivant.",
+
   // Labelled delivery sequences.
   "Intake": "Réception",
   "Routing": "Routage",
@@ -170,9 +183,9 @@ const FR = {
   "Structured governance": "Gouvernance structurée",
   "Knowledge transfer": "Transfert de compétences",
   "Core services": "Services principaux",
-  "Three clear ways we help.": "Trois façons claires de vous aider.",
-  "Choose platform delivery, independent operations support or specialist talent—with the scope made clear before work begins.":
-    "Choisissez la livraison de plateforme, le support opérationnel indépendant ou des talents spécialisés, avec un périmètre clarifié avant le début des travaux.",
+  "Clear ways we help.": "Des façons claires de vous aider.",
+  "Choose platform delivery or independent operations support—with the scope made clear before work begins.":
+    "Choisissez la livraison de plateforme ou le support opérationnel indépendant, avec un périmètre clarifié avant le début des travaux.",
   "Platform delivery": "Livraison de plateforme",
   "Halo platform delivery": "Livraison de la plateforme Halo",
   "Full-lifecycle delivery across HaloITSM, HaloPSA and HaloCRM—from implementation and legacy migration to process alignment, onboarding and managed support.":
@@ -1535,7 +1548,7 @@ function applyFrench() {
     }
   });
   // Translate the curated process graphics with meaningful labels; other SVGs are icons.
-  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc').forEach(el => {
+  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc,.sn-operations-svg text:not(.sn-workspace text),.sn-operations-svg title,.sn-operations-svg desc').forEach(el => {
     const fr = FR_NORM[norm(el.textContent)];
     if (fr !== undefined) el.textContent = fr;
   });
