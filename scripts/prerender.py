@@ -32,8 +32,9 @@ from pathlib import Path
 BASE = "https://equacoredigital.com"
 
 # Routes that are children of /services (for breadcrumbs) and get a Service schema.
-SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "anthropic", "openai", "talent"}
+SERVICES_CHILDREN = {"servicenow", "haloitsm", "freshworks", "anthropic", "openai", "talent", "health-check"}
 SERVICE_ROUTES = {
+    "health-check": "ITSM Health Check",
     "servicenow": "ServiceNow Consulting, Talent & Managed Services",
     "haloitsm": "Halo Platform Implementation (HaloITSM, HaloPSA, HaloCRM)",
     "freshworks": "Freshworks Implementation and Optimisation",
@@ -46,6 +47,10 @@ SRC = ROOT / "index.html"
 
 # Mirrors the titles/descs maps in index.html's router. Keep in sync.
 ROUTES = {
+    "health-check": (
+        "ITSM Health Check — EquaCore Digital",
+        "A platform-neutral assessment of your service operation, with a customer-owned Health and Maturity Report, scored assessment areas and a prioritised roadmap.",
+    ),
     "services": (
         "Services — EquaCore Digital",
         "EquaCore Digital delivers platform implementation and improvement across Halo and Freshworks solutions, independent ServiceNow services, specialist talent and responsible AI delivery.",

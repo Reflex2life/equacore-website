@@ -728,3 +728,17 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 .nav a:focus-visible,.nav button:focus-visible,.ft a:focus-visible{outline-color:var(--neon)}
 .skip:focus-visible{outline-color:var(--neon)}
 .ndd a:focus-visible{outline-color:var(--navy)}
+
+/* ITSM Health Check: reuse the service-page surfaces and spacing. */
+.hc-hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:start;position:relative;z-index:1}
+.hc-report{padding:32px;background:var(--pw);border:1px solid var(--mint-dark);border-radius:var(--rl)}
+.hc-report h2{font-size:24px;margin-bottom:18px;color:var(--navy)}
+.hc-report ul{padding-left:20px;color:var(--sl);font-size:14.5px;line-height:1.65}
+.hc-report li+li{margin-top:12px}
+.ph .hc-report p{color:var(--sl);font-size:14px;margin-top:22px}
+.hc-link{display:flex;align-items:center;width:fit-content;min-height:44px;font-size:14px;font-weight:600;color:var(--mint-text)}
+.hc-link:hover{color:var(--navy)}
+.hc-method{list-style:none}
+#pg-health-check .emp p+p{margin-top:12px}
+@media(max-width:1024px){.hc-hero-grid{grid-template-columns:1fr;gap:32px}}
+@media(max-width:768px){.hc-report{padding:28px}}
