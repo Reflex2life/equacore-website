@@ -13,6 +13,32 @@
 
 // ===== BEGIN TRANSLATION DICTIONARY (draft — pending human review) =====
 const FR = {
+  // Labelled delivery sequences and their motion controls.
+  "Intake": "Réception",
+  "Routing": "Routage",
+  "Owner": "Responsable",
+  "Workflow": "Flux de travail",
+  "Integration": "Intégration",
+  "Email": "E-mail",
+  "Portal": "Portail",
+  "Chat": "Chat",
+  "Handover": "Transmission",
+  "Measure & learn": "Mesurer et apprendre",
+  "Feedback": "Retours",
+  "Developers": "Développeurs",
+  "Technical Consultants": "Consultants techniques",
+  "Administrators": "Administrateurs",
+  "Business Analysts": "Analystes métier",
+  "Skills review": "Bilan technique",
+  "Mentorship": "Mentorat",
+  "Readiness": "Préparation",
+  "Pause animation": "Mettre en pause",
+  "Resume animation": "Reprendre l’animation",
+  "Static illustration": "Illustration statique",
+  "Requests move from intake and ownership through connected workflows and user enablement to review and measured improvement.": "Les demandes passent de la réception et de la prise en charge aux flux connectés et à l’accompagnement des utilisateurs, puis à la revue et à l’amélioration mesurée.",
+  "Email, portal and chat requests enter a five-stage EquaCore delivery sequence: intake, routing to an owner, workflow integration, user guidance and handover, then review and feedback into the next cycle. This is an abstract delivery diagram.": "Les demandes par e-mail, portail et chat suivent cinq étapes de livraison EquaCore : réception, attribution à un responsable, intégration des flux, accompagnement et transmission, puis revue et retours pour le cycle suivant. Ce schéma est une représentation abstraite du processus de livraison.",
+  "Specialist roles progress through skills assessment, mentorship and readiness for an embedded delivery team.": "Les profils spécialistes passent par l’évaluation des compétences, le mentorat et la préparation à l’intégration dans une équipe de livraison.",
+  "Generic profiles represent Developers, Technical Consultants, Administrators and Business Analysts. Three distinct roles are visible at a time, moving through skills review, mentorship and team readiness. The illustration describes a process, not staffing capacity.": "Des profils génériques représentent les développeurs, consultants techniques, administrateurs et analystes métier. Trois rôles distincts sont visibles à la fois et passent par le bilan technique, le mentorat et la préparation à l’intégration. Ce schéma décrit un processus, pas une capacité de recrutement.",
   // Scoped service offers and delivery commitments.
   "Familiar problems": "Des situations fréquentes",
   "If these sound familiar, the ITSM Health Check maps the operation and shows what to fix first.": "Si cela vous parle, le bilan ITSM cartographie l’organisation et indique quoi corriger en premier.",
@@ -1496,9 +1522,8 @@ function applyFrench() {
       node.nodeValue = lead + fr + trail;
     }
   });
-  // The Anthropic and OpenAI process graphics contain meaningful labels.
-  // Translate only those curated SVG nodes; other inline SVGs are icons.
-  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc').forEach(el => {
+  // Translate the curated process graphics with meaningful labels; other SVGs are icons.
+  document.querySelectorAll('.an-process-svg text,.an-process-svg title,.an-process-svg desc,.oa-process-svg text,.oa-process-svg title,.oa-process-svg desc,.delivery-scene-svg text,.delivery-scene-svg title,.delivery-scene-svg desc').forEach(el => {
     const fr = FR_NORM[norm(el.textContent)];
     if (fr !== undefined) el.textContent = fr;
   });
@@ -1509,6 +1534,7 @@ function applyFrench() {
     });
   });
   document.documentElement.lang = 'fr';
+  if (window.deliverySceneSync) window.deliverySceneSync();
   const active = document.querySelector('.pg.act');
   if (active && typeof setMeta === 'function') setMeta(active.id.replace(/^pg-/, ''));
   if (FR_NORM[norm(document.title)]) document.title = FR_NORM[norm(document.title)];

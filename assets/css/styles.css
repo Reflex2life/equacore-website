@@ -751,3 +751,33 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.btn-book:focus-visible,
 .eng32-service-copy .hc-problems li::before{content:none}
 .hc-problems strong{display:block;font-size:13px;margin-bottom:3px}
 .hc-problems p{font-size:13px;line-height:1.6;color:var(--sl)}
+
+/* Labelled Freshworks and talent sequences: emphasis follows the work. */
+[data-motion-scene] .scene-toolbar{display:flex;justify-content:flex-end;min-height:44px;margin-bottom:8px}
+[data-motion-scene] .scene-motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:8px 12px;border:1px solid var(--mint-dark);border-radius:6px;background:var(--pw);color:var(--navy);font:700 12px var(--f);cursor:pointer}
+[data-motion-scene] .scene-motion-toggle:hover{background:var(--mint-sub)}
+[data-motion-scene] .scene-motion-toggle:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+[data-motion-scene] .scene-motion-toggle:disabled{cursor:default;opacity:1;background:var(--bg)}
+[data-motion-scene] .scene-control-icon{font-size:14px;line-height:1}
+[data-motion-scene] .delivery-scene-svg{max-height:none;overflow:hidden}
+[data-motion-scene] .delivery-scene-svg text{text-anchor:middle;font-size:24px;font-weight:600;letter-spacing:0}
+[data-motion-scene] .delivery-scene-svg .scene-heading{font-size:26px;font-weight:800}
+[data-motion-scene] .delivery-scene-svg .scene-cue{font-size:24px}
+[data-motion-scene] .delivery-scene-svg .scene-icon,[data-motion-scene] .delivery-scene-svg .scene-check{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+[data-motion-scene] .delivery-scene-svg .scene-check{stroke:var(--mint-dark)!important}
+[data-motion-scene] .scene-stage>rect,[data-motion-scene] .scene-stage>circle:not(.profile-face):not(.profile-halo){stroke-width:1.5;fill:var(--bgw)!important;stroke:var(--brd)!important}
+[data-motion-scene] .scene-stage.is-complete>rect,[data-motion-scene] .scene-stage.is-complete>circle:not(.profile-face):not(.profile-halo){stroke:var(--mint-dark)!important}
+[data-motion-scene] .scene-stage.is-current>rect,[data-motion-scene] .scene-stage.is-current>circle:not(.profile-face):not(.profile-halo){fill:var(--mint-sub)!important;stroke:var(--mint-dark)!important;stroke-width:3}
+[data-motion-scene] .delivery-scene-svg .scene-link{fill:none;stroke:var(--brd)!important;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+[data-motion-scene] .delivery-scene-svg .scene-link.is-complete{stroke:var(--mint-dark)!important}
+[data-motion-scene] .scene-profile>rect{fill:var(--pw)!important;stroke-width:1.5}
+[data-motion-scene] .scene-profile .profile-halo{fill:var(--mint-sub)!important}
+[data-motion-scene] .talent-role{font-weight:800}
+[data-motion-scene] .eng32-journey-strip span.is-current{background:var(--mint-sub);box-shadow:inset 0 -2px var(--mint-dark)}
+[data-motion-scene] .fw-journey-five span{font-size:10px;letter-spacing:0;gap:4px}
+@media(max-width:480px){
+ [data-motion-scene] .fw-journey-five{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+ [data-motion-scene] .fw-journey-five span,[data-motion-scene] .fw-journey-five span:nth-child(4){grid-column:auto;display:flex;flex-direction:column;padding:8px 1px;font-size:9px;line-height:1.3;text-transform:none;overflow-wrap:anywhere}
+ [data-motion-scene] .scene-motion-toggle{font-size:11px}
+ [data-motion-scene] .scene-toolbar{margin-bottom:0}
+}

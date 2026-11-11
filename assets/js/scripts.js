@@ -357,7 +357,7 @@ function hs(e){
 // Process-journey replay. Each visible journey resolves in about 4.8 seconds,
 // holds its completed state, then restarts on a shared 8.5-second cadence.
 (function(){
-  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')];
+  const roots=[...document.querySelectorAll('.eng32-blueprint,.eng32-service-card,.fw-hero-visual,.an-hero-visual,.oa-hero-visual')].filter(root=>!root.hasAttribute('data-motion-scene'));
   if(!roots.length)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   const cycleMs=8500;
@@ -398,6 +398,99 @@ function hs(e){
   roots.forEach(function(root){io.observe(root)});
   document.addEventListener('visibilitychange',journeyReplaySync);
   reduce.addEventListener('change',journeyReplaySync);
+})();
+
+// These two labelled scenes keep elapsed time when paused or out of view.
+(function(){
+  const roots=[...document.querySelectorAll('[data-motion-scene]')];
+  if(!roots.length)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  const scenes=roots.map(root=>({root,visible:false,paused:false,elapsed:0,last:null,
+    button:root.querySelector('.scene-motion-toggle'),stages:[...root.querySelectorAll('.scene-stage')],
+    profiles:[...root.querySelectorAll('.scene-profile')]}));
+  let frame=null;
+  function fitLabels(scene){
+    scene.root.querySelectorAll('svg text').forEach(label=>{
+      label.removeAttribute('textLength');
+      const max=label.classList.contains('talent-role')?236:
+        label.getAttribute('x')==='192'?344:
+        label.classList.contains('scene-cue')&&label.getAttribute('x')==='336'?150:152;
+      if(label.getComputedTextLength()>max){label.setAttribute('textLength',max);label.setAttribute('lengthAdjust','spacingAndGlyphs')}
+    });
+  }
+  function draw(scene){
+    const talent=scene.profiles.length>0;
+    const stepMs=talent?4000:2400;
+    const duration=talent?18000:15000;
+    const stage=reduce.matches?scene.stages.length:Math.min(scene.stages.length,1+Math.floor((scene.elapsed%duration)/stepMs));
+    scene.root.dataset.activeStage=stage;
+    scene.stages.forEach((node,i)=>{
+      node.classList.toggle('is-current',i===stage-1);
+      node.classList.toggle('is-complete',i<stage-1||reduce.matches);
+    });
+    scene.root.querySelectorAll('.scene-link').forEach(link=>link.classList.toggle('is-complete',Number(link.dataset.after)<stage||reduce.matches));
+    scene.root.querySelectorAll('.eng32-journey-strip span').forEach((label,i)=>label.classList.toggle('is-current',i===stage-1));
+    if(talent){
+      // Replace only the role absent from the other cards, including during fades.
+      const time=reduce.matches?0:scene.elapsed;
+      const turns=Math.floor(time/6000)%12;
+      const roles=[0,1,2];let missing=3;
+      for(let n=0;n<turns;n++){const card=n%3,old=roles[card];roles[card]=missing;missing=old}
+      const changing=turns%3;
+      const blend=Math.max(0,Math.min(1,((time%6000)-5000)/1000));
+      scene.profiles.forEach((profile,card)=>{
+        profile.querySelectorAll('[data-role]').forEach(label=>{
+          const role=Number(label.dataset.role);
+          const opacity=role===roles[card]?(card===changing?1-blend:1):(card===changing&&role===missing?blend:0);
+          label.style.opacity=opacity;
+        });
+      });
+      scene.root.dataset.roleSet=roles.join(',');
+    }
+    const label=reduce.matches?'Static illustration':scene.paused?'Resume animation':'Pause animation';
+    scene.button.disabled=reduce.matches;
+    scene.button.setAttribute('aria-label',t(label));
+    scene.button.setAttribute('aria-pressed',String(scene.paused));
+    const caption=scene.button.querySelector('.scene-control-label');
+    if(caption.textContent!==t(label))caption.textContent=t(label);
+    scene.button.querySelector('.scene-control-icon').textContent=reduce.matches?'✓':scene.paused?'▶':'Ⅱ';
+  }
+  function eligible(scene){
+    const page=scene.root.closest('.pg');
+    return scene.visible&&!scene.paused&&!reduce.matches&&!document.hidden&&(!page||page.classList.contains('act'));
+  }
+  function tick(now){
+    frame=null;
+    scenes.forEach(scene=>{
+      if(eligible(scene)){
+        if(scene.last!==null)scene.elapsed+=now-scene.last;
+        scene.last=now;draw(scene);
+      }else{
+        scene.last=null;
+        if(reduce.matches)draw(scene);
+      }
+    });
+    if(scenes.some(eligible))frame=requestAnimationFrame(tick);
+  }
+  function sync(){
+    scenes.forEach(scene=>{if(!eligible(scene))scene.last=null;draw(scene);fitLabels(scene)});
+    if(frame===null&&scenes.some(eligible))frame=requestAnimationFrame(tick);
+  }
+  scenes.forEach(scene=>scene.button.addEventListener('click',()=>{
+    scene.paused=!scene.paused;scene.last=null;sync();
+  }));
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{const scene=scenes.find(s=>s.root===entry.target);scene.visible=entry.isIntersecting&&entry.intersectionRatio>=.08});sync();
+  },{threshold:.08});
+  scenes.forEach(scene=>io.observe(scene.root));
+  const legacySync=journeyReplaySync;
+  journeyReplaySync=function(){legacySync();sync()};
+  window.deliverySceneSync=sync;
+  document.addEventListener('visibilitychange',sync);
+  reduce.addEventListener('change',sync);
+  document.fonts.ready.then(sync);
+  window.addEventListener('resize',sync);
+  sync();
 })();
 
 // Aether Flow — particle network behind the home hero. Runs only while the
