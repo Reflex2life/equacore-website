@@ -72,6 +72,11 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .ph-badge-sep{width:1px;height:18px;background:rgba(0,210,196,.3)}
 .ph-badge-pill{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00d2c4;white-space:nowrap}
 .ph-badge.ph-badge-light{background:#fff;border-color:rgba(255,255,255,.62)}.ph-badge-light .ph-badge-logo{height:26px}.ph-badge-light .ph-badge-sep{background:rgba(15,23,42,.18)}.ph-badge-light .ph-badge-pill{color:#0a6684}
+@media(max-width:600px){
+  #pg-haloitsm .ph-badge{max-width:100%;flex-direction:column;gap:10px;padding:14px 18px;border-radius:var(--rl)}
+  #pg-haloitsm .ph-badge-sep{display:none}
+  #pg-haloitsm .ph-badge-pill{max-width:100%;white-space:normal;text-align:center}
+}
 /* SERVICES */
 .sl{display:flex;flex-direction:column;gap:16px}
 .si{display:flex;align-items:flex-start;gap:18px;padding:24px 28px;background:var(--pw);border:1px solid var(--brl);border-radius:var(--r);transition:all .3s var(--ease)}.si:hover{border-color:rgba(13,148,136,.2);box-shadow:var(--shmd)}
