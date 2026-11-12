@@ -12,7 +12,7 @@
   scenes.forEach(s=>{
     s.routeLength=s.pulse.getTotalLength();
     // Distances follow the node positions on each drawn route, then its return leg.
-    s.routeStops=s.dots.length?[0,264,468,672,936,s.routeLength]:[0,158,316,474,s.routeLength];
+    s.routeStops=s.dots.length?[0,145.1,323.7,579.7,758.3,s.routeLength]:[0,110,220,330,s.routeLength];
   });
   let frame=null;
   function eligible(s){return s.visible&&!reduce.matches&&!document.hidden&&s.root.closest('.pg').classList.contains('act')}
