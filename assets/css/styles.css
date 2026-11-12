@@ -110,6 +110,13 @@ h1{font-size:clamp(38px,5vw,54px);font-weight:800}h2{font-size:clamp(28px,3.5vw,
 .reg-lg img{max-height:66px;max-width:130px;width:auto;height:auto;object-fit:contain}
 .reg-c h3{font-size:16px;color:var(--navy);margin-bottom:4px;letter-spacing:.03em}
 .reg-c p{font-size:12.5px;color:var(--sl);line-height:1.5}
+/* HOME — COMPACT REGISTRATIONS */
+.home-reg.sec{padding:56px 0}
+.home-reg .sh{margin-bottom:28px}
+.home-reg .reg-g{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:28px}
+.home-reg .reg-c{padding:22px 14px}
+.home-reg .reg-lg{height:48px;margin-bottom:12px}
+.home-reg .reg-lg img{max-height:48px;max-width:112px}
 .cmty-hd{position:relative;z-index:1;text-align:center;max-width:560px;margin:0 auto}
 .lc{background:var(--pw);border:1px solid var(--brl);border-radius:var(--rl);overflow:hidden;transition:all .35s var(--ease)}.lc:hover{box-shadow:var(--shlg);transform:translateY(-3px)}
 .lp{height:260px;background:linear-gradient(145deg,var(--navy),var(--navy-80));display:flex;align-items:center;justify-content:center;position:relative}.lp::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(10,25,47,.4),transparent)}
